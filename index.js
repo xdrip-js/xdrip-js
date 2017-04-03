@@ -2,8 +2,10 @@ var noble = require('noble');
 
 noble.on('stateChange', function(state) {
   if (state === 'poweredOn') {
+    console.log('starting scanning')
     noble.startScanning();
   } else {
+    console.log('stopping scanning')
     noble.stopScanning();
   }
 });
