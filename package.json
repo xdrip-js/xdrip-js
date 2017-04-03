@@ -1,6 +1,6 @@
 {
   "name": "xdrip-js",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A nodejs package providing an interface for communicating with the G5 glucose transmitter over Bluetooth.",
   "main": "index.js",
   "scripts": {
