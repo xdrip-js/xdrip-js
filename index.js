@@ -1,3 +1,3 @@
-var BluetoothManager = require('./lib/bluetooth-manager');
+var Transmitter = require('./lib/transmitter');
 
-var manager = new BluetoothManager();
+var transmitter = new Transmitter();
