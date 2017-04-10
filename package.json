@@ -4,7 +4,7 @@
   "description": "A nodejs package providing an interface for communicating with the G5 glucose transmitter over Bluetooth.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Paul Dickens",
   "license": "MIT",
@@ -12,5 +12,9 @@
     "crc": "^3.4.4",
     "noble": "^1.8.0",
     "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
   }
 }
