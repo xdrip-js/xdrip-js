@@ -9,6 +9,7 @@
   "author": "Paul Dickens",
   "license": "MIT",
   "dependencies": {
+    "crc": "^3.4.4",
     "noble": "^1.8.0",
     "uuid": "^3.0.1"
   }
