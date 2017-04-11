@@ -1,5 +1,5 @@
 var should = require('chai').should 
-var AuthStatusRxMessage = require('../lib/message/auth-status-rx-message')
+var AuthStatusRxMessage = require('../lib/messages/auth-status-rx-message')
 
 describe('AuthStatusRxMessage', function() {
   it('should not throw', function() {
