@@ -1,5 +1,5 @@
 var should = require('chai').should 
-var Transmitter = require(../lib/Transmitter)
+var Transmitter = require('../lib/Transmitter')
 
 describe('Transmitter', function() {
   it('should not throw', function() {
