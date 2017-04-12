@@ -5,3 +5,10 @@
 ```
 npm install
 ```
+## Testing
+```
+npm test
+```
+
+## Example usage
+`node example <######>` where `<######>` is the 6-character serial number of the transmitter.
