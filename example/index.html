@@ -1,0 +1,46 @@
+<html>
+  <body>
+    <p>Transmitter ID: <span id='transmitter-id'></span></p>
+    <p id='sensor-time'></p>
+    <p>Glucose: <span id='glucose'></span></p>
+    <p id='reservoir'></p>
+    <p>5.6 mmol/L</p>
+    <button id='button'>Bolus 1 U</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+      socket.on('connect',function(){
+        socket.emit('message', 'Hello server');
+      });
+
+      socket.on('time', function(timeString) {
+        var el = document.getElementById('server-time');
+        el.innerHTML = 'Server time: ' + timeString;
+      });
+
+      // cgm
+      var cgm = io('/cgm');
+      cgm.on('glucose', function(value) {
+        var el = document.getElementById('glucose');
+        el.innerHTML = value;
+      });
+      cgm.on('id', function(value) {
+        var el = document.getElementById('transmitter-id');
+        el.innerHTML = value;
+      });
+
+       // pump
+       var pump = io('/pump');
+       pump.on('reservoir', function(value) {
+         var el = document.getElementById('reservoir');
+         el.innerHTML = 'reservoir: ' + value;
+       });
+
+       var button = document.getElementById('button');
+        button.onclick = function() {
+          pump.emit('bolus', 1);
+        };
+    </script>
+  </body>
+</html>
