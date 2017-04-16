@@ -5,7 +5,8 @@
     <p>Glucose: <span id='glucose'></span></p>
     <p id='reservoir'></p>
     <p>5.6 mmol/L</p>
-    <button id='button'>Bolus 1 U</button>
+    <button id='calibrate-button'>Calibrate</button>
+    <button id='start-stop-button'>Start sensor</button>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -37,9 +38,9 @@
          el.innerHTML = 'reservoir: ' + value;
        });
 
-       var button = document.getElementById('button');
+       var button = document.getElementById('calibrate-button');
         button.onclick = function() {
-          pump.emit('bolus', 1);
+//          pump.emit('bolus', 1);
         };
     </script>
   </body>
