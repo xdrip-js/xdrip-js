@@ -4,5 +4,5 @@ module.exports = (io, transmitter) => {
 
   nsp.on('connection', (socket) => {
     socket.emit('id', transmitter.id);
-  })
-}
+  });
+};

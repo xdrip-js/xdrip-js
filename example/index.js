@@ -23,8 +23,8 @@ const Transmitter = require('..');
 const id = process.argv[2];
 const transmitter = new Transmitter(id);
 
-transmitter.on('glucose', console.log)
-transmitter.on('error', console.error)
+transmitter.on('glucose', console.log);
+transmitter.on('error', console.error);
 
 
 

@@ -1,9 +1,9 @@
-var should = require('chai').should()
-var GlucoseRxMessage = require('../lib/messages/glucose-rx-message')
+var should = require('chai').should();
+var GlucoseRxMessage = require('../lib/messages/glucose-rx-message');
 
 describe('GlucoseRxMessage', function() {
   it('should parse message data', function() {
-      var data = Buffer.from("3100680a00008a715700cc0006ffc42a", "hex")
+      var data = Buffer.from("3100680a00008a715700cc0006ffc42a", "hex");
       var message = new GlucoseRxMessage(data);
       message.status.should.equal(0);
       message.sequence.should.equal(2664);
