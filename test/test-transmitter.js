@@ -1,4 +1,4 @@
-var should = require('chai').should();
+const should = require('chai').should();
 //var Transmitter = require('../lib/transmitter')
 
 describe('Transmitter', function() {
