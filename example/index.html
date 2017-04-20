@@ -1,10 +1,8 @@
 <html>
   <body>
     <p>Transmitter ID: <span id='transmitter-id'></span></p>
-    <p>Date transmitter activated: Mon 3 February 2017 12:35 pm</p>
-    <p>Date sensor session started: Tue 5 March 2017</p>
-    <p>Time since transmitter activated: 20 days / 90</p>
-    <p>Time since sensor session started: 5 days</p>
+    <p>Transmitter age: <span id='transmitter-age'></span> days</p>
+    <p>Sensor age: <span id='sensor-age'></span> days</p>
     <p id='sensor-time'></p>
     <p>Glucose: <span id='glucose'></span></p>
     <p id='reservoir'></p>
@@ -26,9 +24,13 @@
 
       // cgm
       var cgm = io('/cgm');
-      cgm.on('glucose', function(value) {
+      cgm.on('glucose', function(glucose) {
         var el = document.getElementById('glucose');
-        el.innerHTML = value;
+        el.innerHTML = glucose.glucose;
+        el = document.getElementById('sensor-time');
+        el.innerHTML = new Date(glucose.readDate);
+        el = document.getElementById('transmitter-age');
+        el.innerHTML = (glucose.timeMessage.currentTime / 60 / 60 / 24).toFixed(1);
       });
       cgm.on('id', function(value) {
         var el = document.getElementById('transmitter-id');
