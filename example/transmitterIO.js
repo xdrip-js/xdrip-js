@@ -1,8 +1,14 @@
 module.exports = (io, transmitter) => {
-  const nsp = io.of('/cgm');
-  transmitter.on('glucose', message => nsp.emit('glucose', message));
+  let lastGlucose;
 
-  nsp.on('connection', (socket) => {
+  transmitter.on('glucose', glucose => {
+    lastGlucose = glucose;
+    io.emit('glucose', glucose);
+  });
+
+  io.on('connection', (socket) => {
     socket.emit('id', transmitter.id);
+    if (lastGlucose)
+      socket.emit('glucose', lastGlucose);
   });
 };
