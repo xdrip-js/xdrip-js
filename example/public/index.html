@@ -8,6 +8,7 @@
   <body ng-app="CGMApp">
     <div ng-controller="MyCtrl">
       <p>Transmitter ID: {{ id }}</p>
+      <p>State: {{ state | state }}</p>
       <p>Transmitter age: {{ transmitterAge | days }}</p>
       <p>Sensor age: {{ sensorAge | days }}</p>
       <p>Glucose time: {{ time }}</p>
