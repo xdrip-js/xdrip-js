@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <script src="/node_modules/angular/angular.js"></script>
+    <script src="/node_modules/angular-socket-io/socket.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+  </head>
+  <body ng-app="CGMApp">
+    <div ng-controller="MyCtrl">
+      <p>Transmitter ID: {{ id }}</p>
+      <p>Transmitter age: {{ transmitterAge | days }}</p>
+      <p>Sensor age: {{ sensorAge | days }}</p>
+      <p>Glucose time: {{ time }}</p>
+      <p>Glucose: {{ glucose | mg_per_dl }}</p>
+    </div>
+    <button id='calibrate-button'>Calibrate</button>
+    <button id='start-stop-button'>Start sensor</button>
+  </body>
+</html>
