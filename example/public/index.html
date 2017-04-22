@@ -13,8 +13,8 @@
       <p>Sensor age: {{ sensorAge | days }}</p>
       <p>Glucose time: {{ time }}</p>
       <p>Glucose: {{ glucose | mg_per_dl }}</p>
+      <button ng-click='calibrate()'>Calibrate</button>
+      <button ng-click='startstop()'>Start sensor</button>
     </div>
-    <button id='calibrate-button'>Calibrate</button>
-    <button id='start-stop-button'>Start sensor</button>
   </body>
 </html>

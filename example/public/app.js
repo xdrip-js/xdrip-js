@@ -8,11 +8,21 @@ controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, transmitt
   transmitterSocket.on('glucose', function(glucose) {
     // simpler just to do $scope.glucose = glucose?
     $scope.transmitterAge = glucose.timeMessage.currentTime;
-    $scope.sensorAge = glucose.timeMessage.sessionStartTime;
+    $scope.sensorAge = glucose.timeMessage.currentTime - glucose.timeMessage.sessionStartTime;
     $scope.time =  new Date(glucose.readDate);
     $scope.glucose = glucose.glucose;
     $scope.state = glucose.state;
   });
+
+  $scope.startstop = function() {
+    console.log('in startstop');
+  };
+
+  $scope.calibrate = function() {
+    console.log('in calibrate');
+    transmitterSocket.emit('calibrate', 100);
+  };
+
   transmitterSocket.on('id', function(value) {
     $scope.id = value;
   });
@@ -38,22 +48,18 @@ filter('state', function() {
    switch (state) {
      case 1:
        return "Stopped";
-       break;
      case 2:
        return "Warmup";
-       break;
      case 4:
        return "First calibration";
-       break;
      case 5:
        return "Second calibration";
-       break;
      case 6:
        return "OK";
-       break;
      case 7:
        return "Need calibration";
-       break;
+     case 0x12:
+       return "???";
      default:
        return "--";
      }
