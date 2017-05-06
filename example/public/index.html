@@ -9,8 +9,8 @@
     <div ng-controller="MyCtrl">
       <p>Transmitter ID: {{ id }}</p>
       <p>State: {{ state | state }}</p>
-      <p>Transmitter age: {{ transmitterAge | days }}</p>
-      <p>Sensor age: {{ sensorAge | days }}</p>
+      <p>Transmitter age: {{ transmitterAge | time }}</p>
+      <p>Sensor age: {{ sensorAge | time }}</p>
       <p>Glucose time: {{ time }}</p>
       <p>Glucose: {{ glucose | mg_per_dl }}</p>
       <button ng-click='calibrate()'>Calibrate</button>

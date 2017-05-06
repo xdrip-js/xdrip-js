@@ -4,6 +4,7 @@ module.exports = (io, transmitter) => {
 
   transmitter.on('glucose', glucose => {
     lastGlucose = glucose;
+    console.log('got glucose: ' + glucose.glucose);
     io.emit('glucose', glucose);
   });
 
