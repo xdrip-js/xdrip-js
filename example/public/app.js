@@ -8,9 +8,9 @@ controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, transmitt
   transmitterSocket.on('glucose', function(glucose) {
     // simpler just to do $scope.glucose = glucose?
     $scope.transmitterAge = glucose.timeMessage.currentTime;
-    $scope.sensorAge = (glucose.state === 1) // stopped
-      ? null
-      : glucose.timeMessage.currentTime - glucose.timeMessage.sessionStartTime;
+    $scope.sensorAge = (glucose.state === 1) ?// stopped
+      null :
+      glucose.timeMessage.currentTime - glucose.timeMessage.sessionStartTime;
     $scope.time =  new Date(glucose.readDate);
     $scope.glucose = glucose.glucose;
     $scope.state = glucose.state;
