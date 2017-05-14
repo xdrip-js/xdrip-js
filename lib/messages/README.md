@@ -98,3 +98,14 @@ second                   --> 665242 --> 6705730 decimal
 
 ## backfill format:
 repeated sequences of timestamp --> glucose --> status --> trend
+
+## deciphering 51 messages
+examples:
+51 00 0201 00000000 00000000 0000 0000 0000 c417
+51 00 0101 44266500 6f276500 1800 0000 3e0d d718 --> (6629231 - 6628932) = 5 minutes (almost)
+51 00 0100 06436600 32446600 1800 0000 adb5 7741 --> (6702130 - 6701830) = 5 minutes
+51 00 0202 00000000 00000000 0000 0000 0000
+51 00 0100 5e456600 e2486600 2800 0000 08b9 1c73 --> (6703330 - 6702430) = 15 minutes
+51 00 0102 9e326600 ce5c6600 4e01 0000 1241 6502 --> (6708430 - 6697630) = 180 minutes
+
+[ opcode | success | ?? | startTime | endTime | ?? | ?? | ?? | crc ]
