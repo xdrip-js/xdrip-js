@@ -30,4 +30,4 @@ When the transmitter is found, type 'yes' to accept the pairing request:
 ![pairing](https://user-images.githubusercontent.com/12263040/29741707-29713598-8ab5-11e7-8a0a-73a7202e3dbd.png)
 
 To view the current status of the transmitter, open a browser and navigate to `http://<local IP address>:3000`. E.g. http://localhost:3000 or http://192.168.1.3:3000. This will vary depending on your local network setup.
-![web app](https://user-images.githubusercontent.com/12263040/29741818-33bee750-8ab7-11e7-8592-f059531ec475.png)
+![app](https://user-images.githubusercontent.com/12263040/29741914-36d4bfe4-8ab9-11e7-891e-6c23263db499.png)
