@@ -65,17 +65,17 @@ filter('state', function() {
   return function(state) {
 //   let formatted;
    switch (state) {
-     case 1:
+     case 0x01:
        return "Stopped";
-     case 2:
+     case 0x02:
        return "Warmup";
-     case 4:
+     case 0x04:
        return "First calibration";
-     case 5:
+     case 0x05:
        return "Second calibration";
-     case 6:
+     case 0x06:
        return "OK";
-     case 7:
+     case 0x07:
        return "Need calibration";
      case 0x12:
        return "???";
