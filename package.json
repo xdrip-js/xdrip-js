@@ -24,7 +24,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "jshint": "^2.9.4",
-    "mocha": "^3.2.0",
+    "mocha": "^3.2.0"
   },
   "jshintConfig": {
     "esversion": 6,
