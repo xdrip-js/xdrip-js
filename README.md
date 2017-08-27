@@ -7,7 +7,9 @@
 
 ## Installation
 ```
-npm install
+git clone https://github.com/thebookins/xdrip-js.git
+cd xdrip-js
+sudo npm install
 ```
 ## Testing
 ```
