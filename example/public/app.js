@@ -14,6 +14,8 @@ controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, transmitt
     $scope.time =  new Date(glucose.readDate);
     $scope.glucose = glucose.glucose;
     $scope.state = glucose.state;
+    $scope.status = glucose.status;
+    $scope.unfiltered = glucose.unfiltered;
   });
 
   $scope.startstop = function() {
