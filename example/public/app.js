@@ -67,8 +67,6 @@ filter('state', function() {
   return function(state) {
 //   let formatted;
    switch (state) {
-     case null:
-      return '--';
      case 0x01:
        return "Stopped";
      case 0x02:
@@ -84,13 +82,13 @@ filter('state', function() {
      case 0x12:
        return "???";
      default:
-       return "Unknown: 0x" + parseInt(state, 16);
+       return state ? "Unknown: 0x" + parseInt(state, 16) : '--';
      }
   };
 }).
 filter('status', function() {
   return function(status) {
-   switch (state) {
+   switch (status) {
      case null:
       return '--';
      case 0x00:
@@ -100,7 +98,7 @@ filter('status', function() {
      case 0x83:
        return "Bricked";
      default:
-       return "Unknown: 0x" + parseInt(status, 16);
+       return status ? "Unknown: 0x" + parseInt(status, 16) : '--';
      }
   };
 });
