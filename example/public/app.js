@@ -80,7 +80,21 @@ filter('state', function() {
      case 0x12:
        return "???";
      default:
-       return "--";
+       return "Unknown: 0x" + state.toString('hex');
+     }
+  };
+}).
+filter('status', function() {
+  return function(status) {
+   switch (state) {
+     case 0x00:
+       return "OK";
+     case 0x81:
+       return "Low battery";
+     case 0x83:
+       return "Bricked";
+     default:
+       return "Unknown: 0x" + status.toString('hex');
      }
   };
 });
