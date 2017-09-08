@@ -14,6 +14,8 @@ controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, transmitt
     $scope.time =  new Date(glucose.readDate);
     $scope.glucose = glucose.glucose;
     $scope.state = glucose.state;
+    $scope.status = glucose.status;
+    $scope.unfiltered = glucose.unfiltered;
   });
 
   $scope.startstop = function() {
@@ -80,13 +82,15 @@ filter('state', function() {
      case 0x12:
        return "???";
      default:
-       return "Unknown: 0x" + state.toString('hex');
+       return state ? "Unknown: 0x" + parseInt(state, 16) : '--';
      }
   };
 }).
 filter('status', function() {
   return function(status) {
-   switch (state) {
+   switch (status) {
+     case null:
+      return '--';
      case 0x00:
        return "OK";
      case 0x81:
@@ -94,7 +98,7 @@ filter('status', function() {
      case 0x83:
        return "Bricked";
      default:
-       return "Unknown: 0x" + status.toString('hex');
+       return status ? "Unknown: 0x" + parseInt(status, 16) : '--';
      }
   };
 });
