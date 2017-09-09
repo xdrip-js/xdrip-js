@@ -15,7 +15,7 @@ module.exports = (io, transmitter) => {
       'device': 'DexcomR4',
       'date': glucose.readDate.toString(),
       'dateString': new Date(glucose.readDate).toISOString(),
-      'sgv': '100', //glucose.glucose.toString(),
+      'sgv': glucose.glucose,
       'direction': 'None',
       'type': 'sgv',
       'filtered': '100', //glucose.filtered.toString(),
