@@ -14,7 +14,7 @@ module.exports = (io, transmitter) => {
     const entry = [{
       'device': 'DexcomR4',
       'date': glucose.readDate,
-      'dateString': new Date(glucose.readDate).toISOSTring(),
+      'dateString': new Date(glucose.readDate).toISOString(),
       'sgv': glucose.glucose,
       'direction': 'None',
       'type': 'sgv',
