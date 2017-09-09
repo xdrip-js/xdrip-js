@@ -13,18 +13,18 @@ module.exports = (io, transmitter) => {
     // TODO: move this xDripAPS POST code to another file or function
     const entry = [{
       'device': 'DexcomR4',
-      'date': glucose.readDate,
+      'date': glucose.readDate.toString(),
       'dateString': new Date(glucose.readDate).toISOString(),
-      'sgv': glucose.glucose,
+      'sgv': glucose.glucose.toString(),
       'direction': 'None',
       'type': 'sgv',
-      'filtered': glucose.filtered,
-      'unfiltered': glucose.unfiltered,
-      'rssi': 100,
-      'noise': 1,
-      'trend': glucose.trend,
-      'xDrip_raw': glucose.glucose,
-      'glucose': glucose.glucose
+      'filtered': glucose.filtered.toString(),
+      'unfiltered': glucose.unfiltered.toString(),
+      'rssi': "100",
+      'noise': "1",
+      'trend': glucose.trend.toString(),
+      'xDrip_raw': glucose.glucose.toString(),
+      'glucose': glucose.glucose.toString()
     }];
 
     console.log('entry = ' + entry);
