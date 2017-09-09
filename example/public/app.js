@@ -81,6 +81,8 @@ filter('state', function() {
        return "Need calibration";
      case 0x12:
        return "???";
+     case 0x17:
+       return "Failed sensor";
      default:
        return state ? "Unknown: 0x" + parseInt(state, 16) : '--';
      }
