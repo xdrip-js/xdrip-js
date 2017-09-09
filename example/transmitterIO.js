@@ -6,7 +6,9 @@ module.exports = (io, transmitter) => {
   transmitter.on('glucose', glucose => {
     lastGlucose = glucose;
     console.log('got glucose: ' + glucose.glucose);
+    console.log('about to call io.emit');
     io.emit('glucose', glucose);
+    console.log('about to craft entry');
 
     // TODO: move this xDripAPS POST code to another file or function
     const entry = [{
@@ -25,8 +27,10 @@ module.exports = (io, transmitter) => {
       'glucose': glucose.glucose
     }];
 
+    console.log('entry = ' + entry);
+
     const secret = process.env.API_SECRET;
-    console.log('API secret = ' + secret)
+    console.log('API secret = ' + secret);
 
     const options = {
       hostname: 'http://127.0.0.1',
