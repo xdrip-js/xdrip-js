@@ -26,9 +26,7 @@ module.exports = (io, transmitter) => {
     }];
 
     const data = JSON.stringify(entry);
-
     const secret = process.env.API_SECRET;
-    console.log('API secret = ' + secret);
 
     const options = {
       hostname: '127.0.0.1', // could also try localhost ?
