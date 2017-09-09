@@ -33,7 +33,7 @@ module.exports = (io, transmitter) => {
     console.log('API secret = ' + secret);
 
     const options = {
-      hostname: 'http://127.0.0.1',
+      hostname: '127.0.0.1', // could also try localhost ?
       port: 5000,
       path: '/api/v1/entries',
       method: 'POST',
