@@ -6,30 +6,26 @@ module.exports = (io, transmitter) => {
   transmitter.on('glucose', glucose => {
     lastGlucose = glucose;
     console.log('got glucose: ' + glucose.glucose);
-    console.log('about to call io.emit');
     io.emit('glucose', glucose);
-    console.log('about to craft entry');
 
     // TODO: move this xDripAPS POST code to another file or function
     const entry = [{
       'device': 'DexcomR4',
-      'date': glucose.readDate.toString(),
+      'date': glucose.readDate,
       'dateString': new Date(glucose.readDate).toISOString(),
       'sgv': glucose.glucose,
       'direction': 'None',
       'type': 'sgv',
-      'filtered': '100', //glucose.filtered.toString(),
-      'unfiltered': '100', //glucose.unfiltered.toString(),
-      'rssi': "100",
+      'filtered': glucose.filtered,
+      'unfiltered': glucose.unfiltered,
+      'rssi': "100", // TODO: consider reading this on connection and reporting
       'noise': "1",
-      'trend':'0', //glucose.trend.toString(),
-      'xDrip_raw': '100', //glucose.glucose.toString(),
-      'glucose': '100' //glucose.glucose.toString()
+      'trend': glucose.trend,
+      'xDrip_raw': glucose.glucose, // TODO: is this needed? not sure where (if) it is used
+      'glucose': glucose.glucose
     }];
 
-    console.log('entry = ' + entry);
-
-    data = JSON.stringify(entry);
+    const data = JSON.stringify(entry);
 
     const secret = process.env.API_SECRET;
     console.log('API secret = ' + secret);
@@ -59,11 +55,7 @@ module.exports = (io, transmitter) => {
       console.log('problem with request: ' + e.message);
     });
 
-    // write data to request body
-    console.log("about to send data: " + data);
-
     req.write(data);
-
     req.end();
   });
 
