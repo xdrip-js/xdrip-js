@@ -57,7 +57,7 @@ module.exports = (io, transmitter) => {
     });
 
     // write data to request body
-    req.write(entry);
+    req.write(JSON.stringify(entry));
     req.end();
   });
 
