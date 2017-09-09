@@ -57,7 +57,11 @@ module.exports = (io, transmitter) => {
     });
 
     // write data to request body
-    req.write(JSON.stringify(entry));
+    data = JSON.stringify(entry);
+    console.log("about to send data: " + data);
+
+    req.write(data);
+
     req.end();
   });
 
