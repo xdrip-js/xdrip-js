@@ -26,6 +26,7 @@ module.exports = (io, transmitter) => {
     }];
 
     const secret = process.env.API_SECRET;
+    console.log('API secret = ' + secret)
 
     const options = {
       hostname: 'http://127.0.0.1',
