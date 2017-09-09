@@ -15,16 +15,16 @@ module.exports = (io, transmitter) => {
       'device': 'DexcomR4',
       'date': glucose.readDate.toString(),
       'dateString': new Date(glucose.readDate).toISOString(),
-      'sgv': glucose.glucose.toString(),
+      'sgv': '100', //glucose.glucose.toString(),
       'direction': 'None',
       'type': 'sgv',
-      'filtered': glucose.filtered.toString(),
-      'unfiltered': glucose.unfiltered.toString(),
+      'filtered': '100', //glucose.filtered.toString(),
+      'unfiltered': '100', //glucose.unfiltered.toString(),
       'rssi': "100",
       'noise': "1",
-      'trend': glucose.trend.toString(),
-      'xDrip_raw': glucose.glucose.toString(),
-      'glucose': glucose.glucose.toString()
+      'trend':'0', //glucose.trend.toString(),
+      'xDrip_raw': '100', //glucose.glucose.toString(),
+      'glucose': '100' //glucose.glucose.toString()
     }];
 
     console.log('entry = ' + entry);
