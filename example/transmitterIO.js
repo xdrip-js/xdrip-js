@@ -29,6 +29,8 @@ module.exports = (io, transmitter) => {
 
     console.log('entry = ' + entry);
 
+    data = JSON.stringify(entry);
+
     const secret = process.env.API_SECRET;
     console.log('API secret = ' + secret);
 
@@ -38,8 +40,9 @@ module.exports = (io, transmitter) => {
       path: '/api/v1/entries',
       method: 'POST',
       headers: {
-        'API-SECRET': secret,
         'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(data),
+        'API-SECRET': secret
       }
     };
 
@@ -57,7 +60,6 @@ module.exports = (io, transmitter) => {
     });
 
     // write data to request body
-    data = JSON.stringify(entry);
     console.log("about to send data: " + data);
 
     req.write(data);
