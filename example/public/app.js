@@ -19,8 +19,14 @@ controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, transmitt
     $scope.unfiltered = glucose.unfiltered;
   });
 
-  $scope.startstop = function() {
-    console.log('in startstop');
+  $scope.startSensor = function() {
+    console.log('in startSensor');
+    transmitterSocket.emit('startSensor');
+  };
+
+  $scope.stopSensor = function() {
+    console.log('in stopSensor');
+    transmitterSocket.emit('stopSensor');
   };
 
   $scope.calibrate = function() {
