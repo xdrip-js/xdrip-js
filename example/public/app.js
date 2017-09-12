@@ -80,12 +80,12 @@ filter('state', function() {
        return "OK";
      case 0x07:
        return "Need calibration";
-     case 0x12:
-       return "???";
-     case 0x17:
+     case 0x0b:
        return "Failed sensor";
+     case 0x0c:
+       return "???";
      default:
-       return state ? "Unknown: 0x" + parseInt(state, 16) : '--';
+       return state ? "Unknown: 0x" + state.toString(16) : '--';
      }
   };
 }).
@@ -101,7 +101,7 @@ filter('status', function() {
      case 0x83:
        return "Bricked";
      default:
-       return status ? "Unknown: 0x" + parseInt(status, 16) : '--';
+       return status ? "Unknown: 0x" + status.toString(16) : '--';
      }
   };
 });

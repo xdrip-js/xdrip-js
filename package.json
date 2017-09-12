@@ -17,7 +17,7 @@
     "debug": "^2.6.6",
     "express": "^4.15.2",
     "mobile-angular-ui": "^1.3.4",
-    "noble": "github:thebookins/noble",
+    "noble": "thebookins/noble",
     "socket.io": "^1.7.3",
     "uuid": "^3.0.1"
   },
