@@ -2,6 +2,7 @@
 
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/node_modules/angular/angular.js"></script>
     <script src="/node_modules/angular-socket-io/socket.js"></script>
     <script src="/socket.io/socket.io.js"></script>
@@ -11,7 +12,8 @@
   <body ng-app="CGMApp">
     <div class="container">
       <div class="row" ng-controller="MyCtrl">
-        <div class="col-md-5">
+        <div class="col-md-6">
+          <h2>Transmitter Details</h2>
           <p>Transmitter ID: {{ id }}</p>
           <p>Status: {{ status | status }}</p>
           <p>State: {{ state | state }}</p>
@@ -21,6 +23,9 @@
           <p>Glucose: {{ glucose | mg_per_dl }}</p>
           <p>Unfiltered glucose: {{ unfiltered | mg_per_dl }}</p>
           <p>In session: {{ inSession }}</p>
+        </div>
+        <div class="col-md-6">
+          <h2>Transmitter Controls</h2>
           <form class="col-md-12" ng-if="canBeCalibrated">
             <div class="form-group">
               <label for="blood-glucose">BGL (mg/dL)</label>
@@ -28,8 +33,10 @@
             </div>
             <button class="btn btn-primary" ng-click='calibrate()'>Calibrate</button>
           </form>
-          <button class="btn btn-warning" ng-if="!inSession" ng-click="startSensor()">Start sensor</button>
-          <button class="btn btn-danger" ng-if="inSession" ng-click="stopSensor()">Stop sensor</button>
+          <div class="col-md-12">
+            <button class="btn btn-warning" ng-if="!inSession" ng-click="startSensor()">Start sensor</button>
+            <button class="btn btn-danger" ng-if="inSession" ng-click="stopSensor()">Stop sensor</button>
+          </div>
         </div>
       </div>
     </div>
