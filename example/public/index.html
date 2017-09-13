@@ -27,15 +27,13 @@
         <div class="col-md-6">
           <h2>Transmitter Controls</h2>
           <form class="col-md-12" ng-if="canBeCalibrated">
+            <button class="btn btn-warning" ng-if="!inSession" ng-click="startSensor()">Start sensor</button>
+            <button class="btn btn-danger" ng-if="inSession" ng-click="stopSensor()">Stop sensor</button>
             <div class="form-group">
               <label for="blood-glucose">BGL (mg/dL)</label>
               <input class="form-control" name="blood-glucose" ng-model="calibration" placeholder="BGL"/>
             </div>
             <button class="btn btn-primary" ng-click='calibrate()'>Calibrate</button>
-          </form>
-          <form class="col-md-12">
-            <button class="btn btn-warning" ng-if="!inSession" ng-click="startSensor()">Start sensor</button>
-            <button class="btn btn-danger" ng-if="inSession" ng-click="stopSensor()">Stop sensor</button>
           </form>
         </div>
       </div>
