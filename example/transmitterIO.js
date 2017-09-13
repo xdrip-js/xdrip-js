@@ -72,6 +72,7 @@ module.exports = (io, transmitter) => {
     });
     socket.on('calibrate', (glucose) => {
       console.log('received calibration of ' + glucose);
+      transmitter.calibrate(glucose);
     });
   });
 };

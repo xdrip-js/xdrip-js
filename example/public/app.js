@@ -34,7 +34,7 @@ controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, transmitt
 
   $scope.calibrate = function() {
     console.log('in calibrate');
-    transmitterSocket.emit('calibrate', 100);
+    transmitterSocket.emit('calibrate', $scope.calibration);
   };
 
   transmitterSocket.on('id', function(value) {
