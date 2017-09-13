@@ -9,25 +9,29 @@
     <script src="app.js"></script>
   </head>
   <body ng-app="CGMApp">
-    <div ng-controller="MyCtrl">
-      <p>Transmitter ID: {{ id }}</p>
-      <p>Status: {{ status | status }}</p>
-      <p>State: {{ state | state }}</p>
-      <p>Transmitter age: {{ transmitterAge | time }}</p>
-      <p>Sensor age: {{ sensorAge | time }}</p>
-      <p>Glucose time: {{ time }}</p>
-      <p>Glucose: {{ glucose | mg_per_dl }}</p>
-      <p>Unfiltered glucose: {{ unfiltered | mg_per_dl }}</p>
-      <p>In session: {{ inSession }}</p>
-      <form class="col-md-12" ng-if="canBeCalibrated">
-        <div class="form-group">
-          <label for="blood-glucose">BGL (mg/dL)</label>
-          <input class="form-control" name="blood-glucose" ng-model="calibration" placeholder="BGL"/>
+    <div class="container">
+      <div class="row" ng-controller="MyCtrl">
+        <div class="col-md-5">
+          <p>Transmitter ID: {{ id }}</p>
+          <p>Status: {{ status | status }}</p>
+          <p>State: {{ state | state }}</p>
+          <p>Transmitter age: {{ transmitterAge | time }}</p>
+          <p>Sensor age: {{ sensorAge | time }}</p>
+          <p>Glucose time: {{ time }}</p>
+          <p>Glucose: {{ glucose | mg_per_dl }}</p>
+          <p>Unfiltered glucose: {{ unfiltered | mg_per_dl }}</p>
+          <p>In session: {{ inSession }}</p>
+          <form class="col-md-12" ng-if="canBeCalibrated">
+            <div class="form-group">
+              <label for="blood-glucose">BGL (mg/dL)</label>
+              <input class="form-control" name="blood-glucose" ng-model="calibration" placeholder="BGL"/>
+            </div>
+            <button class="btn btn-primary" ng-click='calibrate()'>Calibrate</button>
+          </form>
+          <button class="btn btn-warning" ng-if="!inSession" ng-click="startSensor()">Start sensor</button>
+          <button class="btn btn-danger" ng-if="inSession" ng-click="stopSensor()">Stop sensor</button>
         </div>
-        <button class="btn btn-primary" ng-click='calibrate()'>Calibrate</button>
-      </form>
-      <button class="btn btn-warning" ng-if="!inSession" ng-click="startSensor()">Start sensor</button>
-      <button class="btn btn-danger" ng-if="inSession" ng-click="stopSensor()">Stop sensor</button>
+      </div>
     </div>
   </body>
 </html>
