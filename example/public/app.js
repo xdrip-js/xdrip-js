@@ -1,3 +1,5 @@
+const CalibrationState = require('../../lib/calibration-state');
+
 angular.module('CGMApp', [
   'btford.socket-io'
 ]).
@@ -8,6 +10,7 @@ controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, transmitt
   transmitterSocket.on('glucose', function(glucose) {
     // simpler just to do $scope.glucose = glucose?
     $scope.inSession = (glucose.state !== 0x01) && (glucose.state !== 0x0b);
+    $scope.canBeCalibrated = CalibrationState.canBeCalibrated(glucose.state);
     $scope.transmitterAge = glucose.timeMessage.currentTime;
     $scope.sensorAge = ($scope.inSession) ?
       null :

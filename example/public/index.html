@@ -19,7 +19,7 @@
       <p>Glucose: {{ glucose | mg_per_dl }}</p>
       <p>Unfiltered glucose: {{ unfiltered | mg_per_dl }}</p>
       <p>In session: {{ inSession }}</p>
-      <button ng-click='calibrate()'>Calibrate</button>
+      <button class="btn btn-primary" ng-if="canBeCalibrated" ng-click='calibrate()'>Calibrate</button>
       <button class="btn btn-warning" ng-if="!inSession" ng-click="startSensor()">Start sensor</button>
       <button class="btn btn-danger" ng-if="inSession" ng-click="stopSensor()">Stop sensor</button>
     </div>
