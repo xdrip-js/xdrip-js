@@ -19,9 +19,37 @@
       <p>Glucose: {{ glucose | mg_per_dl }}</p>
       <p>Unfiltered glucose: {{ unfiltered | mg_per_dl }}</p>
       <p>In session: {{ inSession }}</p>
-      <button class="btn btn-primary" ng-if="canBeCalibrated" ng-click='calibrate()'>Calibrate</button>
+      <form class="col-md-12" ng-if="canBeCalibrated">
+        <div class="form-group">
+          <label for="blood-glucose">BGL (mg/dL)</label>
+          <input class="form-control" name="blood-glucose" ng-model="calibration" placeholder="BGL"/>
+        </div>
+        <button class="btn btn-primary" ng-click='calibrate()'>Calibrate</button>
+      </form>
       <button class="btn btn-warning" ng-if="!inSession" ng-click="startSensor()">Start sensor</button>
       <button class="btn btn-danger" ng-if="inSession" ng-click="stopSensor()">Stop sensor</button>
     </div>
   </body>
 </html>
+
+
+
+  <div class="form-group">
+    <label for="expense-description">Description</label>
+    <input class="form-control" name="expense-description" [(ngModel)]="expense.description" placeholder="Description"/>
+  </div>
+  <div class="form-group">
+    <label for="expense-amount">Amount</label>
+    <input currencyMask class="form-control" name="expense-amount" [(ngModel)]="expense.amount" placeholder="Amount"/>
+  </div>
+
+  <div class="form-group">
+    <label for="expense-category">Category</label>
+    <!-- <select [(ngModel)]="expense.category" name="expense-category" class="ui fluid search selection dropdown"> -->
+    <select class="form-control" [(ngModel)]="expense.category" name="expense-category">
+      <option *ngFor="let c of categories" [attr.value]="c">{{c}}</option>
+    </select>
+  </div>
+  <button class="btn btn-primary" *ngIf="!expense._id" (click)="createExpense(expense)">Create</button>
+  <button class="btn btn-info" *ngIf="expense._id" (click)="updateExpense(expense)">Update</button>
+  <button class="btn btn-danger" *ngIf="expense._id" (click)="deleteExpense(expense._id)">Delete</button>
