@@ -31,25 +31,3 @@
     </div>
   </body>
 </html>
-
-
-
-  <div class="form-group">
-    <label for="expense-description">Description</label>
-    <input class="form-control" name="expense-description" [(ngModel)]="expense.description" placeholder="Description"/>
-  </div>
-  <div class="form-group">
-    <label for="expense-amount">Amount</label>
-    <input currencyMask class="form-control" name="expense-amount" [(ngModel)]="expense.amount" placeholder="Amount"/>
-  </div>
-
-  <div class="form-group">
-    <label for="expense-category">Category</label>
-    <!-- <select [(ngModel)]="expense.category" name="expense-category" class="ui fluid search selection dropdown"> -->
-    <select class="form-control" [(ngModel)]="expense.category" name="expense-category">
-      <option *ngFor="let c of categories" [attr.value]="c">{{c}}</option>
-    </select>
-  </div>
-  <button class="btn btn-primary" *ngIf="!expense._id" (click)="createExpense(expense)">Create</button>
-  <button class="btn btn-info" *ngIf="expense._id" (click)="updateExpense(expense)">Update</button>
-  <button class="btn btn-danger" *ngIf="expense._id" (click)="deleteExpense(expense._id)">Delete</button>

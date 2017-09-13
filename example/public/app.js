@@ -5,6 +5,8 @@ factory('transmitterSocket', function (socketFactory) {
   return socketFactory();
 }).
 controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, transmitterSocket) {
+  $scope.calibration = 100;
+
   transmitterSocket.on('glucose', function(glucose) {
     // simpler just to do $scope.glucose = glucose?
     $scope.inSession = (glucose.state !== 0x01) && (glucose.state !== 0x0b);
