@@ -5,7 +5,7 @@ factory('transmitterSocket', function (socketFactory) {
   return socketFactory();
 }).
 controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, transmitterSocket) {
-  $scope.calibration = 100;
+  $scope.calibration = {};
 
   transmitterSocket.on('glucose', function(glucose) {
     // simpler just to do $scope.glucose = glucose?
@@ -32,9 +32,9 @@ controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, transmitt
     transmitterSocket.emit('stopSensor');
   };
 
-  $scope.calibrate = function() {
+  $scope.calibrate = function(value) {
     console.log('in calibrate');
-    transmitterSocket.emit('calibrate', $scope.calibration);
+    transmitterSocket.emit('calibrate', value);
   };
 
   transmitterSocket.on('id', function(value) {
