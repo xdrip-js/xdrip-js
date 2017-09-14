@@ -13,8 +13,8 @@ controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, transmitt
     $scope.canBeCalibrated = glucose.canBeCalibrated;
     $scope.transmitterAge = glucose.timeMessage.currentTime;
     $scope.sensorAge = ($scope.inSession) ?
-      null :
-      glucose.timeMessage.currentTime - glucose.timeMessage.sessionStartTime;
+      glucose.timeMessage.currentTime - glucose.timeMessage.sessionStartTime :
+      null;
     $scope.time =  new Date(glucose.readDate);
     $scope.glucose = glucose.glucose;
     $scope.state = glucose.state;
@@ -89,6 +89,8 @@ filter('state', function() {
        return "OK";
      case 0x07:
        return "Need calibration";
+     case 0x0a:
+       return "Enter new BG meter value";
      case 0x0b:
        return "Failed sensor";
      case 0x0c:
