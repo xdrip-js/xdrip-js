@@ -13,7 +13,7 @@ module.exports = (io, transmitter) => {
       'device': 'DexcomR4',
       'date': glucose.readDate,
       'dateString': new Date(glucose.readDate).toISOString(),
-      'sgv': glucose.glucose,
+      'sgv': Math.round(glucose.glucose),
       'direction': 'None',
       'type': 'sgv',
       'filtered': glucose.filtered,
@@ -21,8 +21,7 @@ module.exports = (io, transmitter) => {
       'rssi': "100", // TODO: consider reading this on connection and reporting
       'noise': "1",
       'trend': glucose.trend,
-      'xDrip_raw': glucose.glucose, // TODO: is this needed? not sure where (if) it is used
-      'glucose': glucose.glucose
+      'glucose': Math.round(glucose.glucose)
     }];
 
     const data = JSON.stringify(entry);
