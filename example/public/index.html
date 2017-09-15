@@ -34,7 +34,7 @@
           <form class="col-md-12" ng-if="canBeCalibrated">
             <div class="form-group">
               <label for="blood-glucose">BGL (mg/dL)</label>
-              <input class="form-control" name="blood-glucose" ng-model="calibration.value" placeholder="BGL"/>
+              <input type="number" min="40" max="400" class="form-control" name="blood-glucose" ng-model="calibration.value" placeholder="BGL"/>
             </div>
             <button class="btn btn-primary" ng-click='calibrate(calibration.value)'>Calibrate</button>
           </form>
