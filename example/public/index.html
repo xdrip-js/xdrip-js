@@ -31,7 +31,7 @@
             <button class="btn btn-warning" ng-if="!inSession" ng-click="startSensor()">Start sensor</button>
             <button class="btn btn-danger" ng-if="inSession" ng-click="stopSensor()">Stop sensor</button>
           </div>
-          <form name="form" class="col-md-12" ng-if="canBeCalibrated" ng-submit="form.$valid && calibrate(calibration.value)">
+          <form name="form" class="col-md-12" ng-if="canBeCalibrated" ng-submit="form.$valid && (calibration.value) && calibrate(calibration.value)">
             <div class="form-group">
               <label for="blood-glucose">BGL (mg/dL)</label>
               <input type="number" min="40" max="400" class="form-control" name="blood-glucose" ng-model="calibration.value" placeholder="BGL"/>
