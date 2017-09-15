@@ -19,7 +19,7 @@
           <p>State: {{ state | state }}</p>
           <p>Transmitter age: {{ transmitterAge | time }}</p>
           <p>Sensor age: {{ sensorAge | time }}</p>
-          <p>Glucose time: {{ time }}</p>
+          <p>Glucose time: {{ time | date:'medium' }}</p>
           <p>Glucose: {{ glucose | mg_per_dl }}</p>
           <p>Unfiltered glucose: {{ unfiltered | mg_per_dl }}</p>
           <p>In session: {{ inSession }}</p>
