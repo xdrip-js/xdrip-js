@@ -6,6 +6,13 @@ module.exports = (io, transmitter) => {
   transmitter.on('glucose', glucose => {
     lastGlucose = glucose;
     console.log('got glucose: ' + glucose.glucose);
+    
+    // log error and ignore errant glucose values
+    if (glucose.glucose > 800 || glucose.glucose < 20) {
+      console.log('Invalid glucose value received from transmitter, ignoring');
+    }
+    else {
+      
     io.emit('glucose', glucose);
 
     // TODO: move this xDripAPS POST code to another file or function
@@ -56,6 +63,7 @@ module.exports = (io, transmitter) => {
 
     req.write(data);
     req.end();
+    }
   });
 
   io.on('connection', (socket) => {
