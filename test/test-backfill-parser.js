@@ -30,6 +30,8 @@ describe('BackfillParser', function() {
       Buffer.from('1180680006fdce5c6600690006fc', 'hex')
     ];
 
+    console.log(messages.length);
+
     function callback () {
 
     }
@@ -37,11 +39,66 @@ describe('BackfillParser', function() {
     const spy = chai.spy(callback);
 
     const parser = new BackfillParser(spy);
-    for (let message in messages) {
+    messages.forEach(message => {
       parser.parse(message);
-    }
+    });
+
+    // for (let message in messages) {
+    //   console.log(message.toString('hex'));
+    //   parser.parse(message);
+    // }
 
     // there are 37 distinct glucose messages
     spy.should.have.been.called.exactly(37);
   });
 });
+
+// Individual glucose messages:
+
+// f93e0000
+// 9e326600 5700 0602
+// ca336600 5c00 0606
+// f6346600 5f00 0608
+// 22366600 6600 060a
+// 4e376600 6400 0606
+// 7a386600 6300 0603
+// a6396600 6300 0600
+// d23a6600 6100 06fe
+// fe3b6600 6100 06fe
+// 2a3d6600 6100 06ff
+// 563e6600 6100 0600
+// 823f6600 5d00 06fe
+// ae406600 5700 06fa
+// da416600 5500 07f9
+// 06436600 5800 07fc
+// 32446600 5b00 0702
+// 5e456600 6300 0708
+// 8a466600 6b00 070d
+// b6476600 7200 070f
+// e2486600 7400 070c
+// 0e4a6600 8800 0607
+// 3a4b6600 9000 0608
+// 664c6600 8e00 0604
+// 924d6600 8900 0600
+// be4e6600 7f00 06f8
+// ea4f6600 7900 06f3
+// 16516600 7000 06f1
+// 42526600 6f00 06f5
+// 6e536600 6d00 06f9
+// 9a546600 6600 06f9
+// c6556600 6500 06fa
+// f2566600 6800 06fd
+// 1e586600 7000 0604
+// 4a596600 7000 0606
+// 765a6600 6e00 0603
+// a25b6600 6800 06fd
+// ce5c6600 6900 06fc
+
+// To reconstruct a glucose message we need the following:
+
+// status:    timeMessage
+// sequence:  first element perhaps?
+// timestamp: backfill
+// glucose:   backfill
+// state:     backfill
+// trend:     backfill
