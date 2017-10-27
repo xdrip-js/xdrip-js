@@ -6,6 +6,13 @@ module.exports = (io, transmitter) => {
   transmitter.on('glucose', glucose => {
     lastGlucose = glucose;
     console.log('got glucose: ' + glucose.glucose);
+    
+    // log error and ignore errant glucose values
+    if (glucose.glucose > 800 || glucose.glucose < 20) {
+      console.log('Invalid glucose value received from transmitter, ignoring');
+    }
+    else {
+      
     io.emit('glucose', glucose);
 
     // TODO: move this xDripAPS POST code to another file or function
@@ -13,7 +20,7 @@ module.exports = (io, transmitter) => {
       'device': 'DexcomR4',
       'date': glucose.readDate,
       'dateString': new Date(glucose.readDate).toISOString(),
-      'sgv': glucose.glucose,
+      'sgv': Math.round(glucose.glucose),
       'direction': 'None',
       'type': 'sgv',
       'filtered': glucose.filtered,
@@ -21,8 +28,7 @@ module.exports = (io, transmitter) => {
       'rssi': "100", // TODO: consider reading this on connection and reporting
       'noise': "1",
       'trend': glucose.trend,
-      'xDrip_raw': glucose.glucose, // TODO: is this needed? not sure where (if) it is used
-      'glucose': glucose.glucose
+      'glucose': Math.round(glucose.glucose)
     }];
 
     const data = JSON.stringify(entry);
@@ -57,6 +63,7 @@ module.exports = (io, transmitter) => {
 
     req.write(data);
     req.end();
+    }
   });
 
   io.on('connection', (socket) => {
