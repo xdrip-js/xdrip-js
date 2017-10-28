@@ -1,6 +1,14 @@
-angular.module('CGMApp', [
+angular.module('AngularOpenAPS', [
+  'ngRoute',
+  // 'ngTouch',
+  'mobile-angular-ui',
   'btford.socket-io'
 ]).
+config(function($routeProvider, $locationProvider) {
+  $routeProvider.when('/', {
+    templateUrl: "status.html"
+  });
+}).
 factory('transmitterSocket', function (socketFactory) {
   return socketFactory();
 }).
