@@ -1,32 +1,30 @@
 <div class="scrollable">
   <div class="scrollable-content section">
-    <div>
-      <h2>Transmitter Controls</h2>
-      <div>
-        <button class="btn btn-warning" ng-if="!inSession" ng-click="startSensor()">Start sensor</button>
-        <button class="btn btn-danger" ng-if="inSession" ng-click="stopSensor()">Stop sensor</button>
-      </div>
-      <!-- <form name="form" class="col-md-12" ng-if="canBeCalibrated" ng-submit="form.$valid && (calibration.value) && calibrate(calibration.value)"> -->
-      <form name="form" ng-submit="form.$valid && (calibration.value) && calibrate(calibration.value)">
+    <div class="list-group">
+      <a class="list-group-item" href="/calibrate">Calibrate</a>
+    </div>
+    <button class="btn btn-warning" ng-if="!inSession" ng-click="startSensor()">Start sensor</button>
+    <button class="btn btn-danger" ng-if="inSession" ng-click="stopSensor()">Stop sensor</button>
+  </div>
+</div>
+
+      <!-- the original calibration form, left here for now for comparison -->
+      <!-- <form name="form" class="col-md-12" ng-if="canBeCalibrated" ng-submit="form.$valid && (calibration.value) && calibrate(calibration.value)">
         <div class="form-group">
           <label for="blood-glucose">BGL (mg/dL)</label>
           <input type="number" min="40" max="400" class="form-control" name="blood-glucose" ng-model="calibration.value" placeholder="BGL"/>
         </div>
         <button class="btn btn-primary" type="submit" ng-disabled="!form.$valid || (!calibration.value)">Calibrate</button>
-      </form>
-    </div>
+      </form> -->
+    <!-- </div>
     <div>
       <h2>Transmitter Details</h2>
-      <p>Transmitter ID: {{ id }}</p>
       <p>Status: {{ status | status }}</p>
       <p>State: {{ state | state }}</p>
-      <p>Transmitter age: {{ transmitterAge | time }}</p>
-      <p>Sensor age: {{ sensorAge | time }}</p>
       <p>Glucose time: {{ time | date:'medium' }}</p>
       <p>Glucose: {{ glucose | mg_per_dl }}</p>
       <p>Unfiltered glucose: {{ unfiltered | mg_per_dl }}</p>
       <p>In session: {{ inSession }}</p>
-      <p>calibration: {{ calibration.value }}</p>
     </div>
   </div>
-</div>
+</div> -->

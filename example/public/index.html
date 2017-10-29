@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>OpenAPS</title>
@@ -30,9 +31,9 @@
         <h1 class="scrollable-header app-name">Menu</h1>
         <div class="scrollable-content">
           <div class="list-group" ui-turn-off='uiSidebarLeft'>
-            <a class="list-group-item" href="#/link1">Settings
+            <a class="list-group-item" href="/settings">Settings
               <i class="fa fa-chevron-right pull-right"></i></a>
-            <a class="list-group-item" href="#/link2">Link 2
+            <a class="list-group-item" href="/link2">Link 2
               <i class="fa fa-chevron-right pull-right"></i></a>
           </div>
         </div>
@@ -48,7 +49,7 @@
       </div>
       <div class="navbar navbar-app navbar-absolute-bottom">
         <div class="btn-group justified">
-          <a href="#/" class="btn btn-navbar btn-icon-only"><i class="fa fa-user fa-navbar"></i></a>
+          <a href="/" class="btn btn-navbar btn-icon-only"><i class="fa fa-user fa-navbar"></i></a>
           <a href ui-toggle="uiSidebarLeft" class="btn btn-navbar btn-icon-only"><i class="fa fa-list fa-navbar"></i></a>
         </div>
       </div>
