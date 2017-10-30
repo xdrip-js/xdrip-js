@@ -48,6 +48,8 @@
         <div class="navbar-brand navbar-brand-center" ui-yield-to="title">
             <span>OpenAPS</span>
         </div>
+        <div class="btn-group pull-left" ui-yield-to="navbar-left">
+        </div>
       </div>
       <div class="navbar navbar-app navbar-absolute-bottom">
         <div class="btn-group justified">
@@ -57,7 +59,6 @@
       </div>
 
       <!-- App body -->
-
       <div class='app-body'>
         <div class='app-content'>
           <ng-view></ng-view>
