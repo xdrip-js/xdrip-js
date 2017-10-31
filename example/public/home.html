@@ -3,6 +3,10 @@
     <div class="list-group">
       <a class="list-group-item" href="/calibrate">Calibrate</a>
     </div>
+    <canvas id="line" class="chart chart-line" chart-data="data"
+      chart-labels="labels" chart-series="series" chart-options="options"
+      chart-dataset-override="datasetOverride" chart-click="onClick">
+    </canvas>
     <button class="btn btn-warning" ng-if="!inSession" ng-click="startSensor()">Start sensor</button>
     <button class="btn btn-danger" ng-if="inSession" ng-click="stopSensor()">Stop sensor</button>
   </div>
