@@ -16,6 +16,7 @@ app.config(function($routeProvider, $locationProvider) {
   $routeProvider.when('/settings/info', {templateUrl: 'info.html', reloadOnSearch: false});
   $routeProvider.when('/calibrate', {templateUrl: 'calibrate.html', reloadOnSearch: false});
   $routeProvider.when('/pair', {templateUrl: 'pair.html', reloadOnSearch: false});
+  $routeProvider.when('/stop', {templateUrl: 'stop.html', reloadOnSearch: false});
 })
 
 app.factory('transmitterSocket', function (socketFactory) {
