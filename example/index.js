@@ -20,17 +20,4 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => console.log('Client disconnected'));
 });
 
-const Transmitter = require('..');
-
-// const id = process.argv[2];
-// const transmitter = new Transmitter(id);
-// TODO: persistence should be handled here, and we pass in the id to the transmitter
-// something like this:
-// let status = {};
-// try {
-//   status = require('../status');
-// } catch (err) {}
-// const id = status.id || '500000';
-const transmitter = new Transmitter(id);
-
-require('./transmitterIO')(io, transmitter);
+require('./transmitterIO')(io);

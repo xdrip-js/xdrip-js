@@ -4,7 +4,7 @@
 
 <div class="scrollable">
   <div class="scrollable-content section">
-    <form role="form" ng-submit="">
+    <form role="form" ng-submit="setID(newID)">
       <fieldset>
         <legend>Enter transmitter ID</legend>
         <div class="form-group has-success has-feedback">
@@ -12,7 +12,7 @@
           <input type="text"
                  ng-model="newID"
                  class="form-control"
-                 placeholder="ABCDEF">
+                 placeholder="{{ id }}">
         </div>
       </fieldset>
       <hr>

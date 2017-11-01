@@ -26,19 +26,26 @@ app.controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, trans
   $scope.calibration = {};
 
   transmitterSocket.on('glucose', function(glucose) {
-    // simpler just to do $scope.glucose = glucose?
-    $scope.inSession = (glucose.state !== 0x01) && (glucose.state !== 0x0b);
-    $scope.canBeCalibrated = glucose.canBeCalibrated;
-    $scope.transmitterAge = glucose.timeMessage.currentTime;
-    $scope.sensorAge = ($scope.inSession) ?
-      glucose.timeMessage.currentTime - glucose.timeMessage.sessionStartTime :
-      null;
-    $scope.time =  new Date(glucose.readDate);
-    $scope.glucose = glucose.glucose;
-    $scope.state = glucose.state;
-    $scope.status = glucose.status;
-    $scope.unfiltered = glucose.unfiltered;
+    $scope.glucose = glucose;
+
+    // the old way: left here temporarily for reference
+    // $scope.inSession = (glucose.state !== 0x01) && (glucose.state !== 0x0b);
+    // $scope.canBeCalibrated = glucose.canBeCalibrated;
+    // $scope.transmitterAge = glucose.timeMessage.currentTime;
+    // $scope.sensorAge = ($scope.inSession) ?
+    //   glucose.timeMessage.currentTime - glucose.timeMessage.sessionStartTime :
+    //   null;
+    // $scope.time =  new Date(glucose.readDate);
+    // $scope.glucose = glucose.glucose;
+    // $scope.state = glucose.state;
+    // $scope.status = glucose.status;
+    // $scope.unfiltered = glucose.unfiltered;
   });
+
+  $scope.inSession = function() {
+    const state = $scope.glucose.state;
+    return (state !== 0x01) && (state !== 0x0b);
+  }
 
   $scope.startSensor = function() {
     console.log('in startSensor');
@@ -54,6 +61,11 @@ app.controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, trans
     console.log('in calibrate');
     transmitterSocket.emit('calibrate', value);
   };
+
+  $scope.setID = function(id) {
+    console.log('setting id to ' + id);
+    transmitterSocket.emit('id', id);
+  }
 
   transmitterSocket.on('id', function(value) {
     $scope.id = value;

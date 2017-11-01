@@ -57,3 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
+# node-persist local storage
+.node-persist
