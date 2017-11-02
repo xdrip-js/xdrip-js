@@ -4,7 +4,7 @@ const socketIO = require('socket.io');
 const PORT = process.env.PORT || 3000;
 
 const server = express()
-  .use(express.static('example/public'))
+  .use(express.static('app/public'))
   .use('/node_modules', express.static('node_modules'))
   .use('/css', express.static('node_modules/bootstrap/dist/css')) // redirect CSS bootstrap
   // prevent error message on reloads as per https://stackoverflow.com/a/35284602
