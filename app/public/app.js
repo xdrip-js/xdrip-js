@@ -23,7 +23,7 @@ app.factory('transmitterSocket', function (socketFactory) {
   return socketFactory();
 })
 
-app.controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, transmitterSocket) {
+app.controller('MyCtrl', ['$scope', '$interval', 'transmitterSocket', function ($scope, $interval, transmitterSocket) {
   $scope.calibration = {};
 
   transmitterSocket.on('glucose', function(glucose) {
@@ -42,6 +42,12 @@ app.controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, trans
     // $scope.status = glucose.status;
     // $scope.unfiltered = glucose.unfiltered;
   });
+
+  const tick = function() {
+    $scope.glucose.age = (Date.now() - $scope.glucose.readDate) / 1000;
+    $scope.glucose.sensorAge = (Date.now() - $scope.glucose.sessionStartDate) / 1000;
+  }
+  $interval(tick, 1000);
 
   $scope.inSession = function() {
     const state = $scope.glucose.state;

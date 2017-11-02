@@ -9,11 +9,13 @@ module.exports = (io) => {
   storage.init().then(() => {
     const dateNow = Date.now();
     // make fake glucose record
+
     const glucoseFakey = {
-      syncDate: dateNow,
+      // syncDate: dateNow,
       status: 0,
       state: 6,
       readDate: dateNow,
+      sessionStartDate: dateNow - 3*24*60*60*1000,
       isDisplayOnly: false,
       filtered: 100000,
       unfiltered: 100000,
@@ -65,7 +67,9 @@ module.exports = (io) => {
         console.log('received id of ' + id);
         transmitter.id = id;
         storage.setItemSync('id', id);
-        socket.emit('id', transmitter.id);
+        // use io.emit rather than socket.emit
+        // since we want to nofify all connections
+        io.emit('id', id);
         // const status = {id};
         // console.log(JSON.stringify(status));
         // fs.writeFile(__dirname + '/status.json', JSON.stringify(status), (err) => {
