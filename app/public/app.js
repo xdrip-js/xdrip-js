@@ -17,6 +17,7 @@ app.config(function($routeProvider, $locationProvider) {
   $routeProvider.when('/calibrate', {templateUrl: 'calibrate.html', reloadOnSearch: false});
   $routeProvider.when('/pair', {templateUrl: 'pair.html', reloadOnSearch: false});
   $routeProvider.when('/stop', {templateUrl: 'stop.html', reloadOnSearch: false});
+  $routeProvider.when('/pending', {templateUrl: 'pending.html', reloadOnSearch: false});
 })
 
 app.factory('transmitterSocket', function (socketFactory) {
@@ -24,7 +25,12 @@ app.factory('transmitterSocket', function (socketFactory) {
 })
 
 app.controller('MyCtrl', ['$scope', '$interval', 'transmitterSocket', function ($scope, $interval, transmitterSocket) {
-  $scope.calibration = {};
+//  $scope.calibration = {};
+
+  transmitterSocket.on('version', version => {
+    console.log("got version " + version);
+    $scope.version = version;
+  });
 
   transmitterSocket.on('glucose', function(glucose) {
     $scope.glucose = glucose;
@@ -43,9 +49,15 @@ app.controller('MyCtrl', ['$scope', '$interval', 'transmitterSocket', function (
     // $scope.unfiltered = glucose.unfiltered;
   });
 
+  transmitterSocket.on('calibration', function(calibration) {
+    console.log("got calibration " + calibration.glucose);
+    $scope.calibration = calibration;
+  });
+
   const tick = function() {
     $scope.glucose.age = (Date.now() - $scope.glucose.readDate) / 1000;
     $scope.glucose.sensorAge = (Date.now() - $scope.glucose.sessionStartDate) / 1000;
+    $scope.glucose.transmitterAge = (Date.now() - $scope.glucose.transmitterStartDate) / 1000;
   }
   $interval(tick, 1000);
 

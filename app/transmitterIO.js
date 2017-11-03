@@ -7,29 +7,18 @@ module.exports = (io) => {
 
   // handle persistence here
   storage.init().then(() => {
-    const dateNow = Date.now();
-    // make fake glucose record
-
-    const glucoseFakey = {
-      // syncDate: dateNow,
-      status: 0,
-      state: 6,
-      readDate: dateNow,
-      sessionStartDate: dateNow - 3*24*60*60*1000,
-      isDisplayOnly: false,
-      filtered: 100000,
-      unfiltered: 100000,
-      glucose: 100,
-      trend: 0,
-      canBeCalibrated: true
-    };
-    storage.setItemSync('glucose', glucoseFakey);
     return storage.getItem('id');
-  }).then(id => {
+  })
+  .then(id => {
     console.log('got id of ' + id);
     id = id ? id : 500000;
 
     const transmitter = new Transmitter(id);
+
+    transmitter.getVersion()
+    .then(version => {
+      io.emit('version', version);
+    });
 
     // hook up the tranmitter object
     transmitter.on('glucose', glucose => {
@@ -52,6 +41,12 @@ module.exports = (io) => {
           socket.emit('glucose', glucose);
         }
       });
+      storage.getItem('calibration')
+      .then(calibration => {
+        if (calibration) {
+          socket.emit('calibration', calibration);
+        }
+      });
       socket.on('startSensor', () => {
         console.log('received startSensor command');
         transmitter.startSensor();
@@ -61,12 +56,15 @@ module.exports = (io) => {
       });
       socket.on('calibrate', glucose => {
         console.log('received calibration of ' + glucose);
-        transmitter.calibrate(glucose);
+        const pending = transmitter.calibrate(glucose);
+        storage.setItemSync('calibration', pending);
+        io.emit('calibration', pending);
       });
       socket.on('id', id => {
         console.log('received id of ' + id);
         transmitter.id = id;
         storage.setItemSync('id', id);
+        // TODO: clear glucose on new id
         // use io.emit rather than socket.emit
         // since we want to nofify all connections
         io.emit('id', id);

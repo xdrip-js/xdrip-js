@@ -1,0 +1,16 @@
+<div ui-content-for="title">
+  <span>Pending Actions</span>
+</div>
+
+<div ui-content-for="navbar-left">
+  <a href="/settings" class="btn btn-navbar btn-icon-only"><i class="fa fa-chevron-left fa-navbar"></i></a>
+</div>
+
+<div class="scrollable">
+  <div class="scrollable-content">
+    <div class="list-group">
+      <span class="list-group-item">Calibration
+        <span class="pull-right">{{ calibration.glucose }} mg/dl @ {{ calibration.time | date:'shortTime' }}</span></span>
+    </div>
+  </div>
+</div>

@@ -15,9 +15,12 @@
       <!-- Serial Number -->
       <span class="list-group-item">ID
         <span class="pull-right">{{ id }}</span></span>
-        <!-- Age -->
-        <span class="list-group-item">Age
-          <span class="pull-right">{{ transmitterAge | time }}</span></span>
+      <!-- Age -->
+      <span class="list-group-item">Age
+        <span class="pull-right">{{ glucose.transmitterAge | time }}</span></span>
+      <!-- Firmware -->
+      <span class="list-group-item">Firmware
+        <span class="pull-right">{{ version }}</span></span>
     </div>
   </div>
 </div>
