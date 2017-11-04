@@ -11,19 +11,36 @@ module.exports = () => {
         return;
       }
 
+      let direction;
+      if (glucose.trend <= -30) {
+        direction = 'DoubleDown';
+      } else if (glucose.trend <= -20) {
+        direction = 'SingeDown';
+      } else if (glucose.trend <= -10) {
+        direction = 'FortyFiveDown';
+      } else if (glucose.trend < 10) {
+        direction = 'Flat';
+      } else if (glucose.trend < 20) {
+        direction = 'FortyFiveUp';
+      } else if (glucose.trend < 30) {
+        direction = 'SingleUp';
+      } else {
+        direction = 'DoubleUp';
+      }
+
       const entry = [{
         'device': 'openaps://' + os.hostname(),
         'date': glucose.readDate,
         'dateString': new Date(glucose.readDate).toISOString(),
-        'sgv': Math.round(glucose.glucose),
-        'direction': 'None',
+        'sgv': glucose.glucose,
+        'direction': direction,
         'type': 'sgv',
         'filtered': glucose.filtered,
         'unfiltered': glucose.unfiltered,
         'rssi': "100", // TODO: consider reading this on connection and reporting
         'noise': "1",
         'trend': glucose.trend,
-        'glucose': Math.round(glucose.glucose)
+        'glucose': glucose.glucose
       }];
 
       const data = JSON.stringify(entry);
