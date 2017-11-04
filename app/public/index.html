@@ -20,6 +20,7 @@
 
     <script src="/node_modules/angular/angular.min.js"></script>
     <script src="/node_modules/angular-route/angular-route.min.js"></script>
+    <script src="/node_modules/angular-cookies/angular-cookies.min.js"></script>
     <script src="/node_modules/mobile-angular-ui/dist/js/mobile-angular-ui.min.js"></script>
     <script src="/node_modules/angular-socket-io/socket.js"></script>
     <script src="node_modules/chart.js/dist/Chart.min.js"></script>
@@ -35,8 +36,13 @@
         <h1 class="scrollable-header app-name">Menu</h1>
         <div class="scrollable-content">
           <div class="list-group" ui-turn-off='uiSidebarLeft'>
+            <!-- Settings -->
             <a class="list-group-item" href="/settings">Settings
               <i class="fa fa-chevron-right pull-right"></i></a>
+            <!-- Settings -->
+            <a class="list-group-item" href="">Preferences
+              <i class="fa fa-chevron-right pull-right"></i></a>
+            <!-- Stop Sensor -->
             <a class="list-group-item" href="/stop">Stop Sensor
               <i class="fa fa-chevron-right pull-right"></i></a>
           </div>

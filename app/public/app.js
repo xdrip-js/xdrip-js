@@ -2,6 +2,7 @@
 
 const app = angular.module('AngularOpenAPS', [
   'ngRoute',
+  'ngCookies',
   // 'ngTouch',
   'mobile-angular-ui',
   'btford.socket-io',
@@ -24,8 +25,14 @@ app.factory('transmitterSocket', function (socketFactory) {
   return socketFactory();
 });
 
-app.controller('MyCtrl', ['$scope', '$interval', 'transmitterSocket', function ($scope, $interval, transmitterSocket) {
+app.controller('MyCtrl', ['$scope', '$interval', '$cookies', 'transmitterSocket', function ($scope, $interval, $cookies, transmitterSocket) {
 //  $scope.calibration = {};
+  $scope.units = $cookies.get('units') || 'mg/dl'
+
+  // $cookies.put('myFavorite', 'oatmeal');
+
+
+  console.log('units = ' + $scope.units);
 
   transmitterSocket.on('version', version => {
     console.log("got version " + version);
@@ -200,5 +207,11 @@ app.filter('status', function() {
      default:
        return status ? "Unknown: 0x" + status.toString(16) : '--';
      }
+  };
+});
+
+app.filter('glucose', function() {
+  return function(glucose) {
+    return glucose ? (glucose/18).toFixed(1) : '--';
   };
 });
