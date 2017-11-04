@@ -10,6 +10,9 @@ module.exports = () => {
         return;
       }
 
+      const device = 'openaps://' + os.hostname();
+      console.log('device = ' + device);
+
       const entry = [{
         'device': 'openaps://' + os.hostname(),
         'date': glucose.readDate,
