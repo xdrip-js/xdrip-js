@@ -1,6 +1,5 @@
 const http = require("http");
 const os = require("os");
-os.hostname();
 
 module.exports = () => {
   return {
@@ -12,10 +11,8 @@ module.exports = () => {
         return;
       }
 
-      console.log('hostname = ' + os.hostname());
-
       const entry = [{
-        'device': 'xdrip-js',
+        'device': 'openaps://' + os.hostname(),
         'date': glucose.readDate,
         'dateString': new Date(glucose.readDate).toISOString(),
         'sgv': Math.round(glucose.glucose),
