@@ -55,16 +55,18 @@ app.controller('MyCtrl', ['$scope', '$interval', 'transmitterSocket', function (
   });
 
   const tick = function() {
-    $scope.glucose.age = (Date.now() - $scope.glucose.readDate) / 1000;
-    $scope.glucose.sensorAge = $scope.glucose.inSession ? (Date.now() - $scope.glucose.sessionStartDate) / 1000 : null;
-    $scope.glucose.transmitterAge = (Date.now() - $scope.glucose.transmitterStartDate) / 1000;
+    if ($scope.glucose) {
+      $scope.glucose.age = (Date.now() - $scope.glucose.readDate) / 1000;
+      $scope.glucose.sensorAge = $scope.glucose.inSession ? (Date.now() - $scope.glucose.sessionStartDate) / 1000 : null;
+      $scope.glucose.transmitterAge = (Date.now() - $scope.glucose.transmitterStartDate) / 1000;
+    }
   }
   $interval(tick, 1000);
 
-  $scope.inSession = function() {
-    const state = $scope.glucose.state;
-    return (state !== 0x01) && (state !== 0x0b);
-  }
+  // $scope.inSession = function() {
+  //   const state = $scope.glucose.state;
+  //   return (state !== 0x01) && (state !== 0x0b);
+  // }
 
   $scope.startSensor = function() {
     console.log('in startSensor');
