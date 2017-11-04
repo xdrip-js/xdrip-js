@@ -1,0 +1,23 @@
+<div ui-content-for="title">
+  <span>Transmitter</span>
+</div>
+
+<div ui-content-for="navbar-left">
+  <a href="/settings" class="btn btn-navbar btn-icon-only"><i class="fa fa-chevron-left fa-navbar"></i></a>
+</div>
+
+<div class="scrollable">
+  <div class="scrollable-content">
+    <div class="list-group">
+      <!-- Pair New -->
+      <a class="list-group-item" href="/pair">Pair New
+        <i class="fa fa-chevron-right pull-right"></i></a>
+      <!-- Serial Number -->
+      <span class="list-group-item">ID
+        <span class="pull-right">{{ id }}</span></span>
+        <!-- Age -->
+        <span class="list-group-item">Age
+          <span class="pull-right">{{ transmitterAge | time }}</span></span>
+    </div>
+  </div>
+</div>

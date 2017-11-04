@@ -1,11 +1,28 @@
-angular.module('CGMApp', [
+'use strict';
+
+var app = angular.module('AngularOpenAPS', [
+  'ngRoute',
+  // 'ngTouch',
+  'mobile-angular-ui',
   'btford.socket-io'
-]).
-factory('transmitterSocket', function (socketFactory) {
+])
+
+app.config(function($routeProvider, $locationProvider) {
+  $locationProvider.html5Mode(true);
+  $routeProvider.when('/', {templateUrl: 'home.html', reloadOnSearch: false});
+  $routeProvider.when('/settings', {templateUrl: 'settings.html', reloadOnSearch: false});
+  $routeProvider.when('/settings/transmitter', {templateUrl: 'transmitter.html', reloadOnSearch: false});
+  $routeProvider.when('/settings/info', {templateUrl: 'info.html', reloadOnSearch: false});
+  $routeProvider.when('/calibrate', {templateUrl: 'calibrate.html', reloadOnSearch: false});
+  $routeProvider.when('/pair', {templateUrl: 'pair.html', reloadOnSearch: false});
+})
+
+app.factory('transmitterSocket', function (socketFactory) {
   return socketFactory();
-}).
-controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, transmitterSocket) {
-  $scope.calibration = 100;
+})
+
+app.controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, transmitterSocket) {
+  $scope.calibration = {};
 
   transmitterSocket.on('glucose', function(glucose) {
     // simpler just to do $scope.glucose = glucose?
@@ -32,16 +49,17 @@ controller('MyCtrl', ['$scope', 'transmitterSocket', function ($scope, transmitt
     transmitterSocket.emit('stopSensor');
   };
 
-  $scope.calibrate = function() {
+  $scope.calibrate = function(value) {
     console.log('in calibrate');
-    transmitterSocket.emit('calibrate', $scope.calibration);
+    transmitterSocket.emit('calibrate', value);
   };
 
   transmitterSocket.on('id', function(value) {
     $scope.id = value;
   });
-}]).
-filter('time', function() {
+}])
+
+app.filter('time', function() {
   // TODO: handle singulars, as in
   // https://gist.github.com/lukevella/f23423170cb43e78c40b
   return function(seconds) {
@@ -62,18 +80,21 @@ filter('time', function() {
     if (seconds < 60) return seconds + ' seconds';
     return seconds ? (seconds / 60 / 60 / 24).toFixed(1) + ' days' : '--';
   };
-}).
-filter('mg_per_dl', function() {
+})
+
+app.filter('mg_per_dl', function() {
   return function(glucose) {
     return glucose ? glucose + ' mg/dl' : '--';
   };
-}).
-filter('mmol_per_L', function() {
+})
+
+app.filter('mmol_per_L', function() {
   return function(glucose) {
     return glucose ? (glucose/18).toFixed(1) + ' mmol/L' : '--';
   };
-}).
-filter('state', function() {
+})
+
+app.filter('state', function() {
   return function(state) {
 //   let formatted;
    switch (state) {
@@ -99,8 +120,9 @@ filter('state', function() {
        return state ? "Unknown: 0x" + state.toString(16) : '--';
      }
   };
-}).
-filter('status', function() {
+})
+
+app.filter('status', function() {
   return function(status) {
    switch (status) {
      case null:
