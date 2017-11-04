@@ -1,12 +1,12 @@
 'use strict';
 
-var app = angular.module('AngularOpenAPS', [
+const app = angular.module('AngularOpenAPS', [
   'ngRoute',
   // 'ngTouch',
   'mobile-angular-ui',
   'btford.socket-io',
   'chart.js'
-])
+]);
 
 app.config(function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -18,11 +18,11 @@ app.config(function($routeProvider, $locationProvider) {
   $routeProvider.when('/pair', {templateUrl: 'pair.html', reloadOnSearch: false});
   $routeProvider.when('/stop', {templateUrl: 'stop.html', reloadOnSearch: false});
   $routeProvider.when('/pending', {templateUrl: 'pending.html', reloadOnSearch: false});
-})
+});
 
 app.factory('transmitterSocket', function (socketFactory) {
   return socketFactory();
-})
+});
 
 app.controller('MyCtrl', ['$scope', '$interval', 'transmitterSocket', function ($scope, $interval, transmitterSocket) {
 //  $scope.calibration = {};
@@ -60,7 +60,7 @@ app.controller('MyCtrl', ['$scope', '$interval', 'transmitterSocket', function (
       $scope.glucose.sensorAge = $scope.glucose.inSession ? (Date.now() - $scope.glucose.sessionStartDate) / 1000 : null;
       $scope.glucose.transmitterAge = (Date.now() - $scope.glucose.transmitterStartDate) / 1000;
     }
-  }
+  };
   $interval(tick, 1000);
 
   // $scope.inSession = function() {
@@ -86,7 +86,7 @@ app.controller('MyCtrl', ['$scope', '$interval', 'transmitterSocket', function (
   $scope.setID = function(id) {
     console.log('setting id to ' + id);
     transmitterSocket.emit('id', id);
-  }
+  };
 
   transmitterSocket.on('id', function(value) {
     $scope.id = value;
@@ -121,7 +121,7 @@ app.controller('MyCtrl', ['$scope', '$interval', 'transmitterSocket', function (
       ]
     }
   };
-}])
+}]);
 
 app.filter('time', function() {
   // TODO: handle singulars, as in
@@ -144,19 +144,19 @@ app.filter('time', function() {
     if (seconds < 60) return seconds + ' seconds';
     return seconds ? (seconds / 60 / 60 / 24).toFixed(1) + ' days' : '--';
   };
-})
+});
 
 app.filter('mg_per_dl', function() {
   return function(glucose) {
     return glucose ? glucose + ' mg/dl' : '--';
   };
-})
+});
 
 app.filter('mmol_per_L', function() {
   return function(glucose) {
     return glucose ? (glucose/18).toFixed(1) + ' mmol/L' : '--';
   };
-})
+});
 
 app.filter('state', function() {
   return function(state) {
@@ -184,7 +184,7 @@ app.filter('state', function() {
        return state ? "Unknown: 0x" + state.toString(16) : '--';
      }
   };
-})
+});
 
 app.filter('status', function() {
   return function(status) {

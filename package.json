@@ -4,7 +4,7 @@
   "description": "A nodejs package providing an interface for communicating with the G5 glucose transmitter over Bluetooth.",
   "main": "index.js",
   "scripts": {
-    "pretest": "jshint lib example test index.js",
+    "pretest": "jshint lib app test index.js",
     "test": "mocha"
   },
   "author": "Paul Dickens",
@@ -34,6 +34,7 @@
     "esversion": 6,
     "node": true,
     "expr": true,
-    "varstmt": true
+    "varstmt": true,
+    "globals": { "angular": false }
   }
 }
