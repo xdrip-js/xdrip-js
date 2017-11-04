@@ -18,13 +18,15 @@
     <!-- Only required for desktop -->
     <link rel="stylesheet" href="/node_modules/mobile-angular-ui/dist/css/mobile-angular-ui-desktop.min.css" />
 
+    <link rel="stylesheet" href="style.css" />
+
     <script src="/node_modules/angular/angular.min.js"></script>
     <script src="/node_modules/angular-route/angular-route.min.js"></script>
     <script src="/node_modules/angular-cookies/angular-cookies.min.js"></script>
     <script src="/node_modules/mobile-angular-ui/dist/js/mobile-angular-ui.min.js"></script>
     <script src="/node_modules/angular-socket-io/socket.js"></script>
-    <script src="node_modules/chart.js/dist/Chart.min.js"></script>
-    <script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+    <script src="/node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="/node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="app.js"></script>
   </head>
@@ -67,7 +69,10 @@
       </div>
 
       <!-- App body -->
-      <div class='app-body'>
+      <div class="app-body" ng-class="{loading: loading}">
+        <div ng-show="loading" class="app-content-loading">
+          <i class="fa fa-spinner fa-spin loading-spinner"></i>
+        </div>
         <div class='app-content'>
           <ng-view></ng-view>
         </div>

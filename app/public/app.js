@@ -25,9 +25,19 @@ app.factory('transmitterSocket', function (socketFactory) {
   return socketFactory();
 });
 
-app.controller('MyCtrl', ['$scope', '$interval', '$cookies', 'transmitterSocket', function ($scope, $interval, $cookies, transmitterSocket) {
+// TODO: this controller is getting a bit unwieldy - consider breaking out into several controllers
+app.controller('MyCtrl', ['$rootScope', '$scope', '$interval', '$cookies', 'transmitterSocket', function ($rootScope, $scope, $interval, $cookies, transmitterSocket) {
+  // Needed for the loading screen
+  $rootScope.$on('$routeChangeStart', function() {
+    $rootScope.loading = true;
+  });
+
+  $rootScope.$on('$routeChangeSuccess', function() {
+    $rootScope.loading = false;
+  });
+
 //  $scope.calibration = {};
-  $scope.units = $cookies.get('units') || 'mg/dl'
+  $scope.units = $cookies.get('units') || 'mg/dl';
 
   // $cookies.put('myFavorite', 'oatmeal');
 
