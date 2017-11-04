@@ -1,18 +1,23 @@
 <div class="scrollable">
   <div class="scrollable-content section">
     <div class="list-group text-center">
-      <div class="list-group-item list-group-item-home text-primary">
-        <div>
+      <div class="list-group-item list-group-item-home text-primary" ng-if="glucose.inSession">
+        <div >
           {{ glucose.age | time }} ago
         </div>
         <div>
             <h1 class="home-heading">
-              {{ glucose.glucose }}
+              {{ glucose.glucose }} &rarr;
               <small><i class="fa fa-long-arrow-right text-primary"></i></small>
             </h1>
             +4 mg/dl
         </div>
       </div>
+
+      <div class="list-group-item list-group-item-home" ng-if="!glucose.inSession">
+        <button class="btn btn-warning" ng-click="startSensor()">Start sensor</button>
+      </div>
+
 
       <div class="list-group-item list-group-item-home">
         <a class="list-group-item" href="/calibrate">Calibrate</a>
@@ -20,17 +25,12 @@
 
 
 
-      <div class="list-group-item list-group-item-home">
+      <!-- <div class="list-group-item list-group-item-home">
         <canvas id="line" class="chart chart-line" chart-data="data"
           chart-labels="labels" chart-series="series" chart-options="options"
           chart-dataset-override="datasetOverride" chart-click="onClick">
         </canvas>
-      </div>
-
-      <div class="list-group-item list-group-item-home">
-        <button class="btn btn-warning" ng-if="!inSession" ng-click="startSensor()">Start sensor</button>
-        <button class="btn btn-danger" ng-if="inSession" ng-click="stopSensor()">Stop sensor</button>
-      </div>
+      </div> -->
   </div>
 </div>
 

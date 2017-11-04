@@ -56,7 +56,7 @@ app.controller('MyCtrl', ['$scope', '$interval', 'transmitterSocket', function (
 
   const tick = function() {
     $scope.glucose.age = (Date.now() - $scope.glucose.readDate) / 1000;
-    $scope.glucose.sensorAge = (Date.now() - $scope.glucose.sessionStartDate) / 1000;
+    $scope.glucose.sensorAge = $scope.glucose.inSession ? (Date.now() - $scope.glucose.sessionStartDate) / 1000 : null;
     $scope.glucose.transmitterAge = (Date.now() - $scope.glucose.transmitterStartDate) / 1000;
   }
   $interval(tick, 1000);
