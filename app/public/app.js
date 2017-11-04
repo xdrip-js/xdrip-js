@@ -135,21 +135,19 @@ app.filter('time', function() {
   // https://gist.github.com/lukevella/f23423170cb43e78c40b
   return function(seconds) {
     if (!seconds) return '--';
-    if (seconds < 60) return seconds + ' seconds';
+    if (seconds < 60) return seconds.toFixed(0) + ' sec';
     else {
       const minutes = seconds / 60;
-      if (minutes < 60) return minutes.toFixed(0) + ' minutes';
+      if (minutes < 60) return minutes.toFixed(0) + ' min';
       else {
         const hours = minutes / 60;
-        if (hours < 24) return hours.toFixed(0) + ' hours';
+        if (hours < 24) return hours.toFixed(0) + ' hr';
         else {
           const days = hours / 24;
-          return days.toFixed(0) + ' days';
+          return days.toFixed(0) + ' d';
         }
       }
     }
-    if (seconds < 60) return seconds + ' seconds';
-    return seconds ? (seconds / 60 / 60 / 24).toFixed(1) + ' days' : '--';
   };
 });
 
