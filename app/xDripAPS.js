@@ -10,12 +10,8 @@ module.exports = () => {
         return;
       }
 
-      console.log('about to retrieve device string');
-      const device = 'openaps://' + os.hostname();
-      console.log('device = ' + device);
-
       const entry = [{
-        'device': 'openaps://' + os.hostname(),
+        'device': 'xdrip-js',
         'date': glucose.readDate,
         'dateString': new Date(glucose.readDate).toISOString(),
         'sgv': Math.round(glucose.glucose),
