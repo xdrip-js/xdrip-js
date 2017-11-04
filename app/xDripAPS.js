@@ -11,7 +11,7 @@ module.exports = () => {
       }
 
       const entry = [{
-        'device': 'DexcomR4', // TODO: replace with real transmitter ID
+        'device': 'openaps://' + os.hostname(),
         'date': glucose.readDate,
         'dateString': new Date(glucose.readDate).toISOString(),
         'sgv': Math.round(glucose.glucose),
