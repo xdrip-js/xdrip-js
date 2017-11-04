@@ -1,4 +1,6 @@
 const http = require("http");
+const os = require("os");
+os.hostname();
 
 module.exports = () => {
   return {
@@ -9,6 +11,8 @@ module.exports = () => {
         console.log('Invalid glucose value received from transmitter, ignoring');
         return;
       }
+
+      console.log('hostname = ' + os.hostname());
 
       const entry = [{
         'device': 'xdrip-js',
