@@ -10,6 +10,7 @@ module.exports = () => {
         return;
       }
 
+      console.log('about to retrieve device string');
       const device = 'openaps://' + os.hostname();
       console.log('device = ' + device);
 
