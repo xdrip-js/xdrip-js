@@ -43,6 +43,12 @@ sudo apt-get install bluez-tools
 cd ~/src/xdrip-js
 chmod 755 xdrip-get-entries.sh post-ns.sh post-xdripAPS.sh
 ```
+
+Add cron job entry (replace "40SNU6" with your g5 transmitter id) ...
+```
+* * * * * cd /root/src/xdrip-js && ps aux | grep -v grep | grep -q 'xdrip-get-entries' || ./xdrip-get-entries.sh 40SNU6 | tee -a /var/log/openaps/xdrip-js-loop.log
+```
+
 Edit ~/src/xdrip-js/example/transmitterIO.js and add the following (need to replace this with an xdrip-js one-shot cmd-line options):
 
 ```
