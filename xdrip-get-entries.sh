@@ -5,14 +5,13 @@
 #   xdrip-js
 # 
 
+#exec > /var/log/openaps/xdrip-js-loop.log 2>&1
+
 cd /root/src/xdrip-js
 
 echo "Starting xdrip-get-entries.sh" 
 date
 
-echo "Removing any existing Dexcom bluetooth connections" 
-echo "Replace PQ with the last 2 digits of your Dexcom g5 device id"
-bt-device -r DexcomPQ
 
 if [ -e "./entry.json" ] ; then
   lastGlucose=$(cat ./entry.json | jq -M '.[0].unfiltered')
@@ -20,8 +19,20 @@ if [ -e "./entry.json" ] ; then
   mv ./entry.json ./last-entry.json
 fi
 
-echo "Replace 405FPQ with your full 6 character Dexcom g5 device id"
-transmitter="405FPQ"
+#transmitter="410BFE"
+#transmitter="40DBJG"
+#transmitter="40UQGN"
+#transmitter="410BFE"
+#transmitter="405FPQ"
+#transmitter="410BFE"
+#transmitter="405FPQ"
+
+transmitter=$1
+
+id2=$(echo "${transmitter: -2}")
+id="Dexcom${id2}" 
+echo "Removing existing Dexcom bluetooth connection = ${id}" 
+bt-device -r $id
 
 echo "Calling xdrip-js ... node example $transmitter" 
 timeout 360s node example $transmitter
@@ -179,6 +190,7 @@ else
   fi
 fi  
 
+bt-device -r $id
 echo "Finished xdrip-get-entries.sh"
 date
 echo
