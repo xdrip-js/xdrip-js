@@ -7,6 +7,7 @@
 
 ## Installation
 ```
+cd ~/src
 git clone https://github.com/thebookins/xdrip-js.git
 cd xdrip-js
 sudo npm install
@@ -33,3 +34,44 @@ When the transmitter is found, type 'yes' to accept the pairing request:
 
 To view the current status of the transmitter, open a browser and navigate to `http://<local IP address>:3000`. E.g. http://localhost:3000 or http://192.168.1.3:3000. This will vary depending on your local network setup.
 ![app](https://user-images.githubusercontent.com/12263040/29741914-36d4bfe4-8ab9-11e7-891e-6c23263db499.png)
+
+## One-shot mode additional installation steps
+If you want xdrip-js to connect to the transmitter, wait for the first bg, then exit, you will need to follow these additional installation steps. This mode is useful if you have an issue with disconnecting sensors. Doing it one-shot at a time seems to make it more reliable in this case.
+
+```
+sudo apt-get install bluez-tools
+cd ~/src/xdrip-js
+chmod 755 xdrip-get-entries.sh post-ns.sh post-xdripAPS.sh
+```
+Edit ~/src/xdrip-js/example/transmitterIO.js and add the following (need to replace this with an xdrip-js one-shot cmd-line options):
+
+```
+   var fs = require('fs');
+    const entry = [{
+      'device': 'DexcomR4',
+      'date': glucose.readDate,
+      'dateString': new Date(glucose.readDate).toISOString(),
+      'sgv': Math.round(glucose.unfiltered),
+      'direction': 'None',
+      'type': 'sgv',
+      'filtered': Math.round(glucose.filtered),
+      'unfiltered': Math.round(glucose.unfiltered),
+      'rssi': "100", // TODO: consider reading this on connection and reporting
+      'noise': "1",
+      'trend': glucose.trend,
+      'glucose': Math.round(glucose.glucose)
+    }];
+    const data = JSON.stringify(entry);
+    if(glucose.unfiltered > 500 || glucose.unfiltered < 30) // for safety, I'm assuming it is erroneous and ignoring 
+    {
+      console.log("Error - bad glucose data, not processing");
+      process.exit();
+    }
+    fs.writeFile("entry.json", data, function(err) {
+    if(err) {
+        console.log("Error while writing entry-test.json");
+        console.log(err);
+        }
+    process.exit();
+    });
+```
