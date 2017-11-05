@@ -14,13 +14,16 @@
         <i class="fa fa-chevron-right pull-right"></i></a>
       <!-- Serial Number -->
       <span class="list-group-item">ID
-        <span class="pull-right">{{ id }}</span></span>
+        <span class="pull-right">{{ transmitter.id }}</span></span>
+      <!-- Serial Number -->
+      <span class="list-group-item">Status
+        <span class="pull-right">{{ transmitter.status | status }}</span></span>
       <!-- Age -->
       <span class="list-group-item">Age
-        <span class="pull-right">{{ glucose.transmitterAge | time }}</span></span>
+        <span class="pull-right">{{ age | time }}</span></span>
       <!-- Firmware -->
       <span class="list-group-item">Firmware
-        <span class="pull-right">{{ version }}</span></span>
+        <span class="pull-right">{{ transmitter.version }}</span></span>
     </div>
   </div>
 </div>

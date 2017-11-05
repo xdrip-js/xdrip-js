@@ -3,12 +3,12 @@
     <div class="list-group text-center">
       <div class="list-group-item list-group-item-home text-primary" ng-if="glucose.inSession">
         <div >
-          {{ glucose.age | time }} ago
+          {{ age | time }} ago
         </div>
         <div>
             <h1 class="home-heading">
-              {{ glucose.glucose | glucose }} &rarr;
-              <small><i class="fa fa-long-arrow-right text-primary"></i></small>
+              {{ glucose.glucose | glucose }} <span ng-bind-html="arrow"></span>
+              <!-- <small><i class="fa fa-long-arrow-right text-primary"></i></small> -->
             </h1>
             +4 mg/dl
         </div>

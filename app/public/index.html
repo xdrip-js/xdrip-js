@@ -23,12 +23,18 @@
     <script src="/node_modules/angular/angular.min.js"></script>
     <script src="/node_modules/angular-route/angular-route.min.js"></script>
     <script src="/node_modules/angular-cookies/angular-cookies.min.js"></script>
+    <script src="/node_modules/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="/node_modules/mobile-angular-ui/dist/js/mobile-angular-ui.min.js"></script>
     <script src="/node_modules/angular-socket-io/socket.js"></script>
     <script src="/node_modules/chart.js/dist/Chart.min.js"></script>
     <script src="/node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+
     <script src="app.js"></script>
+    <script src="home/home.js"></script>
+    <script src="transmitter/transmitter.js"></script>
+    <script src="calibrate/calibrate.js"></script>
+    <script src="sensor/sensor.js"></script>
   </head>
   <body ng-app="AngularOpenAPS" ng-controller="MyCtrl">
 
@@ -39,7 +45,7 @@
         <div class="scrollable-content">
           <div class="list-group" ui-turn-off='uiSidebarLeft'>
             <!-- Settings -->
-            <a class="list-group-item" href="/settings">Settings
+            <a class="list-group-item" href="/settings">G5
               <i class="fa fa-chevron-right pull-right"></i></a>
             <!-- Settings -->
             <a class="list-group-item" href="">Preferences

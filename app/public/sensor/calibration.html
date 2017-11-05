@@ -1,0 +1,17 @@
+<div ui-content-for="title">
+  <span>Last Calibration</span>
+</div>
+
+<div ui-content-for="navbar-left">
+  <a href="/settings/sensor" class="btn btn-navbar btn-icon-only"><i class="fa fa-chevron-left fa-navbar"></i></a>
+</div>
+
+<div class="scrollable">
+  <div class="scrollable-content">
+    <div class="list-group">
+      <!-- Sensor Age -->
+      <span class="list-group-item">{{ sensor.calibration.date | date:'MMM d, y @ h:mm a' }}
+        <span class="pull-right">{{ sensor.calibration.glucose | glucose }}</span></span>
+    </div>
+  </div>
+</div>
