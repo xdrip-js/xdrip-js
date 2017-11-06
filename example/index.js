@@ -18,6 +18,7 @@ io.on('connection', (socket) => {
 const Transmitter = require('..');
 
 const id = process.argv[2];
-const transmitter = new Transmitter(id);
+const one_shot_mode = process.argv[3];
+const transmitter = new Transmitter(id, one_shot_mode);
 
 require('./transmitterIO')(io, transmitter);
