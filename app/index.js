@@ -20,4 +20,4 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => console.log('Client disconnected'));
 });
 
-require('./transmitterIO')(io);
+require('./transmitterIO-simulated')(io);

@@ -22,32 +22,32 @@ angular.module('AngularOpenAPS', [
 //   return socketFactory();
 // })
 
-.service('G5', ['socketFactory', '$interval', function (socketFactory, $interval) {
+.service('G5', ['socketFactory', function (socketFactory) {
   const socket = socketFactory();
 
   this.transmitter = {
-    id: '123456',
-    version: '1.2.3.4',
-    activationDate: Date.now() - 76*24*60*60*1000,
-    status: 0x81,
+    // id: '123456',
+    // version: '1.2.3.4',
+    // activationDate: Date.now() - 76*24*60*60*1000,
+    // status: 0x81,
     setID: function(id) {
       socket.emit('id', id);
     }
   };
 
   this.sensor = {
-    glucose: {
-      inSession: true,
-      glucose: 120,
-      trend: 0,
-      readDate: Date.now()
-    },
-    insertionDate: Date.now() - 5*24*60*60*1000,
-    state: 0x0a,
-    calibration: {
-      date: Date.now() - 12*60*60*1000,
-      glucose: 100
-    },
+    // glucose: {
+    //   inSession: true,
+    //   glucose: 120,
+    //   trend: 0,
+    //   readDate: Date.now()
+    // },
+    // insertionDate: Date.now() - 5*24*60*60*1000,
+    // state: 0x0a,
+    // calibration: {
+    //   date: Date.now() - 12*60*60*1000,
+    //   glucose: 100
+    // },
     calibrate: function(value) {
       socket.emit('calibrate', value);
     },
@@ -60,19 +60,25 @@ angular.module('AngularOpenAPS', [
   };
 
   socket.on('version', version => {
+    console.log('got version');
     this.transmitter.version = version;
   });
 
   socket.on('id', id => {
+    console.log('got id');
     this.transmitter.id = id;
   });
 
-  // // fake a change in glucose and version
-  // const tick = function() {
-  //   this.sensor.glucose.glucose += 1;
-  //   this.transmitter.version = 'version' + this.sensor.glucose.glucose;
-  // }.bind(this);
-  // $interval(tick, 1000);
+  socket.on('glucose', glucose => {
+    console.log('got glucose');
+    this.sensor.glucose = glucose;
+  });
+
+  socket.on('calibration', calibration => {
+    console.log('got calibration');
+    this.sensor.calibration = calibration;
+  });
+
 }])
 
 
