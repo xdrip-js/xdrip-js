@@ -3,6 +3,10 @@ const socketIO = require('socket.io');
 
 const PORT = process.env.PORT || 3000;
 
+// bad hack - can't work out how to set this from crontab
+// TODO: fix this
+process.env.DEBUG = 'transmitter'
+
 const server = express()
   .use(express.static('app/public'))
   .use('/node_modules', express.static('node_modules'))
