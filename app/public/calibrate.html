@@ -4,7 +4,7 @@
 
 <div class="scrollable">
   <div class="scrollable-content section">
-    <form role="form" ng-submit='calibrate(calibration.value)'>
+    <form role="form" ng-submit='calibrate(calibrationValue)'>
       <fieldset>
         <legend>Enter BG meter value</legend>
         <div class="form-group has-success has-feedback">
@@ -12,7 +12,7 @@
           <input type="number"
                  min="40"
                  max="400"
-                 ng-model="calibration.value"
+                 ng-model="calibrationValue"
                  class="form-control"
                  placeholder="BGL">
         </div>
