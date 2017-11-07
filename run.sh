@@ -1,2 +1,2 @@
 #!/bin/bash
-DEBUG=transmitter,bluetooth-manager node app
+DEBUG=transmitter node app
