@@ -20,4 +20,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => console.log('Client disconnected'));
 });
 
-require('./transmitterIO-simulated')(io);
+const argv = require('yargs').argv;
+const TransmitterIO = argv.sim ? require('./transmitterIO-simulated') : require('./transmitterIO')
+
+TransmitterIO(io);

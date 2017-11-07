@@ -24,7 +24,8 @@
     "noble": "thebookins/noble",
     "node-persist": "^2.1.0",
     "socket.io": "^1.7.3",
-    "uuid": "^3.0.1"
+    "uuid": "^3.0.1",
+    "yargs": "^10.0.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",

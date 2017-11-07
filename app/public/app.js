@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('AngularOpenAPS', [
   'AngularOpenAPS.home',
   'AngularOpenAPS.transmitter',
@@ -36,12 +34,7 @@ angular.module('AngularOpenAPS', [
   };
 
   this.sensor = {
-    // glucose: {
-    //   inSession: true,
-    //   glucose: 120,
-    //   trend: 0,
-    //   readDate: Date.now()
-    // },
+    glucose: null,
     // insertionDate: Date.now() - 5*24*60*60*1000,
     // state: 0x0a,
     // calibration: {
