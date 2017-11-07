@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3000;
 
 // bad hack - can't work out how to set this from crontab
 // TODO: fix this
-process.env.DEBUG = 'transmitter,bluetooth-manager';
+// process.env.DEBUG = 'transmitter,bluetooth-manager';
 
 const server = express()
   .use(express.static('app/public'))
