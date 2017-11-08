@@ -17,10 +17,10 @@
         <span class="pull-right">{{ transmitter.id }}</span></span>
       <!-- Serial Number -->
       <span class="list-group-item">Status
-        <span class="pull-right">{{ transmitter.status | status }}</span></span>
+        <span class="pull-right">{{ status() | status }}</span></span>
       <!-- Age -->
       <span class="list-group-item">Age
-        <span class="pull-right">{{ age | time }}</span></span>
+        <span class="pull-right">{{ age() | time }}</span></span>
       <!-- Firmware -->
       <span class="list-group-item">Firmware
         <span class="pull-right">{{ transmitter.version }}</span></span>

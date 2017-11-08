@@ -8,7 +8,12 @@ module.exports = (io) => {
     inSession: true,
     glucose: 120,
     trend: 0,
-    readDate: Date.now()
+    readDate: Date.now(),
+    state: 6,
+    status: 0x83,
+    filtered: 120,
+    sessionStartDate: Date.now(),
+    activationDate: Date.now() - 17*24*60*60*1000
   };
   let calibration = {
     date: Date.now() - 12*60*60*1000,

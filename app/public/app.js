@@ -16,14 +16,19 @@ angular.module('AngularOpenAPS', [
   $routeProvider.when('/settings', {templateUrl: 'settings.html', reloadOnSearch: false});
 })
 
-// .factory('transmitterSocket', function (socketFactory) {
-//   return socketFactory();
-// })
-
 .service('G5', ['socketFactory', function (socketFactory) {
   const socket = socketFactory();
 
+  let glucose;
+
   this.transmitter = {
+    age: function() {
+      return (glucose && glucose.activationDate) ? (Date.now() - glucose.activationDate) / 1000 : null;
+    },
+    status: function() {
+      return glucose.status;
+    },
+
     // id: '123456',
     // version: '1.2.3.4',
     // activationDate: Date.now() - 76*24*60*60*1000,
@@ -34,7 +39,20 @@ angular.module('AngularOpenAPS', [
   };
 
   this.sensor = {
-    glucose: null,
+    glucose: function() {
+      if (glucose) {
+        glucose.age = (Date.now() - glucose.readDate) / 1000
+      }
+      // TODO: work out if we want to expose this whole thing
+      // or create a new object with just the propertiess of interest
+      return glucose;
+    },
+    age: function() {
+      return (glucose && glucose.sessionStartDate) ? (Date.now() - glucose.sessionStartDate) / 1000 : null;
+    },
+    state: function() {
+      return glucose.state;
+    },
     // insertionDate: Date.now() - 5*24*60*60*1000,
     // state: 0x0a,
     // calibration: {
@@ -62,9 +80,9 @@ angular.module('AngularOpenAPS', [
     this.transmitter.id = id;
   });
 
-  socket.on('glucose', glucose => {
-    console.log('got glucose');
-    this.sensor.glucose = glucose;
+  socket.on('glucose', newGlucose => {
+    console.log('got glucose of ' + newGlucose.glucose);
+    glucose = newGlucose;
   });
 
   socket.on('calibration', calibration => {

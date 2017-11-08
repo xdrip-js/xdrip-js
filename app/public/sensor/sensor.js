@@ -16,15 +16,23 @@ angular.module('AngularOpenAPS.sensor', [
 .controller('SensorController', ['$scope', '$interval', 'G5', function ($scope, $interval, G5) {
   $scope.sensor = G5.sensor;
   $scope.insertionDate = Date.now() - 5*24*60*60*1000;
-  $scope.state = 0x0a;
+  // $scope.state = 0x0a;
 
-  const tick = function() {
-    if ($scope.sensor) {
-      $scope.age = (Date.now() - $scope.sensor.insertionDate) / 1000;
-    }
-  };
-  tick()
-  $interval(tick, 1000);
+  $scope.age = function() {
+    return G5.sensor.age();
+  }
+
+  $scope.state = function() {
+    return G5.sensor.state();
+  }
+
+  // const tick = function() {
+  //   if ($scope.sensor) {
+  //     $scope.age = (Date.now() - $scope.sensor.insertionDate) / 1000;
+  //   }
+  // };
+  // tick()
+  // $interval(tick, 1000);
 
   $scope.start = function() {
     G5.start();

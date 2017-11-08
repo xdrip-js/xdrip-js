@@ -11,13 +11,16 @@ angular.module('AngularOpenAPS.home', [
 })
 
 .controller('HomeController', ['$scope', '$interval', 'G5', function ($scope, $interval, G5) {
-  $scope.glucose = G5.sensor.glucose;
+  $scope.glucose = function() {
+    return G5.sensor.glucose();
+  };
+
   // $scope.arrow = arrow($scope.glucose.trend);
   $scope.arrow = arrow(0);
 
   const tick = function() {
-    if ($scope.glucose) {
-      $scope.age = (Date.now() - $scope.glucose.readDate) / 1000;
+    if ($scope.glucose()) {
+      $scope.age = (Date.now() - $scope.glucose().readDate) / 1000;
     }
   };
   tick();

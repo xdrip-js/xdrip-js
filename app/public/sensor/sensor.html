@@ -11,10 +11,10 @@
     <div class="list-group">
       <!-- Sensor state -->
       <span class="list-group-item">State
-        <span class="pull-right">{{ sensor.state | state }}</span></span>
+        <span class="pull-right">{{ state() | state }}</span></span>
       <!-- Sensor Age -->
       <span class="list-group-item">Age
-        <span class="pull-right">{{ age | time }}</span></span>
+        <span class="pull-right">{{ age() | time }}</span></span>
       <!-- Last Calibration -->
       <a class="list-group-item" href="/sensor/calibration">Last Calibration
         <i class="fa fa-chevron-right pull-right"></i></a>
