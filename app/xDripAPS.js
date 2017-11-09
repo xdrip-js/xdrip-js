@@ -92,7 +92,7 @@ module.exports = () => {
       })
 
       const optionsX = {
-          url: 'http://172.0.0.1:5000//api/v1/entries',
+          url: 'http://172.0.0.1:5000/api/v1/entries',
           method: 'POST',
           headers: headers,
           body: entry,
