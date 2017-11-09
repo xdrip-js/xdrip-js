@@ -1,5 +1,7 @@
 const http = require("http");
 const os = require("os");
+// TODO: might be simpler to use request (get with npm install request)
+//const request = require("request")
 
 module.exports = () => {
   return {
@@ -44,8 +46,11 @@ module.exports = () => {
       }];
 
       const data = JSON.stringify(entry);
+
+      const ns_url = process.env.NIGHTSCOUT_HOST;
       const secret = process.env.API_SECRET;
 
+      // first post to localhost
       const options = {
         hostname: '127.0.0.1', // could also try localhost ?
         port: 5000,
@@ -59,6 +64,19 @@ module.exports = () => {
       };
 
       const req = http.request(options);
+
+      req.on('error', function(e) {
+        console.log('problem with request: ' + e.message);
+      });
+
+      req.write(data);
+      req.end();
+
+      // then post to ns
+      options.hostname = ns_url;
+      options.port = 80;
+
+      req = http.request(options);
 
       req.on('error', function(e) {
         console.log('problem with request: ' + e.message);
