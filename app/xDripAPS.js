@@ -51,7 +51,7 @@ module.exports = () => {
       const secret = process.env.API_SECRET;
 
       // first post to localhost
-      const options = {
+      let options = {
         hostname: '127.0.0.1', // could also try localhost ?
         port: 5000,
         path: '/api/v1/entries',
@@ -63,7 +63,7 @@ module.exports = () => {
         }
       };
 
-      const req = http.request(options);
+      let req = http.request(options);
 
       req.on('error', function(e) {
         console.log('problem with request: ' + e.message);
@@ -73,17 +73,27 @@ module.exports = () => {
       req.end();
 
       // then post to ns
-      options.hostname = ns_url;
-      options.port = 80;
+      var headers = {
+        'Content-Type': 'application/json',
+//        'Content-Length': Buffer.byteLength(data),
+        'API-SECRET': secret
+      }
 
-      req = http.request(options);
+      // Configure the request
+      var options = {
+          url: 'http://second15.herokuapp.com/api/v1/entries',
+          method: 'POST',
+          headers: headers,
+          form: data
+      }
 
-      req.on('error', function(e) {
-        console.log('problem with request: ' + e.message);
-      });
-
-      req.write(data);
-      req.end();
+      // Start the request
+      request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          // Print out the response body
+          console.log(body)
+        }
+      })
     }
   };
 };
