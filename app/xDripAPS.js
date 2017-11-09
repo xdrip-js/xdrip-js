@@ -1,4 +1,3 @@
-const http = require("http");
 const os = require("os");
 const request = require("request")
 
@@ -71,35 +70,40 @@ module.exports = () => {
       // req.write(data);
       // req.end();
 
-      // then post to ns
       var headers = {
         'Content-Type': 'application/json',
-//        'Content-Length': Buffer.byteLength(data),
         'API-SECRET': secret
       }
 
-      var options = {
+      const optionsNS = {
           url: 'http://second15.herokuapp.com/api/v1/entries',
           method: 'POST',
           headers: headers,
           body: entry,
           json: true
-      }
+      };
 
-      request(options, function (error, response, body) {
-        if (error) {
-          console.error('error posting json: ', error)
-        } else {
-          console.log('uploaded to xDripAPS, statusCode = ' + response.statusCode);
-        }
-      })
-
-      options.url = 'http://172.0.0.1:5000//api/v1/entries'
-      request(options, function (error, response, body) {
+      request(optionsNS, function (error, response, body) {
         if (error) {
           console.error('error posting json: ', error)
         } else {
           console.log('uploaded to NS, statusCode = ' + response.statusCode);
+        }
+      })
+
+      const optionsX = {
+          url: 'http://172.0.0.1:5000//api/v1/entries',
+          method: 'POST',
+          headers: headers,
+          body: entry,
+          json: true
+      };
+
+      request(optionsX, function (error, response, body) {
+        if (error) {
+          console.error('error posting json: ', error)
+        } else {
+          console.log('uploaded to xDripAPS, statusCode = ' + response.statusCode);
         }
       })
     }
