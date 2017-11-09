@@ -94,7 +94,7 @@ module.exports = () => {
         }
       })
 
-      options.url = '172.0.0.1:5000//api/v1/entries'
+      options.url = 'http://172.0.0.1:5000//api/v1/entries'
       request(options, function (error, response, body) {
         if (error) {
           console.error('error posting json: ', error)
