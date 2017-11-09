@@ -87,8 +87,8 @@ module.exports = () => {
       }
 
       request(options, function (error, response, body) {
-        if (err) {
-          console.error('error posting json: ', err)
+        if (error) {
+          console.error('error posting json: ', error)
         } else if (response.statusCode == 200) {
           console.log(body)
         }
@@ -96,8 +96,8 @@ module.exports = () => {
 
       options.url = '172.0.0.1:5000//api/v1/entries'
       request(options, function (error, response, body) {
-        if (err) {
-          console.error('error posting json: ', err)
+        if (error) {
+          console.error('error posting json: ', error)
         } else if (response.statusCode == 200) {
           console.log(body)
         }
