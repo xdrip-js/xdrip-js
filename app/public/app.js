@@ -26,7 +26,7 @@ angular.module('AngularOpenAPS', [
       return (glucose && glucose.activationDate) ? (Date.now() - glucose.activationDate) / 1000 : null;
     },
     status: function() {
-      return glucose.status;
+      return glucose ? glucose.status : null;
     },
 
     // id: '123456',
@@ -51,7 +51,7 @@ angular.module('AngularOpenAPS', [
       return (glucose && glucose.sessionStartDate) ? (Date.now() - glucose.sessionStartDate) / 1000 : null;
     },
     state: function() {
-      return glucose.state;
+      return glucose ? glucose.state : null;
     },
     // insertionDate: Date.now() - 5*24*60*60*1000,
     // state: 0x0a,
@@ -80,9 +80,9 @@ angular.module('AngularOpenAPS', [
     this.transmitter.id = id;
   });
 
-  socket.on('glucose', newGlucose => {
-    console.log('got glucose of ' + newGlucose.glucose);
-    glucose = newGlucose;
+  socket.on('glucose', value => {
+    console.log('got glucose of ' + value.glucose);
+    glucose = value;
   });
 
   socket.on('calibration', calibration => {

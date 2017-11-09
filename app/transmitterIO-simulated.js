@@ -28,6 +28,7 @@ module.exports = (io) => {
   io.on('connection', (socket) => {
     socket.emit('id', id);
     socket.emit('version', '1.2.3.4');
+    console.log('emitting glucose of ' + glucose.glucose);
     socket.emit('glucose', glucose);
     socket.emit('calibration', calibration);
 
