@@ -1,7 +1,6 @@
 const http = require("http");
 const os = require("os");
-// TODO: might be simpler to use request (get with npm install request)
-//const request = require("request")
+const request = require("request")
 
 module.exports = () => {
   return {
@@ -84,7 +83,7 @@ module.exports = () => {
           url: 'http://second15.herokuapp.com/api/v1/entries',
           method: 'POST',
           headers: headers,
-          form: data
+          form: entry
       }
 
       // Start the request
