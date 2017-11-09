@@ -89,8 +89,8 @@ module.exports = () => {
       request(options, function (error, response, body) {
         if (error) {
           console.error('error posting json: ', error)
-        } else if (response.statusCode == 200) {
-          console.log('uploaded to xDripAPS')
+        } else {
+          console.log('uploaded to xDripAPS, statusCode = ' + response.statusCode);
         }
       })
 
@@ -98,8 +98,8 @@ module.exports = () => {
       request(options, function (error, response, body) {
         if (error) {
           console.error('error posting json: ', error)
-        } else if (response.statusCode == 200) {
-          console.log('uploaded to NS')
+        } else {
+          console.log('uploaded to NS, statusCode = ' + response.statusCode);
         }
       })
     }
