@@ -82,20 +82,23 @@ module.exports = () => {
           url: 'http://second15.herokuapp.com/api/v1/entries',
           method: 'POST',
           headers: headers,
-          form: entry
+          body: entry,
+          json: true
       }
 
       request(options, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-          // Print out the response body
+        if (err) {
+          console.error('error posting json: ', err)
+        } else if (response.statusCode == 200) {
           console.log(body)
         }
       })
 
       options.url = '172.0.0.1:5000//api/v1/entries'
       request(options, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-          // Print out the response body
+        if (err) {
+          console.error('error posting json: ', err)
+        } else if (response.statusCode == 200) {
           console.log(body)
         }
       })
