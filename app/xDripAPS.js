@@ -49,27 +49,27 @@ module.exports = () => {
       const ns_url = process.env.NIGHTSCOUT_HOST;
       const secret = process.env.API_SECRET;
 
-      // first post to localhost
-      let options = {
-        hostname: '127.0.0.1', // could also try localhost ?
-        port: 5000,
-        path: '/api/v1/entries',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Content-Length': Buffer.byteLength(data),
-          'API-SECRET': secret
-        }
-      };
-
-      let req = http.request(options);
-
-      req.on('error', function(e) {
-        console.log('problem with request: ' + e.message);
-      });
-
-      req.write(data);
-      req.end();
+      // // first post to localhost
+      // let options = {
+      //   hostname: '127.0.0.1', // could also try localhost ?
+      //   port: 5000,
+      //   path: '/api/v1/entries',
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Content-Length': Buffer.byteLength(data),
+      //     'API-SECRET': secret
+      //   }
+      // };
+      //
+      // let req = http.request(options);
+      //
+      // req.on('error', function(e) {
+      //   console.log('problem with request: ' + e.message);
+      // });
+      //
+      // req.write(data);
+      // req.end();
 
       // then post to ns
       var headers = {
@@ -78,7 +78,6 @@ module.exports = () => {
         'API-SECRET': secret
       }
 
-      // Configure the request
       var options = {
           url: 'http://second15.herokuapp.com/api/v1/entries',
           method: 'POST',
@@ -86,7 +85,14 @@ module.exports = () => {
           form: entry
       }
 
-      // Start the request
+      request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          // Print out the response body
+          console.log(body)
+        }
+      })
+
+      options.url = '172.0.0.1:5000//api/v1/entries'
       request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           // Print out the response body
