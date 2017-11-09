@@ -90,7 +90,7 @@ module.exports = () => {
         if (error) {
           console.error('error posting json: ', error)
         } else if (response.statusCode == 200) {
-          console.log(body)
+          console.log('uploaded to xDripAPS')
         }
       })
 
@@ -99,7 +99,7 @@ module.exports = () => {
         if (error) {
           console.error('error posting json: ', error)
         } else if (response.statusCode == 200) {
-          console.log(body)
+          console.log('uploaded to NS')
         }
       })
     }
