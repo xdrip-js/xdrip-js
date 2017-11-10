@@ -1,5 +1,6 @@
-const http = require("http");
+// const http = require("http");
 const os = require("os");
+const request = require("request")
 
 module.exports = () => {
   return {
@@ -44,28 +45,69 @@ module.exports = () => {
       }];
 
       const data = JSON.stringify(entry);
+
+      const ns_url = process.env.NIGHTSCOUT_HOST;
       const secret = process.env.API_SECRET;
 
-      const options = {
-        hostname: '127.0.0.1', // could also try localhost ?
-        port: 5000,
-        path: '/api/v1/entries',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Content-Length': Buffer.byteLength(data),
-          'API-SECRET': secret
-        }
+      // // first post to localhost
+      // let options = {
+      //   hostname: '127.0.0.1', // could also try localhost ?
+      //   port: 5000,
+      //   path: '/api/v1/entries',
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Content-Length': Buffer.byteLength(data),
+      //     'API-SECRET': secret
+      //   }
+      // };
+      //
+      // let req = http.request(options);
+      //
+      // req.on('error', function(e) {
+      //   console.log('problem with request: ' + e.message);
+      // });
+      //
+      // req.write(data);
+      // req.end();
+
+      const optionsNS = {
+          url: 'http://second15.herokuapp.com/api/v1/entries',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'API-SECRET': secret
+          },
+          body: entry,
+          json: true
       };
 
-      const req = http.request(options);
+      request(optionsNS, function (error, response, body) {
+        if (error) {
+          console.error('error posting json: ', error)
+        } else {
+          console.log('uploaded to NS, statusCode = ' + response.statusCode);
+        }
+      })
 
-      req.on('error', function(e) {
-        console.log('problem with request: ' + e.message);
-      });
+      const optionsX = {
+          url: 'http://127.0.0.1:5000/api/v1/entries',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'API-SECRET': secret
+          },
+          body: entry,
+          json: true
+      };
 
-      req.write(data);
-      req.end();
+      request(optionsX, function (error, response, body) {
+        if (error) {
+          console.error('error posting json: ', error)
+        } else {
+          console.log('uploaded to xDripAPS, statusCode = ' + response.statusCode);
+        }
+      })
     }
   };
 };

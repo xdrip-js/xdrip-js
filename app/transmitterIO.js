@@ -56,9 +56,10 @@ module.exports = (io) => {
       });
       socket.on('calibrate', glucose => {
         console.log('received calibration of ' + glucose);
-        const pending = transmitter.calibrate(glucose);
-        storage.setItemSync('calibration', pending);
-        io.emit('calibration', pending);
+        transmitter.calibrate(glucose);
+        // const pending = transmitter.calibrate(glucose);
+        // storage.setItemSync('calibration', pending);
+        // io.emit('calibration', pending);
       });
       socket.on('id', id => {
         console.log('received id of ' + id);
