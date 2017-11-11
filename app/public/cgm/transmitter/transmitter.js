@@ -1,19 +1,27 @@
-angular.module('AngularOpenAPS.transmitter', [
+angular.module('AngularOpenAPS.cgm.transmitter', [
   'ngRoute'
 ])
 
 .config(function($routeProvider) {
-  $routeProvider.when('/settings/transmitter', {
-    templateUrl: 'transmitter/transmitter.html',
+  $routeProvider.when('/cgm/transmitter', {
+    templateUrl: 'cgm/transmitter/transmitter.html',
+    controller: 'TransmitterController'
+  });
+  $routeProvider.when('/cgm/transmitter/pair', {
+    templateUrl: 'cgm/transmitter/pair.html',
     controller: 'TransmitterController'
   });
 })
 
-.controller('TransmitterController', ['$scope', '$interval', 'G5', function ($scope, $interval, G5) {
+.controller('TransmitterController', ['$scope', 'G5', function ($scope, G5) {
 
   // TODO: an alternative to the following is something like
   // $scope.transmitter = G5.transmitter;
   // and then accessing transmitter functions using dot notation
+  $scope.id = function() {
+    return G5.transmitter.id;
+  }
+
   $scope.age = function() {
     return G5.transmitter.age();
   }
@@ -21,20 +29,9 @@ angular.module('AngularOpenAPS.transmitter', [
   $scope.status = function() {
     return G5.transmitter.status();
   }
-  // $scope.age = function() {
-  //   return (Date.now() - $scope.transmitter.activationDate) / 1000;
-  // }
-
-  // const tick = function() {
-  //   if ($scope.transmitter) {
-  //     $scope.age = (Date.now() - $scope.transmitter.activationDate) / 1000;
-  //   }
-  // };
-  // tick()
-  // $interval(tick, 1000);
 
   $scope.setID = function(id) {
-    G5.setID(id);
+    G5.transmitter.id = id;
   };
 }])
 

@@ -1,19 +1,19 @@
-angular.module('AngularOpenAPS.sensor', [
+angular.module('AngularOpenAPS.cgm.sensor', [
   'ngRoute'
 ])
 
 .config(function($routeProvider) {
-  $routeProvider.when('/settings/sensor', {
-    templateUrl: 'sensor/sensor.html',
+  $routeProvider.when('/cgm/sensor', {
+    templateUrl: 'cgm/sensor/sensor.html',
     controller: 'SensorController'
   });
-  $routeProvider.when('/sensor/calibration', {
-    templateUrl: 'sensor/calibration.html',
+  $routeProvider.when('cgm/sensor/calibration', {
+    templateUrl: 'cgm/sensor/calibration.html',
     controller: 'SensorController'
   });
 })
 
-.controller('SensorController', ['$scope', '$interval', 'G5', function ($scope, $interval, G5) {
+.controller('SensorController', ['$scope', 'G5', function ($scope, G5) {
   $scope.sensor = G5.sensor;
   $scope.insertionDate = Date.now() - 5*24*60*60*1000;
   // $scope.state = 0x0a;
@@ -25,14 +25,6 @@ angular.module('AngularOpenAPS.sensor', [
   $scope.state = function() {
     return G5.sensor.state();
   }
-
-  // const tick = function() {
-  //   if ($scope.sensor) {
-  //     $scope.age = (Date.now() - $scope.sensor.insertionDate) / 1000;
-  //   }
-  // };
-  // tick()
-  // $interval(tick, 1000);
 
   $scope.start = function() {
     G5.start();

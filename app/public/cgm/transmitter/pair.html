@@ -2,6 +2,10 @@
   <span>Pair New</span>
 </div>
 
+<div ui-content-for="navbar-left">
+  <a href="/cgm/transmitter" class="btn btn-navbar btn-icon-only"><i class="fa fa-chevron-left fa-navbar"></i></a>
+</div>
+
 <div class="scrollable">
   <div class="scrollable-content section">
     <form role="form" ng-submit="setID(newID)">
@@ -12,7 +16,7 @@
           <input type="text"
                  ng-model="newID"
                  class="form-control"
-                 placeholder="{{ id }}">
+                 placeholder="{{ id() }}">
         </div>
       </fieldset>
       <hr>

@@ -1,8 +1,7 @@
 angular.module('AngularOpenAPS', [
   'AngularOpenAPS.home',
-  'AngularOpenAPS.transmitter',
-  'AngularOpenAPS.sensor',
-  'AngularOpenAPS.calibrate',
+  'AngularOpenAPS.cgm',
+  // 'AngularOpenAPS.calibrate',
   'ngRoute',
   'ngCookies',
   // 'ngTouch',
@@ -20,6 +19,7 @@ angular.module('AngularOpenAPS', [
   const socket = socketFactory();
 
   let glucose;
+  let id;
 
   this.transmitter = {
     age: function() {
@@ -27,16 +27,27 @@ angular.module('AngularOpenAPS', [
     },
     status: function() {
       return glucose ? glucose.status : null;
-    },
-
-    // id: '123456',
-    // version: '1.2.3.4',
-    // activationDate: Date.now() - 76*24*60*60*1000,
-    // status: 0x81,
-    setID: function(id) {
-      socket.emit('id', id);
     }
+
+    // id: function() {
+    //   return id;
+    // },
+    //
+    // // id: '123456',
+    // // version: '1.2.3.4',
+    // setID: function(id) {
+    //   socket.emit('id', id);
+    // }
   };
+
+  Object.defineProperty(this.transmitter, 'id', {
+    get: function() {
+      return id;
+    },
+    set: function(id) {
+      socket.emit('id', id)
+    }
+  });
 
   this.sensor = {
     glucose: function() {
@@ -76,9 +87,9 @@ angular.module('AngularOpenAPS', [
     this.transmitter.version = version;
   });
 
-  socket.on('id', id => {
-    console.log('got id');
-    this.transmitter.id = id;
+  socket.on('id', value => {
+    console.log('got id of ' + value);
+    id = value;
   });
 
   socket.on('glucose', value => {

@@ -3,18 +3,18 @@
 </div>
 
 <div ui-content-for="navbar-left">
-  <a href="/settings" class="btn btn-navbar btn-icon-only"><i class="fa fa-chevron-left fa-navbar"></i></a>
+  <a href="/cgm" class="btn btn-navbar btn-icon-only"><i class="fa fa-chevron-left fa-navbar"></i></a>
 </div>
 
 <div class="scrollable">
   <div class="scrollable-content">
     <div class="list-group">
       <!-- Pair New -->
-      <a class="list-group-item" href="/pair">Pair New
+      <a class="list-group-item" href="/cgm/transmitter/pair">Pair New
         <i class="fa fa-chevron-right pull-right"></i></a>
       <!-- Serial Number -->
       <span class="list-group-item">ID
-        <span class="pull-right">{{ transmitter.id }}</span></span>
+        <span class="pull-right">{{ id() }}</span></span>
       <!-- Serial Number -->
       <span class="list-group-item">Status
         <span class="pull-right">{{ status() | status }}</span></span>

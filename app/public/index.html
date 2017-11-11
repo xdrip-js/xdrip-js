@@ -32,9 +32,10 @@
 
     <script src="app.js"></script>
     <script src="home/home.js"></script>
-    <script src="transmitter/transmitter.js"></script>
-    <script src="calibrate/calibrate.js"></script>
-    <script src="sensor/sensor.js"></script>
+    <script src="cgm/cgm.js"></script>
+    <script src="cgm/transmitter/transmitter.js"></script>
+    <!-- <script src="cgm/calibrate/calibrate.js"></script> -->
+    <script src="cgm/sensor/sensor.js"></script>
   </head>
   <body ng-app="AngularOpenAPS" ng-controller="MyCtrl">
 
@@ -45,7 +46,7 @@
         <div class="scrollable-content">
           <div class="list-group" ui-turn-off='uiSidebarLeft'>
             <!-- Settings -->
-            <a class="list-group-item" href="/settings">CGM
+            <a class="list-group-item" href="/cgm">CGM
               <i class="fa fa-chevron-right pull-right"></i></a>
             <!-- Settings -->
             <a class="list-group-item" href="">Preferences
