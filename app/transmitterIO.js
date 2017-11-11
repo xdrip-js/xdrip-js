@@ -6,12 +6,14 @@ const storage = require('node-persist');
 module.exports = (io) => {
 
   // handle persistence here
-  storage.init().then(() => {
+  // make the storage direction relative to the install directory,
+  // not the calling directory
+  storage.init({dir: __dirname + '/storage'}).then(() => {
     return storage.getItem('id');
   })
   .then(id => {
     console.log('got id of ' + id);
-    id = id ? id : 500000;
+    id = id ? id : '500000';
 
     const transmitter = new Transmitter(id);
 

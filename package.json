@@ -9,6 +9,7 @@
   },
   "author": "Paul Dickens",
   "license": "MIT",
+  "bin": "./app/index.js",
   "dependencies": {
     "angular": "^1.6.4",
     "angular-chart.js": "^1.1.1",
