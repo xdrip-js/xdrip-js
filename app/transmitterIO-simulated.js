@@ -22,6 +22,11 @@ module.exports = (io) => {
   setInterval(() => {
     glucose.glucose += 1;
     glucose.readDate = Date.now();
+    glucose.trend += 10;
+    if (glucose.trend >= 40) {
+      glucose.trend -= 70;
+    }
+    console.log('trend = ' + glucose.trend);
     io.emit('glucose', glucose);
   }, 60000);
 
@@ -38,7 +43,7 @@ module.exports = (io) => {
     socket.on('stopSensor', () => {
     });
     socket.on('calibrate', glucose => {
-      // console.log('received calibration of ' + glucose);
+      console.log('received calibration of ' + glucose);
       // const pending = transmitter.calibrate(glucose);
       // storage.setItemSync('calibration', pending);
       // io.emit('calibration', pending);

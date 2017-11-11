@@ -5,11 +5,11 @@
         <div >
           {{ glucose().age | time }} ago
           <br>
-          Calibration state: {{ glucose().state }}
+          {{ glucose().state | state }}
         </div>
         <div>
             <h1 class="home-heading">
-              {{ glucose().glucose | glucose }} <span ng-bind-html="arrow"></span>
+              {{ glucose().glucose | glucose }} <span ng-bind-html="arrow()"></span>
               <!-- <small><i class="fa fa-long-arrow-right text-primary"></i></small> -->
             </h1>
             (filtered: {{ glucose().filtered | glucose }})

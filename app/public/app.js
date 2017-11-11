@@ -60,6 +60,7 @@ angular.module('AngularOpenAPS', [
     //   glucose: 100
     // },
     calibrate: function(value) {
+      console.log('emitting a cal value of ' + value);
       socket.emit('calibrate', value);
     },
     start: function() {

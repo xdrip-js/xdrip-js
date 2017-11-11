@@ -11,12 +11,12 @@ angular.module('AngularOpenAPS.calibrate', [
   });
 })
 
-.controller('CalibrateController', function ($scope, transmitterSocket) {
+.controller('CalibrateController', ['$scope', 'G5', function ($scope, G5) {
   $scope.calibrate = function(value) {
     console.log('in calibrate');
-    transmitterSocket.emit('calibrate', value);
+    G5.sensor.calibrate(value);
   };
-});
+}]);
 
 
 // this is from the old controller. not sure about it
