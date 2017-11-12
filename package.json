@@ -9,7 +9,6 @@
   },
   "author": "Paul Dickens",
   "license": "MIT",
-  "bin": "./app/index.js",
   "dependencies": {
     "crc": "^3.4.4",
     "debug": "^2.6.6",
