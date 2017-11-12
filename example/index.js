@@ -1,4 +1,4 @@
-const Transmitter = require('xdrip-js');
+const Transmitter = require('..');
 
 const id = process.argv[2];
 const transmitter = new Transmitter(id);
