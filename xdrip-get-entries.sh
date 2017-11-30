@@ -176,7 +176,6 @@ else
 
   echo "Posting blood glucose record(s) to NightScout"
   ./post-ns.sh ./entry-ns.json
-  echo
   if [ 0 -eq $? ] ; then
     # success
     echo "Upload to NightScout of xdrip entry worked."
