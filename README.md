@@ -4,6 +4,8 @@
 [![Build Status](https://travis-ci.org/thebookins/xdrip-js.svg?branch=master)](https://travis-ci.org/thebookins/xdrip-js)
 
 *Please note this project is neither created nor backed by Dexcom, Inc. This software is not intended for use in therapy.*
+## Prerequisites
+Update node version. Please see wiki page for instructions https://github.com/thebookins/xdrip-js/wiki
 
 ## Installation
 ```
@@ -49,35 +51,3 @@ Add cron job entry (replace "40SNU6" with your g5 transmitter id) ...
 * * * * * cd /root/src/xdrip-js && ps aux | grep -v grep | grep -q 'xdrip-get-entries' || ./xdrip-get-entries.sh 40SNU6 | tee -a /var/log/openaps/xdrip-js-loop.log
 ```
 
-Edit ~/src/xdrip-js/example/transmitterIO.js and add the following (need to replace this with an xdrip-js one-shot cmd-line options):
-
-```
-   var fs = require('fs');
-    const entry = [{
-      'device': 'DexcomR4',
-      'date': glucose.readDate,
-      'dateString': new Date(glucose.readDate).toISOString(),
-      'sgv': Math.round(glucose.unfiltered),
-      'direction': 'None',
-      'type': 'sgv',
-      'filtered': Math.round(glucose.filtered),
-      'unfiltered': Math.round(glucose.unfiltered),
-      'rssi': "100", // TODO: consider reading this on connection and reporting
-      'noise': "1",
-      'trend': glucose.trend,
-      'glucose': Math.round(glucose.glucose)
-    }];
-    const data = JSON.stringify(entry);
-    if(glucose.unfiltered > 500 || glucose.unfiltered < 30) // for safety, I'm assuming it is erroneous and ignoring 
-    {
-      console.log("Error - bad glucose data, not processing");
-      process.exit();
-    }
-    fs.writeFile("entry.json", data, function(err) {
-    if(err) {
-        console.log("Error while writing entry-test.json");
-        console.log(err);
-        }
-    process.exit();
-    });
-```
