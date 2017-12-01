@@ -5,8 +5,6 @@
 #   xdrip-js
 # 
 
-#exec > /var/log/openaps/xdrip-js-loop.log 2>&1
-
 cd /root/src/xdrip-js
 
 echo "Starting xdrip-get-entries.sh" 
@@ -18,14 +16,6 @@ if [ -e "./entry.json" ] ; then
   lastUnfiltered=$(cat ./entry.json | jq -M '.[0].unfiltered')
   mv ./entry.json ./last-entry.json
 fi
-
-#transmitter="410BFE"
-#transmitter="40DBJG"
-#transmitter="40UQGN"
-#transmitter="410BFE"
-#transmitter="405FPQ"
-#transmitter="410BFE"
-#transmitter="405FPQ"
 
 transmitter=$1
 
@@ -163,6 +153,7 @@ else
   #ls -al ./entry-xdrip.json
   #cat ./entry-xdrip.json
 
+
   if [ -e "./entry-backfill.json" ] ; then
     # In this case backfill records not yet sent to Nightscout
       
@@ -175,22 +166,22 @@ else
   fi
 
   echo "Posting blood glucose record(s) to NightScout"
-  ./post-ns.sh ./entry-ns.json
-  if [ 0 -eq $? ] ; then
-    # success
-    echo "Upload to NightScout of xdrip entry worked."
-    echo "Removing ./entry-backfill.json"
-    rm ./entry-backfill.json
-  else
-    echo
-    echo "Upload to NightScout of xdrip entry did not work."
-    echo "                saving for upload for when network is restored"
-    cp ./entry-ns.json ./entry-backfill.json
-  fi
+  ./post-ns.sh ./entry-ns.json && (echo; echo "Upload to NightScout of xdrip entry worked ... removing ./entry-backfill.json"; rm ./entry-backfill.json) || (echo; echo "Upload to NS of xdrip entry did not work ... saving for upload when network is restored"; cp ./entry-ns.json ./entry-backfill.json)
+#  if [ 0 -eq $? ] ; then
+#    # success
+#    echo "Upload to NightScout of xdrip entry worked."
+#    echo "Removing ./entry-backfill.json"
+#    rm ./entry-backfill.json
+#  else
+#    echo
+#    echo "Upload to NightScout of xdrip entry did not work."
+#    echo "                saving for upload for when network is restored"
+#    cp ./entry-ns.json ./entry-backfill.json
+#  fi
+  echo
 fi  
 
 bt-device -r $id
 echo "Finished xdrip-get-entries.sh"
 date
 echo
-
