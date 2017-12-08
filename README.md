@@ -16,20 +16,64 @@ sudo npm install
 npm test
 ```
 
-## Example usage
+## Usage
+
+### Example
 `sudo node example <######>` where `<######>` is the 6-character serial number of the transmitter.
 
 To see verbose output, use `sudo DEBUG=* node example <######>`, or replace the `*` with a comma separated list of the modules you would like to debug. E.g. `sudo DEBUG=smp,transmitter,bluetooth-manager node example <######>`.
 
-`bluetoothctl` is used to accept the incoming pairing request. From a command prompt, enter `bluetoothctl` and then enter the following commands (some may not be necessary depending on your configuration):
- - `agent off`
- - `agent KeyboardDisplay`
- - `default-agent`
- - `pairable on`
- - `power on`
+### Events
 
-When the transmitter is found, type 'yes' to accept the pairing request:
-![pairing](https://user-images.githubusercontent.com/12263040/29741707-29713598-8ab5-11e7-8a0a-73a7202e3dbd.png)
+See [Node.js EventEmitter docs](https://nodejs.org/api/events.html) for more info on the event API.
 
-To view the current status of the transmitter, open a browser and navigate to `http://<local IP address>:3000`. E.g. http://localhost:3000 or http://192.168.1.3:3000. This will vary depending on your local network setup.
-![app](https://user-images.githubusercontent.com/12263040/29741914-36d4bfe4-8ab9-11e7-891e-6c23263db499.png)
+#### Glucose read event
+
+```javascript
+glucose = {
+  inSession: <bool>,
+  glucoseMessage: {
+    status: <0: "ok" | 0x81: "lowBattery" | 0x83: "bricked">,
+    sequence: <int>, // increments for each glucose value read
+    timestamp: <int>, // in seconds since transmitter start
+    glucoseIsDisplayOnly: <bool>,
+    glucose: <int>, // in mg/dl
+    state: <int>, // calibration state
+    trend: <int>
+  },
+  timeMessage: {
+    status: <0: "ok" | 0x81: "lowBattery" | 0x83: "bricked">,
+    currentTime: <int>, // in seconds since transmitter start
+    sessionStartTime: <int> // in seconds since transmitter start
+  },
+  status: <0: "ok" | 0x81: "lowBattery" | 0x83: "bricked">,
+  state: <int>, // calibration state
+  transmitterStartDate: <int>, // epoch time
+  sessionStartDate: <int>, // epoch time
+  readDate: <int>, // epoch time
+  isDisplayOnly: <bool>,
+  filtered: <float>, // mg/dl
+  unfiltered: <float>, // mg/dl
+  glucose: <int>, // mg/dl
+  trend: <int>,
+  canBeCalibrated: <bool>
+}
+
+transmitter.on('glucose', callback(glucose));
+```
+
+#### Message processed
+
+```javascript
+details = {
+  time: <int> // epoch time
+}
+
+transmitter.on('messageProcessed', callback(details));
+```
+
+#### Transmitter disconnected
+
+```javascript
+transmitter.on('disconnect', callback);
+```
