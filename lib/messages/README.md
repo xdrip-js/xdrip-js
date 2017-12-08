@@ -1,11 +1,14 @@
-# Example messages sent from control characteristic to iOS app:
+# Notes
+
+## Example messages sent from control characteristic to iOS app:
+```
 25 00 e91c6500 56a26300 01000000 0b3c --> TransmitterTimeRxMessage
 31 00 0c3e0000 e41c6500 6c00 06 00 0320 --> GlucoseRxMessage
 33 00 2831009001 3200b400 6900 9b146500 b2af --> CalibrationDataRxMessage
 33 00 3328006701 28009900 5a00 fd986500 b8a9
 33 00 332c009001 2c00b700 5a00 fd986500 0b3a
 33 00 353b009001 5600f300 9400 d7476600 ec95
-
+```
 0x51 is backfill confirmation.
 
 51 00 02010000000000000000000000000000 c417 --> ??
@@ -15,9 +18,9 @@
 after a calibration...
 51 00 02020000000000000000000000000000 e1f4 (all the zeros get reset on a calibration perhaps)
 
-
-Assume current time = e91c6500 --> reverse 00651ce9 --> decimal 6626537 --> 76.7 days
-ASsume calibration time = 9b146500 -- reverse 0065149b --> decimal 6624411 --> 2126 seconds earlier = 35 minutes earlier
+## Interpreting timestamps
+Assume current time = `e91c6500` --> reverse `00651ce9` --> decimal `6626537` --> 76.7 days
+Assume calibration time = `9b146500` -- reverse `0065149b` --> decimal `6624411` --> 2126 seconds earlier = 35 minutes earlier
 
 # Example messages sent from ProbablyBackfill characteristic to iOS app:
 03 00 7ba26500 6000 0606 a7a36500 5c00 06ff
