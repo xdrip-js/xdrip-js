@@ -76,7 +76,7 @@ transmitter.on('messageProcessed', callback(details));
 ```javascript
 calibrationData = {
   date: <int>, // epoch time
-  glucose <int> //mg/dl
+  glucose: <int> //mg/dl
 };
 transmitter.on('calibrationData', callback(calibrationData));
 ```
