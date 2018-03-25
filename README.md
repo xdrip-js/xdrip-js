@@ -4,9 +4,12 @@
 [![Build Status](https://travis-ci.org/thebookins/xdrip-js.svg?branch=master)](https://travis-ci.org/thebookins/xdrip-js)
 
 *Please note this project is neither created nor backed by Dexcom, Inc. This software is not intended for use in therapy.*
+## Prerequisites
+Update node version. Please see wiki page for instructions https://github.com/thebookins/xdrip-js/wiki
 
 ## Installation
 ```
+cd ~/src
 git clone https://github.com/thebookins/xdrip-js.git
 cd xdrip-js
 sudo npm install
