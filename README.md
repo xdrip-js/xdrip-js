@@ -7,6 +7,9 @@
 ## Prerequisites
 Update node version. Please see wiki page for instructions https://github.com/thebookins/xdrip-js/wiki
 
+## Clients
+See [Lookout](https://github.com/thebookins/Lookout) or [xdrip-js-logger](https://github.com/efidoman/xdrip-js-logger) for two examples of applications built using this library.
+
 ## Installation
 ```
 cd ~/src
