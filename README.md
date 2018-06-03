@@ -1,19 +1,19 @@
 # xdrip-js
 
-[![Join the chat at https://gitter.im/thebookins/xdrip-js](https://badges.gitter.im/thebookins/xdrip-js.svg)](https://gitter.im/thebookins/xdrip-js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/thebookins/xdrip-js.svg?branch=master)](https://travis-ci.org/thebookins/xdrip-js)
+[![Join the chat at https://gitter.im/xdrip-js/xdrip-js](https://badges.gitter.im/xdrip-js/xdrip-js.svg)](https://gitter.im/xdrip-js/xdrip-js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/xdrip-js/xdrip-js.svg?branch=master)](https://travis-ci.org/xdrip-js/xdrip-js)
 
 *Please note this project is neither created nor backed by Dexcom, Inc. This software is not intended for use in therapy.*
 ## Prerequisites
-Update node version. Please see wiki page for instructions https://github.com/thebookins/xdrip-js/wiki
+Update node version. Please see wiki page for instructions https://github.com/xdrip-js/xdrip-js/wiki
 
 ## Clients
-See [Lookout](https://github.com/thebookins/Lookout) or [xdrip-js-logger](https://github.com/efidoman/xdrip-js-logger) for two examples of applications built using this library.
+See [Lookout](https://github.com/xdrip-js/Lookout) or [xdrip-js-logger](https://github.com/efidoman/xdrip-js-logger) for two examples of applications built using this library.
 
 ## Installation
 ```
 cd ~/src
-git clone https://github.com/thebookins/xdrip-js.git
+git clone https://github.com/xdrip-js/xdrip-js.git
 cd xdrip-js
 sudo npm install
 ```
