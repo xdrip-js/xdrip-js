@@ -8,7 +8,7 @@
 Update node version. Please see wiki page for instructions https://github.com/xdrip-js/xdrip-js/wiki
 
 ## Clients
-See [Lookout](https://github.com/xdrip-js/Lookout) or [xdrip-js-logger](https://github.com/efidoman/xdrip-js-logger) for two examples of applications built using this library.
+See [Lookout](https://github.com/xdrip-js/Lookout) or [Logger](https://github.com/xdrip-js/Logger) for two examples of applications built using this library.
 
 ## Installation
 ```
