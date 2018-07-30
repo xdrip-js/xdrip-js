@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "A nodejs package providing an interface for communicating with the G5 glucose transmitter over Bluetooth.",
   "main": "index.js",
+  "engines": {
+    "node": ">= 7.6.0"
+  },
   "scripts": {
     "pretest": "eslint lib example index.js",
     "test": "mocha"
