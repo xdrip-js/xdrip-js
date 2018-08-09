@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "description": "A nodejs package providing an interface for communicating with the G5 glucose transmitter over Bluetooth.",
   "main": "index.js",
+  "engines": {
+    "node": ">= 7.6.0"
+  },
   "scripts": {
-    "pretest": "jshint lib example test index.js",
+    "pretest": "eslint lib example index.js",
     "test": "mocha"
   },
   "author": "Paul Dickens",
@@ -17,14 +20,11 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "chai-datetime": "^1.5.0",
     "chai-spies": "^0.7.1",
-    "jshint": "^2.9.4",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0",
     "mocha": "^3.2.0"
-  },
-  "jshintConfig": {
-    "esversion": 6,
-    "node": true,
-    "expr": true,
-    "varstmt": true
   }
 }
