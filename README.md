@@ -118,7 +118,7 @@ transmitter.on('disconnect', callback);
 
 ### Supported Messages
 
-These messages can be send in an array in response to a `getMessages` event
+These messages can be sent in an array in response to a `getMessages` event
 
 #### Sensor Start
 
