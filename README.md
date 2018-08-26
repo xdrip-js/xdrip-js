@@ -121,32 +121,47 @@ transmitter.on('disconnect', callback);
 These messages can be send in an array in response to a `getMessages` event
 
 #### Sensor Start
+
+```javascript
 startMsg = {
   type: 'StartSensor',
   date: <int>, // epoch time to start sensor session
   sensorSerialCode: <int> // sensor serial number
 };
+```
 
 #### Sensor Stop
+
+```javascript
 stopMsg = {
   type: 'StopSensor',
   date: <int> // epoch time to stop sensor session
 };
+```
 
 #### Calibrate Sensor
+
+```javascript
 calibrateMsg = {
   type: 'CalibrateSensor',
   date: <int>, // epoch time of glucose reading
   glucose: <int> // glucose value in mg/dL
 };
+```
 
 #### Reset Transmitter
+
+```javascript
 resetMsg = {
   type: 'ResetTx'
 };
+```
 
 #### Request Battery Status
+
+```javascript
 batteryStatusRequestMsg = {
   type: 'BatteryStatus'
 };
+```
 
