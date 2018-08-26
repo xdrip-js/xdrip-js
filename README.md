@@ -39,33 +39,42 @@ See [Node.js EventEmitter docs](https://nodejs.org/api/events.html) for more inf
 glucose = {
   inSession: <bool>,
   glucoseMessage: {
-    status: <0: "ok" | 0x81: "lowBattery" | 0x83: "bricked">,
+    status: <0: "ok" | 0x81: "lowBattery" | 0x83: "expired" >, // Transmitter Status
     sequence: <int>, // increments for each glucose value read
     timestamp: <int>, // in seconds since transmitter start
     glucoseIsDisplayOnly: <bool>,
     glucose: <int>, // in mg/dl
-    state: <int>, // calibration state
+    state: <int>, // Sensor Session Status: see transmitterIO.js:stateString() for full list of values
     trend: <int>
   },
   timeMessage: {
-    status: <0: "ok" | 0x81: "lowBattery" | 0x83: "bricked">,
+    status: <0: "ok" | 0x81: "lowBattery" | 0x83: "expired" >, // Transmitter Status
     currentTime: <int>, // in seconds since transmitter start
-    sessionStartTime: <int> // in seconds since transmitter start
+    sessionStartTime: <int> // sensor session start time given in seconds since transmitter start
   },
-  status: <0: "ok" | 0x81: "lowBattery" | 0x83: "bricked">,
-  state: <int>, // calibration state
-  transmitterStartDate: <int>, // epoch time
-  sessionStartDate: <int>, // epoch time
-  readDate: <int>, // epoch time
+  status: <0: "ok" | 0x81: "lowBattery" | 0x83: "expired" >, // Transmitter Status
+  state: <int>, // Sensor Session Status: see transmitterIO.js:stateString() for full list of values
+  transmitterStartDate: <string>, // time of transmitter start such as "2018-05-10T23:58:45.294Z"
+  sessionStartDate: <string>, // time of session start such as "2018-08-23T16:09:34.294Z"
+  readDate: <string>, // time of glucose value read such as "2018-08-26T18:58:19.294Z"
   isDisplayOnly: <bool>,
-  filtered: <float>, // mg/dl
-  unfiltered: <float>, // mg/dl
+  filtered: <int>, // mg/dL * 1000
+  unfiltered: <int>, // mg/dL * 1000
   glucose: <int>, // mg/dl
-  trend: <int>,
+  trend: <int>, // mg/dL per ten minutes
   canBeCalibrated: <bool>
-}
+  rssi: <int>, // receive signal strength indicator
+};
 
 transmitter.on('glucose', callback(glucose));
+```
+
+#### Get Messages
+
+Respond to getMessages with array of messages to send to transmitter
+
+```javascript
+transmitter.on('getMessages', callback());
 ```
 
 #### Message processed
@@ -73,17 +82,31 @@ transmitter.on('glucose', callback(glucose));
 ```javascript
 details = {
   time: <int> // epoch time
-}
+};
 
 transmitter.on('messageProcessed', callback(details));
+```
+
+#### Battery Status
+```javascript
+details = {
+  voltagea: <int>, // V * 200 - voltage level of battery a
+  voltageb: <int>, // V * 200 - voltage level of battery b
+  resist: <int>, // measured resistance - units unknown
+  runtime: <int>, // number of days since transmitter started
+  temperature: <int>, // Centigrade temperature of transmitter
+};
+
+transmitter.on('batteryStatus', callback(details));
 ```
 
 #### Calibration data
 ```javascript
 calibrationData = {
-  date: <int>, // epoch time
-  glucose: <int> //mg/dl
+  date: <string>, // time of calibration glucose value such as "2018-08-26T18:58:19.294Z"
+  glucose: <int> // User entered calibration glucose in mg/dL
 };
+
 transmitter.on('calibrationData', callback(calibrationData));
 ```
 
@@ -92,3 +115,38 @@ transmitter.on('calibrationData', callback(calibrationData));
 ```javascript
 transmitter.on('disconnect', callback);
 ```
+
+### Supported Messages
+
+These messages can be send in an array in response to a `getMessages` event
+
+#### Sensor Start
+startMsg = {
+  type: 'StartSensor',
+  date: <int>, // epoch time to start sensor session
+  sensorSerialCode: <int> // sensor serial number
+};
+
+#### Sensor Stop
+stopMsg = {
+  type: 'StopSensor',
+  date: <int> // epoch time to stop sensor session
+};
+
+#### Calibrate Sensor
+calibrateMsg = {
+  type: 'CalibrateSensor',
+  date: <int>, // epoch time of glucose reading
+  glucose: <int> // glucose value in mg/dL
+};
+
+#### Reset Transmitter
+resetMsg = {
+  type: 'ResetTx'
+};
+
+#### Request Battery Status
+batteryStatusRequestMsg = {
+  type: 'BatteryStatus'
+};
+
