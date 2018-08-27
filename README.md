@@ -168,7 +168,7 @@ These messages can be sent to the transmitter by returning an array of them from
 ```javascript
 startMsg = {
   type: 'StartSensor',
-  date: <int>, // epoch time to start sensor session
+  date: <int>,            // epoch time to start sensor session
   sensorSerialCode: <int> // sensor serial number
 };
 ```
@@ -178,7 +178,7 @@ startMsg = {
 ```javascript
 stopMsg = {
   type: 'StopSensor',
-  date: <int> // epoch time to stop sensor session
+  date: <int>         // epoch time to stop sensor session
 };
 ```
 
@@ -187,7 +187,7 @@ stopMsg = {
 ```javascript
 calibrateMsg = {
   type: 'CalibrateSensor',
-  date: <int>, // epoch time of glucose reading
+  date: <int>,   // epoch time of glucose reading
   glucose: <int> // glucose value in mg/dL
 };
 ```
