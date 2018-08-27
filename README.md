@@ -71,8 +71,8 @@ glucose = {
   unfiltered: <int>,              // Unfiltered glucose value in mg/dL * 1000
   glucose: <int>,                 // Current glucose value in mg/dL
   trend: <int>,                   // Glucose trend in mg/dL per 10 minutes
-  canBeCalibrated: <bool>         // Transmitter able to accept calibration command?
-  rssi: <int>,                    // Receive signal strength indicator
+  canBeCalibrated: <bool>,        // Transmitter able to accept calibration command?
+  rssi: <int>                     // Receive signal strength indicator
 };
 
 transmitter.on('glucose', callback(glucose));
@@ -146,7 +146,7 @@ details = {
   voltageb: <int>,    // V * 200 - voltage level of battery b
   resist: <int>,      // measured resistance - units unknown
   runtime: <int>,     // number of days since transmitter started
-  temperature: <int>, // Centigrade temperature of transmitter
+  temperature: <int>  // Centigrade temperature of transmitter
 };
 
 transmitter.on('batteryStatus', callback(details));
