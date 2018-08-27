@@ -118,6 +118,7 @@ validSessionValues = [
   0x8e, // Calibration State - Linearity Fit Display
   0x8f, // Calibration State - Session Not in Progress
 ];
+```
 
 #### Message processed
 
