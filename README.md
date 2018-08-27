@@ -48,34 +48,43 @@ See [Node.js EventEmitter docs](https://nodejs.org/api/events.html) for more inf
 glucose = {
   inSession: <bool>,
   glucoseMessage: {
-    status: <0: "ok" | 0x81: "lowBattery" | 0x83: "expired" >, // Transmitter Status
-    sequence: <int>,                                           // increments for each glucose value read
-    timestamp: <int>,                                          // in seconds since transmitter start
+    status: <int>,                // Transmitter Status: see below for full list of valid values
+    sequence: <int>,              // Increments for each glucose value read
+    timestamp: <int>,             // Glucose read time in seconds since transmitter start
     glucoseIsDisplayOnly: <bool>,
-    glucose: <int>,               // in mg/dL
+    glucose: <int>,               // Glucose value in mg/dL
     state: <int>,                 // Session Status: see below for full list of valid values
     trend: <int>                  // Glucose trend in mg/dL per 10 minutes
   },
   timeMessage: {
-    status: <0: "ok" | 0x81: "lowBattery" | 0x83: "expired" >, // Transmitter Status
-    currentTime: <int>,                                        // in seconds since transmitter start
-    sessionStartTime: <int>                                    // session start in seconds since transmitter start
+    status: <int>,                // Transmitter Status: see below for full list of valid values
+    currentTime: <int>,           // Transmitter current time in seconds since transmitter start
+    sessionStartTime: <int>       // Session start in seconds since transmitter start
   },
-  status: <0: "ok" | 0x81: "lowBattery" | 0x83: "expired" >, // Transmitter Status
+  status: <int>,                  // Transmitter Status: see below for full list of valid values
   state: <int>,                   // Session Status: see below for full list of valid values
-  transmitterStartDate: <string>, // time of transmitter start such as "2018-05-10T23:58:45.294Z"
-  sessionStartDate: <string>,     // time of session start such as "2018-08-23T16:09:34.294Z"
-  readDate: <string>,             // time of glucose value read such as "2018-08-26T18:58:19.294Z"
+  transmitterStartDate: <string>, // Time of transmitter start such as "2018-05-10T23:58:45.294Z"
+  sessionStartDate: <string>,     // Time of session start such as "2018-08-23T16:09:34.294Z"
+  readDate: <string>,             // Time of glucose value read such as "2018-08-26T18:58:19.294Z"
   isDisplayOnly: <bool>,
-  filtered: <int>,                // mg/dL * 1000
-  unfiltered: <int>,              // mg/dL * 1000
-  glucose: <int>,                 // mg/dL
+  filtered: <int>,                // Filtered glucose value in mg/dL * 1000
+  unfiltered: <int>,              // Unfiltered glucose value in mg/dL * 1000
+  glucose: <int>,                 // Current glucose value in mg/dL
   trend: <int>,                   // Glucose trend in mg/dL per 10 minutes
-  canBeCalibrated: <bool>         // transmitter able to accept calibration command?
-  rssi: <int>,                    // receive signal strength indicator
+  canBeCalibrated: <bool>         // Transmitter able to accept calibration command?
+  rssi: <int>,                    // Receive signal strength indicator
 };
 
 transmitter.on('glucose', callback(glucose));
+```
+
+##### Transmitter Status Valid Values
+```javascript
+validTransmitterValues = [
+  0x00, // OK
+  0x81, // Low Battery
+  0x83  // Expired
+];
 ```
 
 ##### Session Status Valid Values
@@ -116,7 +125,7 @@ validSessionValues = [
   0x8c, // Calibration State - High Wedge Display
   0x8d, // Calibration State - Low Wedge Display
   0x8e, // Calibration State - Linearity Fit Display
-  0x8f, // Calibration State - Session Not in Progress
+  0x8f  // Calibration State - Session Not in Progress
 ];
 ```
 
@@ -187,8 +196,8 @@ stopMsg = {
 ```javascript
 calibrateMsg = {
   type: 'CalibrateSensor',
-  date: <int>,   // epoch time of glucose reading
-  glucose: <int> // glucose value in mg/dL
+  date: <int>,            // epoch time of glucose reading
+  glucose: <int>          // glucose value in mg/dL
 };
 ```
 
