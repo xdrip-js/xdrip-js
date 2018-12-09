@@ -6,6 +6,6 @@ describe('BackfillTxMessage', function() {
       const timestampStart = 0;
       const timestampEnd = 300;
       const message = new BackfillTxMessage(timestampStart, timestampEnd);
-      message.data.length.should.equal(11);
+      message.data.length.should.equal(20);
   });
 });
