@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "crc": "^3.4.4",
-    "debug": "^2.6.6",
+    "debug": "^4.1.0",
     "noble": "thebookins/noble",
     "uuid": "^3.0.1"
   },
@@ -25,6 +25,6 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
-    "mocha": "^3.2.0"
+    "mocha": "^5.2.0"
   }
 }
