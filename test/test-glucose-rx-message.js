@@ -14,7 +14,7 @@ describe('GlucoseRxMessage', function() {
       message.trend.should.equal(-1);
   });
 
-  it('should parse a negative trend');
-  it('should parse display only');
-  it('should handle an old transmitter');
+  // it('should parse a negative trend');
+  // it('should parse display only');
+  // it('should handle an old transmitter');
 });
