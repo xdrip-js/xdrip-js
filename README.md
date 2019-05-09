@@ -35,7 +35,8 @@ const Transmitter = require('xdrip-js');
 
 // transmitterId is 6-character transmitter serial number
 // getMessagesCallback is callback function to return array of messages to send to transmitter
-const transmitter = new Transmitter(transmitterId, getMessagesCallback); 
+// alternateBluetoothChannel is a boolean to use receiver BT channel if true - defaults to false
+const transmitter = new Transmitter(transmitterId, getMessagesCallback, alternateBluetoothChannel);
 ```
 
 ### Events
