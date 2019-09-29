@@ -153,6 +153,24 @@ details = {
 transmitter.on('batteryStatus', callback(details));
 ```
 
+#### Transmitter Version Information
+```javascript
+details = {
+  status: <int>,                // Transmitter Status: see above for full list of valid values
+  firmwareVersion: <string>,    // Semantic version of firmware
+  btFirmwareVersion: <string>,  // Semantic version of bluetooth firmware
+  asic: <int>,                  // Unknown
+  buildVersion: <int>           // Build version
+  inactiveDays: <int>           // Number of inactivate days of transmitter
+  maxRuntimeDays: <int>         // Maximum number of days supported by transmitter
+  maxInactiveDays: <int>        // Shelf life number of days supported by transmitter before opening
+  typicalSensorDays: <int>      // How long does typical sensor session last
+  featureBits: <int>            // Unknown
+};
+
+transmitter.on('version', callback(details));
+```
+
 #### Calibration data
 ```javascript
 calibrationData = {
@@ -215,6 +233,14 @@ resetMsg = {
 ```javascript
 batteryStatusRequestMsg = {
   type: 'BatteryStatus'
+};
+```
+
+#### Request Transmitter Version Information
+
+```javascript
+batteryStatusRequestMsg = {
+  type: 'VersionRequest'
 };
 ```
 
