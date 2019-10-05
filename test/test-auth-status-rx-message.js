@@ -3,7 +3,7 @@ const AuthStatusRxMessage = require('../lib/messages/auth-status-rx-message');
 
 describe('AuthStatusRxMessage', function() {
   describe('constructor', function() {
-    it('should parse a properly constructed message', function() {
+    it('should parse properly constructed AuthStatusRxMessage data', function() {
       const data = Buffer.from("050101", "hex");
       const message = new AuthStatusRxMessage(data);
       message.authenticated.should.equal(1);
