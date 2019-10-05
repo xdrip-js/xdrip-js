@@ -239,7 +239,7 @@ batteryStatusRequestMsg = {
 #### Request Transmitter Version Information
 
 ```javascript
-batteryStatusRequestMsg = {
+VersionRequestMsg = {
   type: 'VersionRequest'
 };
 ```
