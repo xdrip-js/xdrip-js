@@ -22,6 +22,9 @@ sudo npm install
 npm test
 ```
 
+## Troubleshooting
+To make the transmitter communication more reliable, it is recommended to unpair the transmitter from the rig between every read event. ```bt-device -r DexcomXX``` where XX is the last 2 digits of the transmitter serial number.
+
 ## Usage
 
 ### Example
