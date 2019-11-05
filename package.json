@@ -15,7 +15,7 @@
   "dependencies": {
     "crc": "^3.4.4",
     "debug": "^4.1.0",
-    "noble": "thebookins/noble",
+    "noble": "xdrip-js/noble",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
