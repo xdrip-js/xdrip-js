@@ -41,8 +41,8 @@ describe('KEKS Plugin', function () {
     // Optional: stub only round packets if needed
     mockPacket = {
       getHash: () => privBN,
-      getPublicKeyPoint1: () => new JECPoint(ec.genKeyPair().getPublic()),
-      getPublicKeyPoint2: () => new JECPoint(ec.genKeyPair().getPublic()),
+      publicKeyPoint1: new JECPoint(ec.genKeyPair().getPublic()),
+      publicKeyPoint2: new JECPoint(ec.genKeyPair().getPublic()),
       output: () => Buffer.alloc(160)
     };
 
