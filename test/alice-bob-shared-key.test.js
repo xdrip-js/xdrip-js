@@ -11,7 +11,7 @@ const debug = require('debug');
 
 describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
   this.timeout(10000); // Crypto can be slow in tests
-  debug.enable('keks-plugin:info,keks-context');
+  debug.enable('keks-plugin:*,keks-context');
 
   let alicePlugin;
   let bobPlugin;
@@ -71,17 +71,20 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     bobNext = bobPlugin.aNext();
     expect(bobNext[1]).to.not.be.null;
     alicePlugin.receivedData(bobNext[1]);
+    alicePlugin.receivedResponse(bobNext[0]);
 
     // Round 3: Alice → Bob
     aliceNext = alicePlugin.aNext();
     expect(aliceNext[1]).to.not.be.null;
     bobPlugin.receivedData(aliceNext[1]);
+    bobPlugin.receivedResponse(aliceNext[0]);
 
     expect(alicePlugin.context.getRound3Packet()).to.not.be.null;
     expect(bobPlugin.context.getRound3Packet()).to.not.be.null;
 
     // Step 2: Both proceed to RequestAuth → ChallengeReply
     // Alice sends AuthRequest
+    bobNext = bobPlugin.aNext();
     aliceNext = alicePlugin.aNext();
     expect(alicePlugin.state).to.equal(Plugin.RequestAuth);
 
