@@ -6,9 +6,12 @@ const { expect } = require('chai');
 const Plugin = require('../lib/keks_plugin/plugin');
 const BlePacket = require('../lib/keks_plugin/ble-packet'); // Your 160-byte transport packet
 const Config = require('../lib/keks_plugin/config');
+const Calc = require('../lib/keks_plugin/calc');
+const debug = require('debug');
 
 describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
   this.timeout(10000); // Crypto can be slow in tests
+  debug.enable('keks-plugin,keks-context');
 
   let alicePlugin;
   let bobPlugin;
@@ -17,8 +20,10 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     // Same password for both sides
     const password = '123456'; // 6 chars → prefixed as in real app
 
-    alicePlugin = Plugin.getInstance(password);
-    bobPlugin = Plugin.getInstance(password);
+    alicePlugin = new Plugin(password, 'alice');
+
+    bobPlugin = new Plugin(password, 'bob');
+    bobPlugin.name = 'bob';
 
     // Ensure fresh state
     alicePlugin.context.packet.fill(null);
@@ -30,21 +35,33 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
   it('Alice and Bob should derive the same shared key after full exchange', function () {
     // Step 1: Alice starts (amConnected)
     alicePlugin.amConnected();
+    bobPlugin.amConnected();
 
-    // Round 1: Alice → Bob
+    // Alice asks Bob to start
     let aliceNext = alicePlugin.aNext();
     expect(alicePlugin.state).to.equal(Plugin.Round1);
     expect(aliceNext[1]).to.be.null;
 
-    bobPlugin.receivedData(aliceNext[0]); // Bob gets command
+    // Round 1: Bob → Alice
+    bobPlugin.receivedResponse(aliceNext[0]); // Bob gets command
+    let bobNext = bobPlugin.aNext();
+    expect(bobPlugin.state).to.equal(Plugin.Round1);
+    expect(bobNext[1]).to.not.be.null;
+    alicePlugin.receivedData(bobNext[1]);
+
+    // Round 1: Alice → Bob
+    aliceNext = alicePlugin.aNext();
+    expect(alicePlugin.state).to.equal(Plugin.Round2);
+    expect(aliceNext[1]).to.not.be.null;
+    bobPlugin.receivedData(aliceNext[1]);
 
     // Round 2: Bob → Alice
-    let bobNext = bobPlugin.aNext();
+    bobNext = bobPlugin.aNext();
     expect(bobPlugin.state).to.equal(Plugin.Round2);
     expect(bobNext[1]).to.not.be.null;
     alicePlugin.receivedData(bobNext[1]);
 
-    // Round 1 (delayed): Alice → Bob
+    // Round 2: Alice → Bob
     aliceNext = alicePlugin.aNext();
     expect(alicePlugin.state).to.equal(Plugin.Round3);
     expect(aliceNext[1]).to.not.be.null;

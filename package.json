@@ -14,6 +14,8 @@
   "license": "MIT",
   "dependencies": {
     "@noble/secp256k1": "^3.0.0",
+    "bn": "^1.0.5",
+    "bn.js": "^5.2.2",
     "crc": "^3.4.4",
     "crypto": "^1.0.1",
     "debug": "^4.1.0",
