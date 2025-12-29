@@ -11,14 +11,14 @@ const debug = require('debug');
 
 describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
   this.timeout(10000); // Crypto can be slow in tests
-  //debug.enable('keks-plugin:*,keks-context,keks-calc');
+  debug.enable('keks-plugin:*,keks-context,keks-calc');
 
   let alicePlugin;
   let bobPlugin;
 
   beforeEach(function () {
     // Same password for both sides
-    const password = '123456'; // 6 chars → prefixed as in real app
+    const password = '123'; // 6 chars → prefixed as in real app
 
     alicePlugin = new Plugin(password, 'alice');
 
@@ -106,6 +106,7 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     const bobChallengeReply = Buffer.concat([bobNext[0], bobPlugin.lastAuthTx2.singleUseToken]);
     alicePlugin.receivedResponse(bobChallengeReply);
     aliceNext = alicePlugin.aNext();
+    expect(alicePlugin.state).to.equal(Plugin.ChallengeReply);
 
     // alice will only stored the challenge from Bob if Bob's challenge was response was authenticated
     expect(Buffer.compare(alicePlugin.context.challenge, bobPlugin.lastAuthTx2.singleUseToken)).to.equal(0);
@@ -120,5 +121,10 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     expect(bobKey.length).to.equal(16);
 
     expect(Buffer.compare(aliceKey, bobKey)).to.equal(0);
+
+    // send alice a AuthStatusRxMessage
+    const authStatusRxMessage = Buffer.from([0x05, 0x01, 0x00 ]);
+    alicePlugin.receivedResponse(authStatusRxMessage);
+    expect(alicePlugin.state).to.equal(Plugin.SendCertificate0);
   });
 });
