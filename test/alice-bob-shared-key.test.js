@@ -33,8 +33,10 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
   });
 
   it('Alice and Bob should derive the same shared key after full exchange', function () {
-    // Step 1: Alice starts (amConnected)
+    // Alice starts (amConnected)
     alicePlugin.amConnected();
+
+    // Bob needs to start at Round1
     bobPlugin.amConnected();
 
     // Alice asks Bob to start
@@ -42,10 +44,12 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     expect(alicePlugin.state).to.equal(Plugin.Round1);
     expect(aliceNext[1]).to.be.null;
 
-    // Round 1: Bob → Alice
     bobPlugin.receivedResponse(aliceNext[0]); // Bob gets command
+    bobPlugin.changeState(Plugin.Round1);
+
+    // Round 1: Bob → Alice
     let bobNext = bobPlugin.aNext();
-    expect(bobPlugin.state).to.equal(Plugin.Round1);
+    expect(bobPlugin.state).to.equal(Plugin.Round2);
     expect(bobNext[1]).to.not.be.null;
     alicePlugin.receivedData(bobNext[1]);
 
@@ -53,11 +57,16 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     aliceNext = alicePlugin.aNext();
     expect(alicePlugin.state).to.equal(Plugin.Round2);
     expect(aliceNext[1]).to.not.be.null;
+
+    // plugin only intended to work for Alice
+    // have to change Bob's state back to Round1 for it to receive Alice's round1 packet
+    bobPlugin.changeState(Plugin.Round1);
     bobPlugin.receivedData(aliceNext[1]);
+    bobPlugin.changeState(Plugin.Round2);
 
     // Round 2: Bob → Alice
     bobNext = bobPlugin.aNext();
-    expect(bobPlugin.state).to.equal(Plugin.Round2);
+    expect(bobPlugin.state).to.equal(Plugin.Round3);
     expect(bobNext[1]).to.not.be.null;
     alicePlugin.receivedData(bobNext[1]);
 
@@ -65,19 +74,27 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     aliceNext = alicePlugin.aNext();
     expect(alicePlugin.state).to.equal(Plugin.Round3);
     expect(aliceNext[1]).to.not.be.null;
+
+    // have to change Bob's state back to Round2 for it to receive Alice's round2 packet
+    bobPlugin.changeState(Plugin.Round2);
     bobPlugin.receivedData(aliceNext[1]);
+    bobPlugin.changeState(Plugin.Round3);
 
     // Round 3: Bob → Alice
     bobNext = bobPlugin.aNext();
+    expect(bobPlugin.state).to.equal(Plugin.RequestAuth);
     expect(bobNext[1]).to.not.be.null;
     alicePlugin.receivedData(bobNext[1]);
-    alicePlugin.receivedResponse(bobNext[0]);
 
     // Round 3: Alice → Bob
     aliceNext = alicePlugin.aNext();
+    expect(alicePlugin.state).to.equal(Plugin.RequestAuth);
     expect(aliceNext[1]).to.not.be.null;
+
+    // have to change Bob's state back to Round3 for it to receive Alice's round3 packet
+    bobPlugin.changeState(Plugin.Round3);
     bobPlugin.receivedData(aliceNext[1]);
-    bobPlugin.receivedResponse(aliceNext[0]);
+    bobPlugin.changeState(Plugin.RequestAuth);
 
     expect(alicePlugin.context.getRound3Packet()).to.not.be.null;
     expect(bobPlugin.context.getRound3Packet()).to.not.be.null;
