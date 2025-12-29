@@ -11,7 +11,7 @@ const debug = require('debug');
 
 describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
   this.timeout(10000); // Crypto can be slow in tests
-  debug.enable('keks-plugin:*,keks-context');
+  //debug.enable('keks-plugin:*,keks-context,keks-calc');
 
   let alicePlugin;
   let bobPlugin;
@@ -100,31 +100,15 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     expect(bobPlugin.context.getRound3Packet()).to.not.be.null;
 
     // Step 2: Both proceed to RequestAuth → ChallengeReply
-    // Alice sends AuthRequest
-    bobNext = bobPlugin.aNext();
-    aliceNext = alicePlugin.aNext();
-    expect(alicePlugin.state).to.equal(Plugin.RequestAuth);
-
-    // Bob receives AuthRequest and responds with challenge
-    bobPlugin.receivedResponse(aliceNext[0]); // short message
-
-    bobNext = bobPlugin.aNext(); // Bob sends AuthChallenge
-    expect(bobPlugin.state).to.equal(Plugin.ChallengeReply);
-
-    // Alice receives challenge and responds
-    alicePlugin.receivedResponse(bobNext[0]);
-
-    // Alice sends response (AuthChallengeTxMessage)
-    aliceNext = alicePlugin.aNext();
-
-    // Bob receives response and sends status
+    // Alice sends AuthRequest (already in aliceNext from Round3)
     bobPlugin.receivedResponse(aliceNext[0]);
-
-    // Bob sends AuthStatus (authenticated + bonded)
     bobNext = bobPlugin.aNext();
+    const bobChallengeReply = Buffer.concat([bobNext[0], bobPlugin.lastAuthTx2.singleUseToken]);
+    alicePlugin.receivedResponse(bobChallengeReply);
+    aliceNext = alicePlugin.aNext();
 
-    // Alice receives status
-    alicePlugin.receivedResponse(bobNext[0]);
+    // alice will only stored the challenge from Bob if Bob's challenge was response was authenticated
+    expect(Buffer.compare(alicePlugin.context.challenge, bobPlugin.lastAuthTx2.singleUseToken)).to.equal(0);
 
     // Both should now be authenticated and have a shared key
     const aliceKey = alicePlugin.getSharedKey();
@@ -136,6 +120,5 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     expect(bobKey.length).to.equal(16);
 
     expect(Buffer.compare(aliceKey, bobKey)).to.equal(0);
-    console.log('Shared key (hex):', aliceKey.toString('hex'));
   });
 });
