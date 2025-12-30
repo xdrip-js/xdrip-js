@@ -10,7 +10,7 @@ const Calc = require('../lib/keks_plugin/calc');
 const Config = require('../lib/keks_plugin/config');
 const BlePacket = require('../lib/keks_plugin/ble-packet'); // Your 160-byte transport packet
 const AuthRequestTxMessage2 = require('../lib/keks_plugin/auth-request-tx-message2');
-const AuthChallengeTxMessage = require('../lib/keks_plugin/auth-challenge-tx-message');
+const AuthChallengeTxMessage = require('../lib/messages/auth-challenge-tx-message');
 const CertInfoRxMessage = require('../lib/keks_plugin/cert-info-rx-message');
 const CertInfoTxMessage = require('../lib/keks_plugin/cert-info-tx-message');
 

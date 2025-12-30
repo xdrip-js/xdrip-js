@@ -7,6 +7,7 @@ const Plugin = require('../lib/keks_plugin/plugin');
 const BlePacket = require('../lib/keks_plugin/ble-packet'); // Your 160-byte transport packet
 const Config = require('../lib/keks_plugin/config');
 const Calc = require('../lib/keks_plugin/calc');
+const AuthStatusRxMessage = require('../lib/messages/auth-status-rx-message');
 const debug = require('debug');
 
 describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
@@ -123,8 +124,8 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     expect(Buffer.compare(aliceKey, bobKey)).to.equal(0);
 
     // send alice a AuthStatusRxMessage
-    const authStatusRxMessage = Buffer.from([0x05, 0x01, 0x00 ]);
-    alicePlugin.receivedResponse(authStatusRxMessage);
+    const authStatusRxMessageBytes = Buffer.from([0x05, 0x01, 0x00 ]);
+    alicePlugin.receivedResponse(authStatusRxMessageBytes);
     expect(alicePlugin.state).to.equal(Plugin.SendCertificate0);
   });
 });
