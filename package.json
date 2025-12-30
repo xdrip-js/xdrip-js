@@ -13,7 +13,7 @@
   "author": "Paul Dickens",
   "license": "MIT",
   "dependencies": {
-    "@noble/secp256k1": "^3.0.0",
+    "@noble/secp256k1": "^2.3.0",
     "bn": "^1.0.5",
     "bn.js": "^5.2.2",
     "crc": "^3.4.4",
