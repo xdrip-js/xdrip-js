@@ -13,14 +13,13 @@
   "author": "Paul Dickens",
   "license": "MIT",
   "dependencies": {
-    "@noble/secp256k1": "^2.3.0",
     "bn": "^1.0.5",
     "bn.js": "^5.2.2",
     "crc": "^3.4.4",
     "crypto": "^1.0.1",
     "debug": "^4.1.0",
     "elliptic": "^6.6.1",
-    "noble": "xdrip-js/noble",
+    "@abandonware/noble": "^1.9.2-20",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
