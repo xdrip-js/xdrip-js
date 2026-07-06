@@ -12,7 +12,7 @@ const debug = require('debug');
 
 describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
   this.timeout(10000); // Crypto can be slow in tests
-  // debug.enable('keks-plugin:*,keks-context,keks-calc');
+  debug.enable('keks-plugin:*,keks-context,keks-calc');
 
   let alicePlugin;
   let bobPlugin;
@@ -21,9 +21,19 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     // Same password for both sides
     const password = '1235'; // 6 chars → prefixed as in real app
 
-    alicePlugin = new Plugin(password, 'alice');
+    alicePlugin = new Plugin(
+      password, 'alice',
+      '2e0ccbb6b93f04a17951278a0907a6b3796d616c1bb61e97e967e3aa3647d61b',
+      '601638dcc1dfc73375c994693c8a9797433a2b14691ea55f2297ce94afe8c74f',
+      'e805590af85eee6cdc784486127a6e234912a0f5727b50c981fce8d59dc5340c',
+    );
 
-    bobPlugin = new Plugin(password, 'bob');
+    bobPlugin = new Plugin(
+      password, 'bob',
+      'e349cd5d8d3f587bc3f5ce2301f36a3f412102fc069deabd96273665fb52ba75',
+      '87357c1da8746e4db99c114a2f250f8179d6da3517dd15ef7693fa02365c3538',
+      'c22afca430464def5e0a64252bdcfb0c516bc1f0d3c3e693fee90d0673750dac',
+    );
 
     // Ensure fresh state
     alicePlugin.context.packet.fill(null);
