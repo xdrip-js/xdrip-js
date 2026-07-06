@@ -19,12 +19,11 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
 
   beforeEach(function () {
     // Same password for both sides
-    const password = '123'; // 6 chars → prefixed as in real app
+    const password = '1235'; // 6 chars → prefixed as in real app
 
     alicePlugin = new Plugin(password, 'alice');
 
     bobPlugin = new Plugin(password, 'bob');
-    bobPlugin.name = 'bob';
 
     // Ensure fresh state
     alicePlugin.context.packet.fill(null);
