@@ -7,12 +7,13 @@ const Plugin = require('../lib/keks_plugin/plugin');
 const BlePacket = require('../lib/keks_plugin/ble-packet'); // Your 160-byte transport packet
 const Config = require('../lib/keks_plugin/config');
 const Calc = require('../lib/keks_plugin/calc');
+const Curve = require('../lib/keks_plugin/curve');
 const AuthStatusRxMessage = require('../lib/messages/auth-status-rx-message');
 const debug = require('debug');
 
 describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
   this.timeout(10000); // Crypto can be slow in tests
-  debug.enable('keks-plugin:*,keks-context,keks-calc');
+  // debug.enable('keks-plugin:*,keks-context,keks-calc');
 
   let alicePlugin;
   let bobPlugin;
@@ -136,5 +137,9 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     const authStatusRxMessageBytes = Buffer.from([0x05, 0x01, 0x00 ]);
     alicePlugin.receivedResponse(authStatusRxMessageBytes);
     expect(alicePlugin.state).to.equal(Plugin.SendCertificate0);
+  });
+
+  after(function () {
+    Curve.clearFixedExponent();
   });
 });
