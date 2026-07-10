@@ -2,14 +2,13 @@
 const assert = require('node:assert/strict');
 const curve = require('../lib/keks_plugin/curve');
 
-describe('Curve module (secp256r1 equivalent)', function () {
-
-  it('curve name should be secp256r1', function () {
+describe('Curve module (secp256r1 equivalent)', () => {
+  it('curve name should be secp256r1', () => {
     // console.log('Curve name:', curve.name);
     assert.strictEqual(curve.name, 'secp256r1');
   });
 
-  it('curve bits, field size and packet size should be correct', function () {
+  it('curve bits, field size and packet size should be correct', () => {
     // console.log('Curve bits:', curve.CURVE_BITS);
     // console.log('Field size (bytes):', curve.FIELD_SIZE);
     // console.log('Packet size:', curve.PACKET_SIZE);
@@ -19,7 +18,7 @@ describe('Curve module (secp256r1 equivalent)', function () {
     assert.strictEqual(curve.PACKET_SIZE, 160);
   });
 
-  it('generator point G coordinates should match known secp256r1 values', function () {
+  it('generator point G coordinates should match known secp256r1 values', () => {
     const g = curve.G;
     const x = g.getX().toString(16).toUpperCase();
     const y = g.getY().toString(16).toUpperCase();
@@ -31,7 +30,7 @@ describe('Curve module (secp256r1 equivalent)', function () {
     assert.strictEqual(y, '4FE342E2FE1A7F9B8EE7EB4A7C0F9E162BCE33576B315ECECBB6406837BF51F5');
   });
 
-  it('curve order Q should be correct for P-256', function () {
+  it('curve order Q should be correct for P-256', () => {
     const expectedQ = 'FFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551';
     const qHex = curve.Q.toString(16).toUpperCase();
 
@@ -42,7 +41,7 @@ describe('Curve module (secp256r1 equivalent)', function () {
     assert(curve.QM1.eq(curve.Q.subn(1)));
   });
 
-  it('getExponent() should return values in range [1, Q-1]', function () {
+  it('getExponent() should return values in range [1, Q-1]', () => {
     for (let i = 0; i < 1000; i++) {
       const exp = curve.getExponent();
 
@@ -56,7 +55,7 @@ describe('Curve module (secp256r1 equivalent)', function () {
     // console.log('Sample random exponent (hex):', sample.toString(16).toUpperCase());
   });
 
-  it('generated exponent can be used to compute valid point on curve', function () {
+  it('generated exponent can be used to compute valid point on curve', () => {
     const k = curve.getExponent();
     const publicPoint = curve.G.mul(k);
 
@@ -72,7 +71,7 @@ describe('Curve module (secp256r1 equivalent)', function () {
     assert(curve.curve.validate(publicPoint));
   });
 
-  it('multiple calls to getExponent produce different values', function () {
+  it('multiple calls to getExponent produce different values', () => {
     const first = curve.getExponent();
     const second = curve.getExponent();
 

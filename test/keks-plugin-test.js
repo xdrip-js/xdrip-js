@@ -2,8 +2,8 @@
 // Mocha tests for the KEKS Plugin state machine
 
 const { expect } = require('chai');
-const { JECPoint } = require('../lib/keks_plugin/jec-point');
 const sinon = require('sinon');
+const { JECPoint } = require('../lib/keks_plugin/jec-point');
 const Plugin = require('../lib/keks_plugin/plugin');
 const Context = require('../lib/keks_plugin/context');
 const Calc = require('../lib/keks_plugin/calc');
@@ -14,12 +14,12 @@ const AuthChallengeTxMessage = require('../lib/messages/auth-challenge-tx-messag
 const CertInfoRxMessage = require('../lib/keks_plugin/cert-info-rx-message');
 const CertInfoTxMessage = require('../lib/keks_plugin/cert-info-tx-message');
 
-describe('KEKS Plugin', function () {
+describe('KEKS Plugin', () => {
   let plugin;
   let sandbox;
   let mockPacket;
 
-  beforeEach(function () {
+  beforeEach(() => {
     sandbox = sinon.createSandbox();
 
     // Create a real EC instance and BN
@@ -43,7 +43,7 @@ describe('KEKS Plugin', function () {
       getHash: () => privBN,
       publicKeyPoint1: new JECPoint(ec.genKeyPair().getPublic()),
       publicKeyPoint2: new JECPoint(ec.genKeyPair().getPublic()),
-      output: () => Buffer.alloc(160)
+      output: () => Buffer.alloc(160),
     };
 
     // Mock round packets
@@ -55,12 +55,12 @@ describe('KEKS Plugin', function () {
     // sandbox.stub(Calc, 'calculateHash').returns(Buffer.alloc(8, 0xAA));
   });
 
-  afterEach(function () {
+  afterEach(() => {
     sandbox.restore();
     Plugin.instance = null; // Reset singleton
   });
 
-  it('should be singleton with password binding', function () {
+  it('should be singleton with password binding', () => {
     const p1 = Plugin.getInstance('1234');
     const p2 = Plugin.getInstance('1234');
     const p3 = Plugin.getInstance('diff');
@@ -69,12 +69,12 @@ describe('KEKS Plugin', function () {
     expect(p1).to.not.equal(p3);
   });
 
-  it('should start in RoundStart on connect', function () {
+  it('should start in RoundStart on connect', () => {
     plugin.amConnected();
     expect(plugin.state).to.equal(Plugin.RoundStart);
   });
 
-  it('should progress through J-PAKE rounds via aNext()', function () {
+  it('should progress through J-PAKE rounds via aNext()', () => {
     plugin.amConnected(); // → RoundStart
 
     plugin.context.savedKey = null;
@@ -112,7 +112,7 @@ describe('KEKS Plugin', function () {
     expect(next[1]).to.be.null;
   });
 
-  it('should parse 160-byte packets via receivedData', function () {
+  it('should parse 160-byte packets via receivedData', () => {
     plugin.changeState(Plugin.Round1);
 
     sandbox.stub(BlePacket, 'parse').returns(mockPacket);
@@ -129,7 +129,7 @@ describe('KEKS Plugin', function () {
     expect(plugin.context.packet[1]).to.equal(mockPacket);
   });
 
-  it('should handle certificate flow', function () {
+  it('should handle certificate flow', () => {
     plugin.context.setPartA(Buffer.alloc(150));
     plugin.context.setPartB(Buffer.alloc(150));
 
@@ -148,7 +148,7 @@ describe('KEKS Plugin', function () {
     expect(next[0]).to.deep.equal(CertInfoTxMessage.expectMyCert2(plugin));
   });
 
-  it('should parse CertInfoRxMessage and set expectedSize', function () {
+  it('should parse CertInfoRxMessage and set expectedSize', () => {
     const certInfoData = Buffer.from([0x0b, 0x00, 0x01, 0x00, 0x01, 0x00, 0x00]); // size = 256
     plugin.changeState(Plugin.SendCertificate1);
     plugin.receivedResponse(certInfoData);
@@ -160,7 +160,7 @@ describe('KEKS Plugin', function () {
     expect(plugin.expectedSize).to.equal(256);
   });
 
-  it('should throw on invalid certificate', function () {
+  it('should throw on invalid certificate', () => {
     const invalidData = Buffer.from([0x0b, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00]); // state != 0
 
     plugin.changeState(Plugin.SendCertificate1);

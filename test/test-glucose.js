@@ -1,6 +1,7 @@
 const chai = require('chai');
 chai.use(require('chai-datetime'));
-const should = chai.should;
+
+const { should } = chai;
 
 const Glucose = require('../lib/glucose');
 const TransmitterTimeRxMessage = require('../lib/messages/transmitter-time-rx-message');
@@ -8,20 +9,20 @@ const GlucoseRxMessage = require('../lib/messages/glucose-rx-message');
 const CalibrationState = require('../lib/calibration-state');
 const TransmitterStatus = require('../lib/transmitter-status');
 
-describe('Glucose', function() {
+describe('Glucose', () => {
   let timeMessage;
   let syncDate;
 
-  before(function() {
+  before(() => {
     const data = Buffer.from('2500470272007cff710001000000fa1d', 'hex');
     timeMessage = new TransmitterTimeRxMessage(data);
     syncDate = Date.UTC(2016, 6, 17); // 17 July 2016 (months are 0 - 11)
     activationDate = new Date(syncDate - timeMessage.currentTime * 1000);
 
-//    console.log(activationDate);
+    //    console.log(activationDate);
   });
 
-  it('should parse message data', function() {
+  it('should parse message data', () => {
     const data = Buffer.from('3100680a00008a715700cc0006ffc42a', 'hex');
     const message = new GlucoseRxMessage(data);
     const glucose = new Glucose(message, timeMessage, activationDate);

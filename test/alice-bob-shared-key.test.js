@@ -3,13 +3,13 @@
 // Verifies both sides derive the same shared key
 
 const { expect } = require('chai');
+const debug = require('debug');
 const Plugin = require('../lib/keks_plugin/plugin');
 const BlePacket = require('../lib/keks_plugin/ble-packet'); // Your 160-byte transport packet
 const Config = require('../lib/keks_plugin/config');
 const Calc = require('../lib/keks_plugin/calc');
 const Curve = require('../lib/keks_plugin/curve');
 const AuthStatusRxMessage = require('../lib/messages/auth-status-rx-message');
-const debug = require('debug');
 
 describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
   this.timeout(10000); // Crypto can be slow in tests
@@ -18,19 +18,21 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
   let alicePlugin;
   let bobPlugin;
 
-  beforeEach(function () {
+  beforeEach(() => {
     // Same password for both sides
     const password = '1235'; // 6 chars → prefixed as in real app
 
     alicePlugin = new Plugin(
-      password, 'alice',
+      password,
+      'alice',
       '2e0ccbb6b93f04a17951278a0907a6b3796d616c1bb61e97e967e3aa3647d61b',
       '601638dcc1dfc73375c994693c8a9797433a2b14691ea55f2297ce94afe8c74f',
       'e805590af85eee6cdc784486127a6e234912a0f5727b50c981fce8d59dc5340c',
     );
 
     bobPlugin = new Plugin(
-      password, 'bob',
+      password,
+      'bob',
       'e349cd5d8d3f587bc3f5ce2301f36a3f412102fc069deabd96273665fb52ba75',
       '87357c1da8746e4db99c114a2f250f8179d6da3517dd15ef7693fa02365c3538',
       'c22afca430464def5e0a64252bdcfb0c516bc1f0d3c3e693fee90d0673750dac',
@@ -43,7 +45,7 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     bobPlugin.context.savedKey = null;
   });
 
-  it('Alice and Bob should derive the same shared key after full exchange', function () {
+  it('Alice and Bob should derive the same shared key after full exchange', () => {
     // Alice starts (amConnected)
     alicePlugin.amConnected();
 
@@ -134,12 +136,12 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     expect(Buffer.compare(aliceKey, bobKey)).to.equal(0);
 
     // send alice a AuthStatusRxMessage
-    const authStatusRxMessageBytes = Buffer.from([0x05, 0x01, 0x00 ]);
+    const authStatusRxMessageBytes = Buffer.from([0x05, 0x01, 0x00]);
     alicePlugin.receivedResponse(authStatusRxMessageBytes);
     expect(alicePlugin.state).to.equal(Plugin.SendCertificate0);
   });
 
-  after(function () {
+  after(() => {
     Curve.clearFixedExponent();
   });
 });
