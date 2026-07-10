@@ -3,11 +3,14 @@
 
 const { expect } = require('chai');
 const sinon = require('sinon');
+const debug = require('debug');
 const { JECPoint } = require('../lib/keks_plugin/jec-point');
 const Plugin = require('../lib/keks_plugin/plugin');
 const Context = require('../lib/keks_plugin/context');
 const Calc = require('../lib/keks_plugin/calc');
+const KeyPair = require('../lib/keks_plugin/keypair');
 const Config = require('../lib/keks_plugin/config');
+const Util = require('../lib/keks_plugin/util');
 const BlePacket = require('../lib/keks_plugin/ble-packet'); // Your 160-byte transport packet
 const AuthRequestTxMessage2 = require('../lib/keks_plugin/auth-request-tx-message2');
 const AuthChallengeTxMessage = require('../lib/messages/auth-challenge-tx-message');
@@ -18,6 +21,8 @@ describe('KEKS Plugin', () => {
   let plugin;
   let sandbox;
   let mockPacket;
+
+  debug.enable('keks-plugin:*,keks-context,keks-calc');
 
   beforeEach(() => {
     sandbox = sinon.createSandbox();
@@ -146,6 +151,13 @@ describe('KEKS Plugin', () => {
     plugin.changeState(Plugin.SendCertificate1out);
     next = plugin.aNext();
     expect(next[0]).to.deep.equal(CertInfoTxMessage.expectMyCert2(plugin));
+  });
+
+  it('should create key challenge response', () => {
+    const challengeMsg = Util.hexStringToByteArray('0c002c31dc58ceb0a3ea59d37d18225699a9', false);
+    const response = Calc.challenger(plugin.context.getPartC(), challengeMsg);
+
+    console.log(`response: ${Util.bytesToHex(response)}`);
   });
 
   it('should parse CertInfoRxMessage and set expectedSize', () => {

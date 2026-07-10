@@ -12,7 +12,7 @@ const { JECPoint } = require('../lib/keks_plugin/jec-point');
 const curve = require('../lib/keks_plugin/curve');
 const Util = require('../lib/keks_plugin/util');
 
-describe('BLEPacket round-trip serialization', () => {
+describe('KEKS: BLEPacket round-trip serialization', () => {
   // debug.enable('keks-plugin:*');
 
   it('should correctly parse its own output', () => {

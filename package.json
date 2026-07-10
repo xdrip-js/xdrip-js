@@ -14,6 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "@abandonware/noble": "^1.9.2-20",
+    "asn1.js": "^5.4.1",
     "bn": "^1.0.5",
     "bn.js": "^5.2.2",
     "crc": "^3.4.4",

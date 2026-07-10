@@ -2,7 +2,7 @@
 const assert = require('node:assert/strict');
 const curve = require('../lib/keks_plugin/curve');
 
-describe('Curve module (secp256r1 equivalent)', () => {
+describe('KEKS: Curve module (secp256r1 equivalent)', () => {
   it('curve name should be secp256r1', () => {
     // console.log('Curve name:', curve.name);
     assert.strictEqual(curve.name, 'secp256r1');
