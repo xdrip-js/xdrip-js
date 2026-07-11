@@ -13,7 +13,7 @@
   "author": "Paul Dickens",
   "license": "MIT",
   "dependencies": {
-    "@abandonware/noble": "^1.9.2-20",
+    "noble": "github:xdrip-js/noble#xdrip-js",
     "asn1.js": "^5.4.1",
     "bn": "^1.0.5",
     "bn.js": "^5.2.2",
