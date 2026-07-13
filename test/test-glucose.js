@@ -1,7 +1,7 @@
 const chai = require('chai');
 chai.use(require('chai-datetime'));
 
-const { should } = chai;
+const should = chai.should();
 
 const Glucose = require('../lib/glucose');
 const TransmitterTimeRxMessage = require('../lib/messages/transmitter-time-rx-message');
@@ -16,22 +16,28 @@ describe('Glucose', () => {
   before(() => {
     const data = Buffer.from('2500470272007cff710001000000fa1d', 'hex');
     timeMessage = new TransmitterTimeRxMessage(data);
-    syncDate = Date.UTC(2016, 6, 17); // 17 July 2016 (months are 0 - 11)
+    syncDate = Date.UTC(2026, 6, 17); // 17 July 2016 (months are 0 - 11)
     activationDate = new Date(syncDate - timeMessage.currentTime * 1000);
 
     //    console.log(activationDate);
   });
 
-  it('should parse message data', () => {
-    const data = Buffer.from('3100680a00008a715700cc0006ffc42a', 'hex');
+  it('should parse g6 message data', () => {
+    const data = Buffer.from('4f00d92900004e423200520006ff4e00989a', 'hex');
     const message = new GlucoseRxMessage(data);
     const glucose = new Glucose(message, timeMessage, activationDate);
     glucose.status.should.equal(TransmitterStatus.ok);
     glucose.state.should.equal(CalibrationState.ok);
     // there are 1740989 seconds between the glucose timestamp and the current time in the above hex strings
-    glucose.readDate.should.equalDate(new Date(syncDate - 1740989 * 1000));
+    glucose.readDate.should.equalDate(new Date(syncDate - 4177913 * 1000));
     glucose.isDisplayOnly.should.be.false;
-    glucose.glucose.should.equal(204);
+    glucose.glucose.should.equal(82);
     glucose.trend.should.equal(-1);
+  });
+
+  it('should parse g7 message data', () => {
+    const data = Buffer.from('4e00dba00c00c90a00010f009300060196000f', 'hex');
+    const message = new GlucoseRxMessage(data);
+    console.log(JSON.stringify(message, null, 2));
   });
 });

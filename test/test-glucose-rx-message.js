@@ -2,7 +2,7 @@ const should = require('chai').should();
 const GlucoseRxMessage = require('../lib/messages/glucose-rx-message');
 
 describe('GlucoseRxMessage', () => {
-  it('should parse message data', () => {
+  it('should parse g5 message data', () => {
     const data = Buffer.from('3100680a00008a715700cc0006ffc42a', 'hex');
     const message = new GlucoseRxMessage(data);
     message.status.should.equal(0);
