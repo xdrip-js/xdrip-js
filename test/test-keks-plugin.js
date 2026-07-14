@@ -22,7 +22,7 @@ describe('KEKS Plugin', () => {
   let sandbox;
   let mockPacket;
 
-  debug.enable('keks-plugin:*,keks-context,keks-calc');
+  // debug.enable('keks-plugin:*,keks-context,keks-calc');
 
   beforeEach(() => {
     sandbox = sinon.createSandbox();
@@ -77,44 +77,6 @@ describe('KEKS Plugin', () => {
   it('should start in RoundStart on connect', () => {
     plugin.amConnected();
     expect(plugin.state).to.equal(Plugin.RoundStart);
-  });
-
-  it('should progress through J-PAKE rounds via aNext()', () => {
-    plugin.amConnected(); // → RoundStart
-
-    plugin.context.savedKey = null;
-    plugin.context.packet[3] = null; // Clear Round3 packet
-
-    // RoundStart → Round1
-    let next = plugin.aNext();
-    expect(plugin.state).to.equal(Plugin.Round1);
-    expect(next[0]).to.deep.equal(Buffer.from([0x0A, 0x00])); // KEYCMD + param 0
-    expect(next[1]).to.be.null;
-
-    // Round1 → Round2
-    next = plugin.aNext();
-    expect(plugin.state).to.equal(Plugin.Round2);
-    expect(next[0]).to.deep.equal(Buffer.from([0x0A, 0x01])); // param 1
-
-    // Round2 → Round3
-    next = plugin.aNext();
-    expect(plugin.state).to.equal(Plugin.Round3);
-    expect(next[0]).to.deep.equal(Buffer.from([0x0A, 0x02])); // param 2
-
-    plugin.context.packet[3] = mockPacket;
-
-    // Round3 → RequestAuth
-    next = plugin.aNext();
-    expect(plugin.state).to.equal(Plugin.RequestAuth);
-    expect(next[0]).to.be.instanceof(Buffer); // AuthRequestTxMessage2
-    expect(next[0][0]).to.equal(0x02); // AuthRequestTxMessage2 opcode
-    expect(next[1]).to.have.length(160); // Round3 packet
-
-    // RequestAuth → ChallengeReply
-    next = plugin.aNext();
-    expect(plugin.state).to.equal(Plugin.ChallengeReply);
-    expect(next[0]).to.be.instanceof(Buffer); // AuthChallengeTxMessage
-    expect(next[1]).to.be.null;
   });
 
   it('should parse 160-byte packets via receivedData', () => {

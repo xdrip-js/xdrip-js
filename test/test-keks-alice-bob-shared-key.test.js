@@ -13,7 +13,7 @@ const AuthStatusRxMessage = require('../lib/messages/auth-status-rx-message');
 
 describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
   this.timeout(10000); // Crypto can be slow in tests
-  debug.enable('keks-plugin:*,keks-context,keks-calc');
+  // debug.enable('keks-plugin:*,keks-context,keks-calc');
 
   let bobPlugin;
   let alicePlugin;
