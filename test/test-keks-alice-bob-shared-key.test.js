@@ -13,10 +13,10 @@ const AuthStatusRxMessage = require('../lib/messages/auth-status-rx-message');
 
 describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
   this.timeout(10000); // Crypto can be slow in tests
-  // debug.enable('keks-plugin:*,keks-context,keks-calc');
+  debug.enable('keks-plugin:*,keks-context,keks-calc');
 
-  let alicePlugin;
   let bobPlugin;
+  let alicePlugin;
 
   beforeEach(() => {
     // Same password for both sides
@@ -39,94 +39,94 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     );
 
     // Ensure fresh state
-    alicePlugin.context.packet.fill(null);
     bobPlugin.context.packet.fill(null);
-    alicePlugin.context.savedKey = null;
+    alicePlugin.context.packet.fill(null);
     bobPlugin.context.savedKey = null;
+    alicePlugin.context.savedKey = null;
   });
 
   it('Alice and Bob should derive the same shared key after full exchange', () => {
     // Alice starts (amConnected)
-    alicePlugin.amConnected();
-
-    // Bob needs to start at Round1
     bobPlugin.amConnected();
 
-    // Alice asks Bob to start
-    let aliceNext = alicePlugin.aNext();
-    expect(alicePlugin.state).to.equal(Plugin.Round1);
+    // Bob needs to start at Round1
+    alicePlugin.amConnected();
+
+    // Bob asks Alice to start
+    let aliceNext = bobPlugin.aNext();
+    expect(bobPlugin.state).to.equal(Plugin.Round1);
     expect(aliceNext[1]).to.be.null;
 
-    bobPlugin.receivedResponse(aliceNext[0]); // Bob gets command
-    bobPlugin.changeState(Plugin.Round1);
-
-    // Round 1: Bob → Alice
-    let bobNext = bobPlugin.aNext();
-    expect(bobPlugin.state).to.equal(Plugin.Round2);
-    expect(bobNext[1]).to.not.be.null;
-    alicePlugin.receivedData(bobNext[1]);
+    alicePlugin.receivedResponse(aliceNext[0]); // Alice gets command
+    alicePlugin.changeState(Plugin.Round1);
 
     // Round 1: Alice → Bob
-    aliceNext = alicePlugin.aNext();
+    let bobNext = alicePlugin.aNext();
     expect(alicePlugin.state).to.equal(Plugin.Round2);
+    expect(bobNext[1]).to.not.be.null;
+    bobPlugin.receivedData(bobNext[1]);
+
+    // Round 1: Bob → Alice
+    aliceNext = bobPlugin.aNext();
+    expect(bobPlugin.state).to.equal(Plugin.Round2);
     expect(aliceNext[1]).to.not.be.null;
 
-    // plugin only intended to work for Alice
-    // have to change Bob's state back to Round1 for it to receive Alice's round1 packet
-    bobPlugin.changeState(Plugin.Round1);
-    bobPlugin.receivedData(aliceNext[1]);
-    bobPlugin.changeState(Plugin.Round2);
-
-    // Round 2: Bob → Alice
-    bobNext = bobPlugin.aNext();
-    expect(bobPlugin.state).to.equal(Plugin.Round3);
-    expect(bobNext[1]).to.not.be.null;
-    alicePlugin.receivedData(bobNext[1]);
+    // plugin only intended to work for Bob
+    // have to change Alice's state back to Round1 for it to receive Bob's round1 packet
+    alicePlugin.changeState(Plugin.Round1);
+    alicePlugin.receivedData(aliceNext[1]);
+    alicePlugin.changeState(Plugin.Round2);
 
     // Round 2: Alice → Bob
-    aliceNext = alicePlugin.aNext();
+    bobNext = alicePlugin.aNext();
     expect(alicePlugin.state).to.equal(Plugin.Round3);
+    expect(bobNext[1]).to.not.be.null;
+    bobPlugin.receivedData(bobNext[1]);
+
+    // Round 2: Bob → Alice
+    aliceNext = bobPlugin.aNext();
+    expect(bobPlugin.state).to.equal(Plugin.Round3);
     expect(aliceNext[1]).to.not.be.null;
 
-    // have to change Bob's state back to Round2 for it to receive Alice's round2 packet
-    bobPlugin.changeState(Plugin.Round2);
-    bobPlugin.receivedData(aliceNext[1]);
-    bobPlugin.changeState(Plugin.Round3);
-
-    // Round 3: Bob → Alice
-    bobNext = bobPlugin.aNext();
-    expect(bobPlugin.state).to.equal(Plugin.RequestAuth);
-    expect(bobNext[1]).to.not.be.null;
-    alicePlugin.receivedData(bobNext[1]);
+    // have to change Alice's state back to Round2 for it to receive Bob's round2 packet
+    alicePlugin.changeState(Plugin.Round2);
+    alicePlugin.receivedData(aliceNext[1]);
+    alicePlugin.changeState(Plugin.Round3);
 
     // Round 3: Alice → Bob
-    aliceNext = alicePlugin.aNext();
+    bobNext = alicePlugin.aNext();
     expect(alicePlugin.state).to.equal(Plugin.RequestAuth);
+    expect(bobNext[1]).to.not.be.null;
+    bobPlugin.receivedData(bobNext[1]);
+
+    // Round 3: Bob → Alice
+    aliceNext = bobPlugin.aNext();
+    expect(bobPlugin.state).to.equal(Plugin.RequestAuth);
     expect(aliceNext[1]).to.not.be.null;
 
-    // have to change Bob's state back to Round3 for it to receive Alice's round3 packet
-    bobPlugin.changeState(Plugin.Round3);
-    bobPlugin.receivedData(aliceNext[1]);
-    bobPlugin.changeState(Plugin.RequestAuth);
+    // have to change Alice's state back to Round3 for it to receive Bob's round3 packet
+    alicePlugin.changeState(Plugin.Round3);
+    alicePlugin.receivedData(aliceNext[1]);
+    alicePlugin.changeState(Plugin.RequestAuth);
 
-    expect(alicePlugin.context.getRound3Packet()).to.not.be.null;
     expect(bobPlugin.context.getRound3Packet()).to.not.be.null;
+    expect(alicePlugin.context.getRound3Packet()).to.not.be.null;
 
     // Step 2: Both proceed to RequestAuth → ChallengeReply
     // Alice sends AuthRequest (already in aliceNext from Round3)
-    bobPlugin.receivedResponse(aliceNext[0]);
-    bobNext = bobPlugin.aNext();
-    const bobChallengeReply = Buffer.concat([bobNext[0], bobPlugin.lastAuthTx2.singleUseToken]);
-    alicePlugin.receivedResponse(bobChallengeReply);
-    aliceNext = alicePlugin.aNext();
-    expect(alicePlugin.state).to.equal(Plugin.ChallengeReply);
+    alicePlugin.receivedResponse(aliceNext[0]);
+    bobNext = alicePlugin.aNext();
+    const bobChallengeReply = Buffer.concat([bobNext[0], alicePlugin.lastAuthTx2.singleUseToken]);
+    bobPlugin.receivedResponse(bobChallengeReply);
+    aliceNext = bobPlugin.aNext();
+    expect(bobPlugin.state).to.equal(Plugin.ChallengeReply);
 
-    // alice will only stored the challenge from Bob if Bob's challenge was response was authenticated
-    expect(Buffer.compare(alicePlugin.context.challenge, bobPlugin.lastAuthTx2.singleUseToken)).to.equal(0);
+    // Bob will only stored the challenge from Alice if Alice's challenge was response was authenticated
+    expect(Buffer.compare(bobPlugin.context.challenge, alicePlugin.lastAuthTx2.singleUseToken)).to.equal(0);
 
     // Both should now be authenticated and have a shared key
-    const aliceKey = alicePlugin.getSharedKey();
-    const bobKey = bobPlugin.getSharedKey();
+    const aliceKey = bobPlugin.getSharedKey();
+    const bobKey = alicePlugin.getSharedKey();
 
     expect(aliceKey).to.be.a('Uint8Array');
     expect(bobKey).to.be.a('Uint8Array');
@@ -135,10 +135,10 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
 
     expect(Buffer.compare(aliceKey, bobKey)).to.equal(0);
 
-    // send alice a AuthStatusRxMessage
+    // send Bob a AuthStatusRxMessage
     const authStatusRxMessageBytes = Buffer.from([0x05, 0x01, 0x00]);
-    alicePlugin.receivedResponse(authStatusRxMessageBytes);
-    expect(alicePlugin.state).to.equal(Plugin.SendCertificate0);
+    bobPlugin.receivedResponse(authStatusRxMessageBytes);
+    expect(bobPlugin.state).to.equal(Plugin.SendCertificate0);
   });
 
   after(() => {
