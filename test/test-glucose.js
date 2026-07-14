@@ -48,8 +48,14 @@ describe('GlucoseRxMessage', () => {
   });
 
   it('should parse g7 message data', () => {
-    const data = Buffer.from('4e00dba00c00c90a00010f009300060196000f', 'hex');
+    const data = Buffer.from('4e0006e10d00da0b00014e00670006fe65000f', 'hex');
     const message = new GlucoseRxMessage(data);
-    console.log(JSON.stringify(message, null, 2));
+    message.sequence.should.equal(3034);
+    message.timestamp.should.equal(909574);
+    message.age.should.equal(78);
+    message.glucoseIsDisplayOnly.should.be.false;
+    message.glucose.should.equal(103);
+    message.state.should.equal(6);
+    message.trend.should.equal(-2);
   });
 });
