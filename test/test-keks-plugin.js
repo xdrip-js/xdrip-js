@@ -119,7 +119,7 @@ describe('KEKS Plugin', () => {
     const challengeMsg = Util.hexStringToByteArray('0c002c31dc58ceb0a3ea59d37d18225699a9', false);
     const response = Calc.challenger(plugin.context.getPartC(), challengeMsg);
 
-    console.log(`response: ${Util.bytesToHex(response)}`);
+    expect(response.length).to.equal(64);
   });
 
   it('should parse CertInfoRxMessage and set expectedSize', () => {
