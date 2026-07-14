@@ -9,7 +9,7 @@ const GlucoseRxMessage = require('../lib/messages/glucose-rx-message');
 const CalibrationState = require('../lib/calibration-state');
 const TransmitterStatus = require('../lib/transmitter-status');
 
-describe('Glucose', () => {
+describe('GlucoseRxMessage', () => {
   let timeMessage;
   let syncDate;
 
@@ -20,6 +20,18 @@ describe('Glucose', () => {
     activationDate = new Date(syncDate - timeMessage.currentTime * 1000);
 
     //    console.log(activationDate);
+  });
+
+  it('should parse g5 message data', () => {
+    const data = Buffer.from('3100680a00008a715700cc0006ffc42a', 'hex');
+    const message = new GlucoseRxMessage(data);
+    message.status.should.equal(0);
+    message.sequence.should.equal(2664);
+    message.timestamp.should.equal(5730698);
+    message.glucoseIsDisplayOnly.should.be.false;
+    message.glucose.should.equal(204);
+    message.state.should.equal(6);
+    message.trend.should.equal(-1);
   });
 
   it('should parse g6 message data', () => {
