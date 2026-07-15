@@ -10,6 +10,7 @@ const Config = require('../lib/keks_plugin/config');
 const Calc = require('../lib/keks_plugin/calc');
 const Curve = require('../lib/keks_plugin/curve');
 const AuthStatusRxMessage = require('../lib/messages/auth-status-rx-message');
+const AuthChallengeRxMessage = require('../lib/messages/auth-challenge-rx-message');
 
 describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
   this.timeout(10000); // Crypto can be slow in tests
@@ -117,6 +118,7 @@ describe('KEKS J-PAKE: Alice and Bob shared key equality', function () {
     alicePlugin.receivedResponse(aliceNext[0]);
     bobNext = alicePlugin.aNext();
     const bobChallengeReply = Buffer.concat([bobNext[0], alicePlugin.lastAuthTx2.singleUseToken]);
+    bobChallengeReply[0] = AuthChallengeRxMessage.opcode;
     bobPlugin.receivedResponse(bobChallengeReply);
     aliceNext = bobPlugin.aNext();
     expect(bobPlugin.state).to.equal(Plugin.ChallengeReply);
