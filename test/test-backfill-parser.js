@@ -5,7 +5,7 @@ chai.use(spies);
 
 const { should } = chai;
 
-const BackfillParser = require('../lib/backfill-parser');
+const BackfillParser = require('../lib/backfill-parser-g6');
 
 describe('BackfillParser', () => {
   it('should parse backfill messages', () => {
