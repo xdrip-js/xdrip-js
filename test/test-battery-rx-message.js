@@ -1,5 +1,5 @@
 const should = require('chai').should();
-const BatteryStatusRxMessage = require('../lib/messages/g6/battery-status-rx-message');
+const BatteryStatusRxMessage = require('../lib/messages/battery-status-rx-message');
 
 describe('BatteryStatusMessage', () => {
   describe('constructor', () => {

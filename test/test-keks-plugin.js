@@ -12,10 +12,10 @@ const KeyPair = require('../lib/keks_plugin/keypair');
 const Config = require('../lib/keks_plugin/config');
 const Util = require('../lib/keks_plugin/util');
 const BlePacket = require('../lib/keks_plugin/ble-packet'); // Your 160-byte transport packet
-const AuthRequestTxMessage2 = require('../lib/keks_plugin/auth-request-tx-message2');
+const AuthRequestTxMessage2 = require('../lib/messages/auth-request-tx-message-g7');
 const AuthChallengeTxMessage = require('../lib/messages/auth-challenge-tx-message');
-const CertInfoRxMessage = require('../lib/keks_plugin/cert-info-rx-message');
-const CertInfoTxMessage = require('../lib/keks_plugin/cert-info-tx-message');
+const CertInfoRxMessage = require('../lib/messages/cert-info-rx-message');
+const CertInfoTxMessage = require('../lib/messages/cert-info-tx-message');
 
 describe('KEKS Plugin', () => {
   let plugin;
