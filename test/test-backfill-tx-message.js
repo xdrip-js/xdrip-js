@@ -1,5 +1,5 @@
 const should = require('chai').should();
-const BackfillTxMessage = require('../lib/messages/backfill-tx-message');
+const BackfillTxMessage = require('../lib/messages/backfill-tx-message-g6');
 
 describe('BackfillTxMessage', () => {
   it('construct a message', () => {
