@@ -21,7 +21,6 @@
     "dbus-next": "^0.10.2",
     "debug": "^4.1.0",
     "elliptic": "^6.6.1",
-    "noble": "github:xdrip-js/noble#xdrip-js",
     "node-ble": "^1.13.0",
     "uuid": "^3.0.1"
   },
