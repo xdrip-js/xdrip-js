@@ -3,7 +3,7 @@
 [![Join the chat at https://gitter.im/thebookins/xdrip-js](https://badges.gitter.im/thebookins/xdrip-js.svg)](https://gitter.im/thebookins/xdrip-js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/xdrip-js/xdrip-js.svg?branch=master)](https://travis-ci.org/xdrip-js/xdrip-js)
 
-Provide a direct communication to Dexcom G6 and G7 contunuous glucose meters.
+Provides a direct communication to Dexcom G6 and G7 contunuous glucose meters.
 
 *Please note this project is neither created nor backed by Dexcom, Inc.*
 *This software is not a product.  xdrip-js comes with no warranty or official support.  Anyone using xdrip-js is doing so at their own risk and must take responsibility for their own safety.  The use of xdrip-js for therapy is not FDA approved and comes with inherent risks.*
