@@ -3,10 +3,12 @@
 [![Join the chat at https://gitter.im/thebookins/xdrip-js](https://badges.gitter.im/thebookins/xdrip-js.svg)](https://gitter.im/thebookins/xdrip-js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/xdrip-js/xdrip-js.svg?branch=master)](https://travis-ci.org/xdrip-js/xdrip-js)
 
+Provide a direct communication to Dexcom G6 and G7 contunuous glucose meters.
+
 *Please note this project is neither created nor backed by Dexcom, Inc.*
 *This software is not a product.  xdrip-js comes with no warranty or official support.  Anyone using xdrip-js is doing so at their own risk and must take responsibility for their own safety.  The use of xdrip-js for therapy is not FDA approved and comes with inherent risks.*
 ## Prerequisites
-Update node version. Please see wiki page for instructions https://github.com/xdrip-js/xdrip-js/wiki
+Node version >=20. Please see wiki page for instructions https://github.com/xdrip-js/xdrip-js/wiki
 
 ## Clients
 See [Lookout](https://github.com/xdrip-js/Lookout) or [Logger](https://github.com/xdrip-js/Logger) for two examples of applications built using this library.
@@ -37,7 +39,7 @@ To see verbose output, use `sudo DEBUG=* node example <######>`, or replace the 
 ```javascript
 const Transmitter = require('xdrip-js');
 
-// transmitterId is 6-character transmitter serial number
+// transmitterId is 6-character transmitter serial number for G6 or 4 digit serial number for G7
 // getMessagesCallback is callback function to return array of messages to send to transmitter
 // alternateBluetoothChannel is a boolean to use receiver BT channel if true - defaults to false
 const transmitter = new Transmitter(transmitterId, getMessagesCallback, alternateBluetoothChannel);
