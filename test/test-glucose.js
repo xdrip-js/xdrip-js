@@ -7,7 +7,12 @@ const Glucose = require('../lib/glucose');
 const TransmitterTimeRxMessage = require('../lib/messages/transmitter-time-rx-message');
 const GlucoseRxMessage = require('../lib/messages/glucose-rx-message');
 const CalibrationState = require('../lib/calibration-state');
-const TransmitterStatus = require('../lib/transmitter-status');
+
+TransmitterStatus = {
+  ok: 0,
+  lowBattery: 0x81,
+  bricked: 0x83,
+};
 
 describe('GlucoseRxMessage', () => {
   let timeMessage;
