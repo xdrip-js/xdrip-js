@@ -1,7 +1,7 @@
 const should = require('chai').should();
-//var Transmitter = require('../lib/transmitter')
+// var Transmitter = require('../lib/transmitter')
 
-describe('Transmitter', function() {
+describe('Transmitter', () => {
 //  it('should not throw', function() {
 //    (function() {
 //      var transmitter = new Transmitter();

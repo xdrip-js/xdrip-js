@@ -3,13 +3,12 @@ const spies = require('chai-spies');
 
 chai.use(spies);
 
-const should = chai.should;
+const { should } = chai;
 
-const BackfillParser = require('../lib/backfill-parser');
+const BackfillParser = require('../lib/backfill-parser-g6');
 
-describe('BackfillParser', function() {
-
-  it('should parse backfill messages', function() {
+describe('BackfillParser', () => {
+  it('should parse backfill messages', () => {
   //   const messages = [
   //     Buffer.from('0180f93e00009e32660057000602ca3366005c00', 'hex'),
   //     Buffer.from('02800606f63466005f000608223666006600060a', 'hex'),
