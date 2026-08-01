@@ -21,6 +21,7 @@
     "dbus-next": "^0.10.2",
     "debug": "^4.1.0",
     "elliptic": "^6.6.1",
+    "mocha": "^11.7.6",
     "node-ble": "^1.13.0",
     "uuid": "^3.0.1"
   },
@@ -32,7 +33,6 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.32.0",
     "jimp": "^1.6.0",
-    "mocha": "^5.2.0",
     "qrcode-reader": "^1.0.4",
     "sinon": "^21.0.1"
   }
