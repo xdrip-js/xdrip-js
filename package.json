@@ -22,8 +22,7 @@
     "debug": "^4.1.0",
     "elliptic": "^6.6.1",
     "mocha": "^11.7.6",
-    "node-ble": "^1.13.0",
-    "uuid": "^3.0.1"
+    "node-ble": "^1.13.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
