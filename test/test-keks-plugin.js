@@ -116,7 +116,7 @@ describe('KEKS Plugin', () => {
   });
 
   it('should create key challenge response', () => {
-    const challengeMsg = Util.hexStringToByteArray('0c002c31dc58ceb0a3ea59d37d18225699a9', false);
+    const challengeMsg = Util.hexStringToByteArray('0c002c31dc58ceb0a3ea59d37d18225699a9');
     const response = Calc.challenger(plugin.context.getPartC(), challengeMsg);
 
     expect(response.length).to.equal(64);
