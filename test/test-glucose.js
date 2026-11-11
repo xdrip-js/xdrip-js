@@ -63,4 +63,14 @@ describe('GlucoseRxMessage', () => {
     message.state.should.equal(6);
     message.trend.should.equal(-2);
   });
+
+  // The 0x4e timestamp is the sensor clock when the message was sent; the
+  // reading itself is `age` seconds older (xDrip+ EGlucoseRxMessage2,
+  // G7SensorKit G7GlucoseMessage.glucoseTimestamp).
+  it('should date a g7 reading at timestamp - age after activation', () => {
+    const message = new GlucoseRxMessage(Buffer.from('4e0006e10d00da0b00014e00670006fe65000f', 'hex'));
+    const activation = new Date('2026-11-01T00:00:00Z');
+    const glucose = new Glucose(message, null, activation);
+    glucose.readDate.getTime().should.equal(activation.getTime() + (909574 - 78) * 1000);
+  });
 });
